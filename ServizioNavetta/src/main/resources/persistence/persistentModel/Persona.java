@@ -16,6 +16,7 @@ public class Persona implements CrudTag{
 		this.nome = nome;
 		this.cognome = cognome;
 		setEmail(email);
+		this.password = new Password();
 		setPassword(password);
 	}
 	
@@ -51,7 +52,7 @@ public class Persona implements CrudTag{
 	}
 
 	public void setPassword(Password password) {
-		if(password ==null || password==null)
+		if(password ==null || password.password==null)
 			return;
 		this.password.password = new String(password.password);
 	}

@@ -1,5 +1,9 @@
 package persistence.utility;
 
+import java.sql.Array;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class Utility {
 
 
@@ -33,5 +37,21 @@ public class Utility {
 			result = result.concat(""+retrieved.charAt(i));
 		}
 		return result;
+	}
+	
+	public static Character[] convertString(String str) {
+		char[] array = str.toCharArray();
+		Character[] array1 = new Character[str.length()];
+		for(int i=0;i<str.length();i++)
+			array1[i]=new Character(array[i]);
+		return array1;
+	}
+	
+	public static Array convertStringArray(String str,Connection connection) throws SQLException {
+		char[] array = str.toCharArray();
+		Character[] array1 = new Character[str.length()];
+		for(int i=0;i<str.length();i++)
+			array1[i]=new Character(array[i]);
+		return connection.createArrayOf("char", array1);
 	}
 }
