@@ -1,6 +1,6 @@
 package persistence.daoManage.crud;
 
-public interface SecurityDAO extends Crud{
+public interface SecurityDAO{
 	
 	public boolean authorizeDao(String Admin,String pass);
 	public boolean deauthorizeDao(String Admin,String pass);

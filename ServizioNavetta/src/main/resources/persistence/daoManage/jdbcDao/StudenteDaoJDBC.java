@@ -15,7 +15,7 @@ import persistence.utility.Utility;
 
 public class StudenteDaoJDBC implements Crud {
 	
-	private DataSource ds;
+	protected DataSource ds;
 	
 	public StudenteDaoJDBC(DataSource ds) {
 		this.ds = ds;
@@ -23,8 +23,8 @@ public class StudenteDaoJDBC implements Crud {
 
 	@Override
 	public void save(CrudTag obj) {
-		// TODO Auto-generated method stub
-
+		Studente studente = (Studente) obj;
+		
 	}
 
 	@Override
