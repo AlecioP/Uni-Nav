@@ -13,6 +13,7 @@ import persistence.daoManage.crud.Crud;
 import persistence.daoManage.crud.CrudTag;
 import persistence.persistentModel.Password;
 import persistence.persistentModel.Studente;
+import persistence.persistentModel.StudenteProxy;
 import persistence.utility.Utility;
 
 public class StudenteDaoJDBC implements Crud {
@@ -62,7 +63,7 @@ public class StudenteDaoJDBC implements Crud {
 	@Override
 	public Studente findByPrimaryKey(String pKey) {
 		int key = Integer.parseInt(pKey);
-		Studente retrived = null;
+		StudenteProxy retrived = null;
 		/**/
 		Connection connection = ds.getConnection();
 		PreparedStatement statement;
@@ -76,7 +77,7 @@ public class StudenteDaoJDBC implements Crud {
 				String nome = Utility.deleteArrayElements(result.getString("Nome"));
 				String cognome = Utility.deleteArrayElements(result.getString("Cognome"));
 				String email = Utility.deleteArrayElements(result.getString("Email"));
-				retrived = new Studente(key, flag, nome, cognome, email, null);
+				retrived = new StudenteProxy(key, flag, nome, cognome, email, null, ds);
 			}
 		}catch (SQLException e) {
 			throw new PersistenceException(e.getMessage());
@@ -106,7 +107,7 @@ public class StudenteDaoJDBC implements Crud {
 				String cognome = Utility.deleteArrayElements(result.getString("Cognome"));
 				String email = Utility.deleteArrayElements(result.getString("Email"));
 				Password password =null;
-				returning.add(new Studente(_matricola, flag, nome, cognome, email, password));
+				returning.add(new StudenteProxy(_matricola, flag, nome, cognome, email, password,ds));
 			}
 			return returning;
 		}catch (SQLException e) {

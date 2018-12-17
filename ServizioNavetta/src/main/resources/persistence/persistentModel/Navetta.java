@@ -1,6 +1,8 @@
 package persistence.persistentModel;
 
-public class Navetta {
+import persistence.daoManage.crud.CrudTag;
+
+public class Navetta implements CrudTag{
 
 	private int ID;
 	private String descrizione;

@@ -3,6 +3,8 @@ package persistence.utility;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 public class Utility {
 
@@ -53,5 +55,21 @@ public class Utility {
 		for(int i=0;i<str.length();i++)
 			array1[i]=new Character(array[i]);
 		return connection.createArrayOf("char", array1);
+	}
+	
+	public static Calendar convertToCalendar(java.sql.Timestamp timestampZoned) {
+		Calendar ret = Calendar.getInstance();
+		ret.setTimeInMillis(timestampZoned.getTime());
+		return ret;
+	}
+	
+	public static java.sql.Timestamp convertToTimestamp(Calendar calendar){
+		Timestamp ret = new Timestamp(calendar.getTimeInMillis());
+		return ret;
+	}
+	
+	public static String convertSimpleDateFormat(Calendar calendar) {
+		String somedate = ""+calendar.getTimeZone().getID()+" "+calendar.getTime()+" ";
+		return somedate;
 	}
 }

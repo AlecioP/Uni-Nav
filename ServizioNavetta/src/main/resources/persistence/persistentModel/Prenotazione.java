@@ -1,24 +1,28 @@
 package persistence.persistentModel;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 
-public class Prenotazione {
+import persistence.daoManage.crud.CrudTag;
+
+public class Prenotazione implements CrudTag{
 
 	private boolean obliteratoUscita=false,obliteratoEntrata=false;
 	private int ID;
 	private int giro;
 	private Navetta navetta;
 	private TrattoLinea tratto;
-	private LocalDateTime dateTime;
+	private Calendar dateTime;
 	private Autista autista;
+	private Studente studente;
 	
-	public Prenotazione(int ID,int giro,Navetta navetta,TrattoLinea tratto,LocalDateTime dateTime,Autista autista) {
+	public Prenotazione(int ID,int giro,Navetta navetta,TrattoLinea tratto,Calendar dateTime,Autista autista,Studente studente) {
 		this.ID = ID;
 		this.giro = Math.abs(giro);
 		this.navetta = navetta;
 		this.tratto = tratto;
 		this.dateTime = dateTime;
 		this.autista = autista;
+		this.studente = studente;
 	}
 
 	public boolean isObliteratoUscita() {
@@ -69,11 +73,11 @@ public class Prenotazione {
 		this.tratto = tratto;
 	}
 
-	public LocalDateTime getDateTime() {
+	public Calendar getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(LocalDateTime dateTime) {
+	public void setDateTime(Calendar dateTime) {
 		this.dateTime = dateTime;
 	}
 
@@ -83,6 +87,14 @@ public class Prenotazione {
 
 	public void setAutista(Autista autista) {
 		this.autista = autista;
+	}
+
+	public Studente getStudente() {
+		return studente;
+	}
+
+	public void setStudente(Studente studente) {
+		this.studente = studente;
 	}
 	
 	

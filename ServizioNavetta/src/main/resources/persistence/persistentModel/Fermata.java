@@ -1,6 +1,8 @@
 package persistence.persistentModel;
 
-public class Fermata {
+import persistence.daoManage.crud.CrudTag;
+
+public class Fermata implements CrudTag{
 
 	private String nome;
 	private Double latitudine;

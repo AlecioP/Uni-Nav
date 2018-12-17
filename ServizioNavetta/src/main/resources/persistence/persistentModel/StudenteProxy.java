@@ -3,6 +3,7 @@ package persistence.persistentModel;
 import java.util.ArrayList;
 
 import persistence.daoManage.DataSource;
+import persistence.daoManage.jdbcDao.PrenotazioneDaoJDBC;
 
 public class StudenteProxy extends Studente{
 	
@@ -13,10 +14,16 @@ public class StudenteProxy extends Studente{
 		this.ds = ds;
 	}
 	
+	public StudenteProxy(Studente s,DataSource ds) {
+		super(s.getMatricola(),s.getFlag(),s.getNome(),s.getCognome(),s.getEmail(),s.getPassword());
+		this.ds =ds;
+	}
+	
 	@Override
 	public ArrayList<Prenotazione> getPrenotazioni() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		this.setPrenotazioni(/*SET*/ (new PrenotazioneDaoJDBC(ds)).findByReference(this) /*SET*/);
+		return super.getPrenotazioni();
 	}
 
 }

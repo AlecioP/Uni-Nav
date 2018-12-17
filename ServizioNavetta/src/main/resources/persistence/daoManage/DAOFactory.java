@@ -46,6 +46,7 @@ public abstract class DAOFactory {
 	 * for the datatype 'Student'
 	 */
 	public abstract Crud getStudenteDAO();
+	public abstract Crud getPrenotazioneDAO();
 
 
 }

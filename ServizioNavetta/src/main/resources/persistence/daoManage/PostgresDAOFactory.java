@@ -3,6 +3,7 @@ package persistence.daoManage;
 
 
 import persistence.daoManage.crud.Crud;
+import persistence.daoManage.jdbcDao.PrenotazioneDaoJDBC;
 import persistence.daoManage.jdbcDao.StudenteDaoJDBC;
 
 public class PostgresDAOFactory extends DAOFactory {
@@ -32,5 +33,8 @@ public class PostgresDAOFactory extends DAOFactory {
 		return new StudenteDaoJDBC(dataSource);
 	}
 
-	
+	@Override
+	public Crud getPrenotazioneDAO() {
+		return new PrenotazioneDaoJDBC(dataSource);
+	}
 }

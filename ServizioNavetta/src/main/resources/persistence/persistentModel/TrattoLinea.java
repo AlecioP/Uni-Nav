@@ -1,6 +1,8 @@
 package persistence.persistentModel;
 
-public class TrattoLinea {
+import persistence.daoManage.crud.CrudTag;
+
+public class TrattoLinea implements CrudTag{
 	
 	private Fermata partenza;
 	private Fermata arrivo;
