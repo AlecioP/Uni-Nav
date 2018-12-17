@@ -5,7 +5,7 @@
 -- Dumped from database version 10.5
 -- Dumped by pg_dump version 10.5
 
--- Started on 2018-12-17 03:18:51 CET
+-- Started on 2018-12-17 05:40:58 CET
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,8 +18,8 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 3232 (class 0 OID 0)
--- Dependencies: 3231
+-- TOC entry 3236 (class 0 OID 0)
+-- Dependencies: 3235
 -- Name: DATABASE "ServizioNavetta"; Type: COMMENT; Schema: -; Owner: postgres
 --
 
@@ -35,13 +35,32 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 3234 (class 0 OID 0)
+-- TOC entry 3238 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
+
+--
+-- TOC entry 208 (class 1255 OID 17475)
+-- Name: undo_operation(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.undo_operation() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$begin
+	if 0 < (select count(*) from "Persona" where "ID"=NEW."ID")
+		then
+		return null;
+	end if;
+	return NEW;
+end;
+$$;
+
+
+ALTER FUNCTION public.undo_operation() OWNER TO postgres;
 
 SET default_tablespace = '';
 
@@ -247,18 +266,20 @@ CREATE TABLE public."Tratto_di_linea" (
 ALTER TABLE public."Tratto_di_linea" OWNER TO postgres;
 
 --
--- TOC entry 3215 (class 0 OID 17197)
+-- TOC entry 3219 (class 0 OID 17197)
 -- Dependencies: 196
 -- Data for Name: Amministratore; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public."Amministratore" ("ID", "Nome", "Cognome", "Password", "Email") FROM stdin;
 1	{n}	{c}	{p}	{p,r,o,v,a,@,m,a,i,l,.,s,i}
+3	{A,d,m,i,n}	{B,o,s,s}	{b,o,s,s,p,a,s,s}	{s,o,m,e,@,d,o,.,m}
+123457	{A,d,m,i,n}	{B,o,s,s}	{b,o,s,s,p,a,s,s}	{s,o,m,e,@,d,o,.,m}
 \.
 
 
 --
--- TOC entry 3217 (class 0 OID 17213)
+-- TOC entry 3221 (class 0 OID 17213)
 -- Dependencies: 198
 -- Data for Name: Autista; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -269,7 +290,7 @@ COPY public."Autista" ("ID", "Nome", "Cognome", "Email", "Password") FROM stdin;
 
 
 --
--- TOC entry 3223 (class 0 OID 17389)
+-- TOC entry 3227 (class 0 OID 17389)
 -- Dependencies: 204
 -- Data for Name: Domanda_Riabilitazione; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -279,7 +300,7 @@ COPY public."Domanda_Riabilitazione" ("ID", "Data", "Ora", "Studente_ID", "Ammin
 
 
 --
--- TOC entry 3225 (class 0 OID 17436)
+-- TOC entry 3229 (class 0 OID 17436)
 -- Dependencies: 206
 -- Data for Name: Feedback; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -289,7 +310,7 @@ COPY public."Feedback" ("Prenotazione_ID", "Contenuto") FROM stdin;
 
 
 --
--- TOC entry 3219 (class 0 OID 17237)
+-- TOC entry 3223 (class 0 OID 17237)
 -- Dependencies: 200
 -- Data for Name: Fermata; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -299,7 +320,7 @@ COPY public."Fermata" ("Nome", "Latitudine", "Longitudine") FROM stdin;
 
 
 --
--- TOC entry 3218 (class 0 OID 17229)
+-- TOC entry 3222 (class 0 OID 17229)
 -- Dependencies: 199
 -- Data for Name: Linea; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -309,7 +330,7 @@ COPY public."Linea" ("Nome") FROM stdin;
 
 
 --
--- TOC entry 3222 (class 0 OID 17368)
+-- TOC entry 3226 (class 0 OID 17368)
 -- Dependencies: 203
 -- Data for Name: Linea_X_Tratto; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -319,7 +340,7 @@ COPY public."Linea_X_Tratto" (fermata_partenza, fermata_arrivo, linea_id) FROM s
 
 
 --
--- TOC entry 3220 (class 0 OID 17245)
+-- TOC entry 3224 (class 0 OID 17245)
 -- Dependencies: 201
 -- Data for Name: Navetta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -329,7 +350,7 @@ COPY public."Navetta" ("ID", "Descrizione", "Posti_totali") FROM stdin;
 
 
 --
--- TOC entry 3224 (class 0 OID 17404)
+-- TOC entry 3228 (class 0 OID 17404)
 -- Dependencies: 205
 -- Data for Name: Prenotazione; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -339,7 +360,7 @@ COPY public."Prenotazione" ("ID", "Giro", "Navetta_ID", "Obliterato_entrata", "O
 
 
 --
--- TOC entry 3216 (class 0 OID 17205)
+-- TOC entry 3220 (class 0 OID 17205)
 -- Dependencies: 197
 -- Data for Name: Studente; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -350,7 +371,7 @@ COPY public."Studente" ("Matricola", "Flag_attuali", "Nome", "Cognome", "Email",
 
 
 --
--- TOC entry 3221 (class 0 OID 17253)
+-- TOC entry 3225 (class 0 OID 17253)
 -- Dependencies: 202
 -- Data for Name: Tratto_di_linea; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -360,7 +381,7 @@ COPY public."Tratto_di_linea" ("Fermata_Arrivo", "Fermata_Partenza", "Tempo_medi
 
 
 --
--- TOC entry 3055 (class 2606 OID 17204)
+-- TOC entry 3056 (class 2606 OID 17204)
 -- Name: Amministratore Amministratore_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -369,7 +390,7 @@ ALTER TABLE ONLY public."Amministratore"
 
 
 --
--- TOC entry 3059 (class 2606 OID 17220)
+-- TOC entry 3060 (class 2606 OID 17220)
 -- Name: Autista Autista_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -378,7 +399,7 @@ ALTER TABLE ONLY public."Autista"
 
 
 --
--- TOC entry 3076 (class 2606 OID 17393)
+-- TOC entry 3077 (class 2606 OID 17393)
 -- Name: Domanda_Riabilitazione Domanda_Riabilitazione_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -387,7 +408,7 @@ ALTER TABLE ONLY public."Domanda_Riabilitazione"
 
 
 --
--- TOC entry 3081 (class 2606 OID 17443)
+-- TOC entry 3082 (class 2606 OID 17443)
 -- Name: Feedback Feedback_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -396,7 +417,7 @@ ALTER TABLE ONLY public."Feedback"
 
 
 --
--- TOC entry 3063 (class 2606 OID 17244)
+-- TOC entry 3064 (class 2606 OID 17244)
 -- Name: Fermata Fermata_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -405,7 +426,7 @@ ALTER TABLE ONLY public."Fermata"
 
 
 --
--- TOC entry 3061 (class 2606 OID 17236)
+-- TOC entry 3062 (class 2606 OID 17236)
 -- Name: Linea Linea_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -414,7 +435,7 @@ ALTER TABLE ONLY public."Linea"
 
 
 --
--- TOC entry 3065 (class 2606 OID 17252)
+-- TOC entry 3066 (class 2606 OID 17252)
 -- Name: Navetta Navetta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -423,7 +444,7 @@ ALTER TABLE ONLY public."Navetta"
 
 
 --
--- TOC entry 3078 (class 2606 OID 17411)
+-- TOC entry 3079 (class 2606 OID 17411)
 -- Name: Prenotazione Prenotazione_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -432,7 +453,7 @@ ALTER TABLE ONLY public."Prenotazione"
 
 
 --
--- TOC entry 3057 (class 2606 OID 17212)
+-- TOC entry 3058 (class 2606 OID 17212)
 -- Name: Studente Studente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -441,7 +462,7 @@ ALTER TABLE ONLY public."Studente"
 
 
 --
--- TOC entry 3067 (class 2606 OID 17260)
+-- TOC entry 3068 (class 2606 OID 17260)
 -- Name: Tratto_di_linea Tratto_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -450,7 +471,7 @@ ALTER TABLE ONLY public."Tratto_di_linea"
 
 
 --
--- TOC entry 3069 (class 2606 OID 17288)
+-- TOC entry 3070 (class 2606 OID 17288)
 -- Name: Tratto_di_linea Tratto_unique_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -459,7 +480,7 @@ ALTER TABLE ONLY public."Tratto_di_linea"
 
 
 --
--- TOC entry 3072 (class 2606 OID 17375)
+-- TOC entry 3073 (class 2606 OID 17375)
 -- Name: Linea_X_Tratto linea_tratto_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -468,7 +489,7 @@ ALTER TABLE ONLY public."Linea_X_Tratto"
 
 
 --
--- TOC entry 3074 (class 2606 OID 17377)
+-- TOC entry 3075 (class 2606 OID 17377)
 -- Name: Linea_X_Tratto linea_tratto_unique_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -477,7 +498,7 @@ ALTER TABLE ONLY public."Linea_X_Tratto"
 
 
 --
--- TOC entry 3079 (class 1259 OID 17435)
+-- TOC entry 3080 (class 1259 OID 17435)
 -- Name: fki_foreign_studente; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -485,7 +506,7 @@ CREATE INDEX fki_foreign_studente ON public."Prenotazione" USING btree ("Student
 
 
 --
--- TOC entry 3070 (class 1259 OID 17388)
+-- TOC entry 3071 (class 1259 OID 17388)
 -- Name: fki_foreign_tratto; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -493,7 +514,31 @@ CREATE INDEX fki_foreign_tratto ON public."Linea_X_Tratto" USING btree (fermata_
 
 
 --
--- TOC entry 3087 (class 2606 OID 17399)
+-- TOC entry 3095 (class 2620 OID 17484)
+-- Name: Studente unique_id_persona; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER unique_id_persona BEFORE INSERT OR UPDATE OF "Matricola" ON public."Studente" FOR EACH ROW EXECUTE PROCEDURE public.undo_operation();
+
+
+--
+-- TOC entry 3094 (class 2620 OID 17482)
+-- Name: Amministratore unique_persona_id; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER unique_persona_id BEFORE INSERT OR UPDATE OF "ID" ON public."Amministratore" FOR EACH ROW EXECUTE PROCEDURE public.undo_operation();
+
+
+--
+-- TOC entry 3096 (class 2620 OID 17483)
+-- Name: Autista unique_persona_id; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER unique_persona_id BEFORE INSERT OR UPDATE OF "ID" ON public."Autista" FOR EACH ROW EXECUTE PROCEDURE public.undo_operation();
+
+
+--
+-- TOC entry 3088 (class 2606 OID 17399)
 -- Name: Domanda_Riabilitazione amministratore_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -502,7 +547,7 @@ ALTER TABLE ONLY public."Domanda_Riabilitazione"
 
 
 --
--- TOC entry 3083 (class 2606 OID 17334)
+-- TOC entry 3084 (class 2606 OID 17334)
 -- Name: Tratto_di_linea arrivo_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -511,7 +556,7 @@ ALTER TABLE ONLY public."Tratto_di_linea"
 
 
 --
--- TOC entry 3090 (class 2606 OID 17422)
+-- TOC entry 3091 (class 2606 OID 17422)
 -- Name: Prenotazione foreign_autista; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -520,7 +565,7 @@ ALTER TABLE ONLY public."Prenotazione"
 
 
 --
--- TOC entry 3084 (class 2606 OID 17378)
+-- TOC entry 3085 (class 2606 OID 17378)
 -- Name: Linea_X_Tratto foreign_linea; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -529,7 +574,7 @@ ALTER TABLE ONLY public."Linea_X_Tratto"
 
 
 --
--- TOC entry 3088 (class 2606 OID 17412)
+-- TOC entry 3089 (class 2606 OID 17412)
 -- Name: Prenotazione foreign_navetta; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -538,7 +583,7 @@ ALTER TABLE ONLY public."Prenotazione"
 
 
 --
--- TOC entry 3092 (class 2606 OID 17444)
+-- TOC entry 3093 (class 2606 OID 17444)
 -- Name: Feedback foreign_prenotazione; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -547,7 +592,7 @@ ALTER TABLE ONLY public."Feedback"
 
 
 --
--- TOC entry 3091 (class 2606 OID 17430)
+-- TOC entry 3092 (class 2606 OID 17430)
 -- Name: Prenotazione foreign_studente; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -556,7 +601,7 @@ ALTER TABLE ONLY public."Prenotazione"
 
 
 --
--- TOC entry 3085 (class 2606 OID 17383)
+-- TOC entry 3086 (class 2606 OID 17383)
 -- Name: Linea_X_Tratto foreign_tratto; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -565,7 +610,7 @@ ALTER TABLE ONLY public."Linea_X_Tratto"
 
 
 --
--- TOC entry 3089 (class 2606 OID 17417)
+-- TOC entry 3090 (class 2606 OID 17417)
 -- Name: Prenotazione foreign_tratto; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -574,7 +619,7 @@ ALTER TABLE ONLY public."Prenotazione"
 
 
 --
--- TOC entry 3082 (class 2606 OID 17329)
+-- TOC entry 3083 (class 2606 OID 17329)
 -- Name: Tratto_di_linea partenza_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -583,7 +628,7 @@ ALTER TABLE ONLY public."Tratto_di_linea"
 
 
 --
--- TOC entry 3086 (class 2606 OID 17394)
+-- TOC entry 3087 (class 2606 OID 17394)
 -- Name: Domanda_Riabilitazione studente_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -591,7 +636,7 @@ ALTER TABLE ONLY public."Domanda_Riabilitazione"
     ADD CONSTRAINT studente_foreign FOREIGN KEY ("Studente_ID") REFERENCES public."Studente"("Matricola");
 
 
--- Completed on 2018-12-17 03:18:51 CET
+-- Completed on 2018-12-17 05:40:58 CET
 
 --
 -- PostgreSQL database dump complete
