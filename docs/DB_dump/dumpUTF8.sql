@@ -5,7 +5,7 @@
 -- Dumped from database version 10.5
 -- Dumped by pg_dump version 10.5
 
--- Started on 2018-12-16 18:14:18 CET
+-- Started on 2018-12-17 03:18:51 CET
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -180,24 +180,27 @@ CREATE TABLE public."Studente" (
 ALTER TABLE public."Studente" OWNER TO postgres;
 
 --
--- TOC entry 207 (class 1259 OID 17449)
+-- TOC entry 207 (class 1259 OID 17453)
 -- Name: Persona; Type: VIEW; Schema: public; Owner: postgres
 --
 
 CREATE VIEW public."Persona" AS
- SELECT a."Nome",
+ SELECT a."ID",
+    a."Nome",
     a."Cognome",
     a."Email",
     a."Password"
    FROM public."Amministratore" a
 UNION
- SELECT b."Nome",
+ SELECT b."Matricola" AS "ID",
+    b."Nome",
     b."Cognome",
     b."Email",
     b."Password"
    FROM public."Studente" b
 UNION
- SELECT c."Nome",
+ SELECT c."ID",
+    c."Nome",
     c."Cognome",
     c."Email",
     c."Password"
@@ -342,7 +345,7 @@ COPY public."Prenotazione" ("ID", "Giro", "Navetta_ID", "Obliterato_entrata", "O
 --
 
 COPY public."Studente" ("Matricola", "Flag_attuali", "Nome", "Cognome", "Email", "Password") FROM stdin;
-176231	5	{m,i,m,m,o}	{f,l}	{o,w}	{g,a,n,g}
+123456	5	{m,i,m,m,o}	{f,l}	{p,r,o,v,a,@,e,x,a,m,p,l,e,.,d,o,m}	{g,a,n,g}
 \.
 
 
@@ -588,7 +591,7 @@ ALTER TABLE ONLY public."Domanda_Riabilitazione"
     ADD CONSTRAINT studente_foreign FOREIGN KEY ("Studente_ID") REFERENCES public."Studente"("Matricola");
 
 
--- Completed on 2018-12-16 18:14:18 CET
+-- Completed on 2018-12-17 03:18:51 CET
 
 --
 -- PostgreSQL database dump complete
