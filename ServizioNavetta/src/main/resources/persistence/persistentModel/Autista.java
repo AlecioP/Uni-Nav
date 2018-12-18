@@ -1,6 +1,8 @@
 package persistence.persistentModel;
 
-public class Autista extends Persona{
+import persistence.daoManage.crud.CrudTag;
+
+public class Autista extends Persona implements CrudTag{
 	
 	private int ID;
 	

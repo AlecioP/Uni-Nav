@@ -1,6 +1,8 @@
 package persistence.persistentModel;
 
-public class FeedBack {
+import persistence.daoManage.crud.CrudTag;
+
+public class FeedBack implements CrudTag{
 	
 	private Prenotazione prenotazione;
 	private String contenuto;

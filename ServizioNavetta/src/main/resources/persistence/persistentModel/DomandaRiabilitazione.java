@@ -2,7 +2,9 @@ package persistence.persistentModel;
 
 import java.time.LocalDateTime;
 
-public class DomandaRiabilitazione {
+import persistence.daoManage.crud.CrudTag;
+
+public class DomandaRiabilitazione implements CrudTag{
 
 	private int ID;
 	private LocalDateTime dateTime;

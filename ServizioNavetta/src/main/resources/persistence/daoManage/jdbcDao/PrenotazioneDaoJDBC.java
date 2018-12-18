@@ -87,8 +87,8 @@ public class PrenotazioneDaoJDBC implements Crud {
 				TrattoLinea tratto = new TrattoLineaDaoJDBC(ds).findByPrimaryKeyComposed(fKey1_partenza, fKey2_arrivo);
 				Calendar dateTime = Utility.convertToCalendar((java.sql.Timestamp)result.getObject("Date_time"));
 				Studente studente = new StudenteDaoJDBC(ds).findByPrimaryKey(result.getInt("Studente_ID")+"");
-				// TODO missing autistaDAO
-				Autista autista = null;
+				
+				Autista autista = (Autista) new AutistaDaoJDBC(ds).findByPrimaryKey(result.getInt("Autista_ID")+"");
 				return new Prenotazione(prenotazioneID, giro, navetta, tratto, dateTime, autista, studente);
 			}
 			return null;
@@ -121,8 +121,8 @@ public class PrenotazioneDaoJDBC implements Crud {
 				TrattoLinea tratto = new TrattoLineaDaoJDBC(ds).findByPrimaryKeyComposed(fKey1_partenza, fKey2_arrivo);
 				Calendar dateTime = Utility.convertToCalendar((java.sql.Timestamp)result.getObject("Date_time"));
 				Studente studente = new StudenteDaoJDBC(ds).findByPrimaryKey(result.getInt("Studente_ID")+"");
-				// TODO missing autistaDAO
-				Autista autista = null;
+				
+				Autista autista = (Autista) new AutistaDaoJDBC(ds).findByPrimaryKey(result.getInt("Autista_ID")+"");
 				ret.add(new Prenotazione(ID, giro, navetta, tratto, dateTime, autista, studente));
 			}
 			return ret;
@@ -204,8 +204,8 @@ public class PrenotazioneDaoJDBC implements Crud {
 				String fKey1_partenza = Utility.deleteArrayElements(result.getString("Tratto::partenza"));
 				String fKey2_arrivo = Utility.deleteArrayElements(result.getString("Tratto::arrivo"));
 				TrattoLinea tratto = new TrattoLineaDaoJDBC(ds).findByPrimaryKeyComposed(fKey1_partenza, fKey2_arrivo);
-				// TODO missing autistaDAO
-				Autista autista = null;
+				Autista autista = (Autista) new AutistaDaoJDBC(ds).findByPrimaryKey(result.getInt("Autista_ID")+"");
+				
 				returning.add(new Prenotazione(ID, giro, navetta, tratto, dateTime, autista,studente));
 			}
 			return returning;

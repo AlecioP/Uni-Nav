@@ -1,6 +1,8 @@
 package persistence.persistentModel;
 
-public class Amministratore extends Persona {
+import persistence.daoManage.crud.CrudTag;
+
+public class Amministratore extends Persona implements CrudTag{
 	
 private int ID;
 	
