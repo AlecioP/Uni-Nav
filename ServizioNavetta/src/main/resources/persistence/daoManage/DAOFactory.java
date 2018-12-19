@@ -1,6 +1,7 @@
 package persistence.daoManage;
 
 import persistence.daoManage.crud.Crud;
+import persistence.daoManage.crud.SecurityDAO;
 
 public abstract class DAOFactory {
 
@@ -47,6 +48,14 @@ public abstract class DAOFactory {
 	 */
 	public abstract Crud getStudenteDAO();
 	public abstract Crud getPrenotazioneDAO();
+	public abstract Crud getAmministratoreDAO();
+	public abstract Crud getAutistaDAO();
+	public abstract Crud getDomandaRiabilitazioneDAO();
+	public abstract Crud getFeedBackDAO();
+	public abstract Crud getFermataDAO();
+	public abstract Crud getNavettaDAO();
+	public abstract Crud getTrattoLineaDAO();
+	public abstract SecurityDAO getPersonaSecureDAO();
 
 
 }
