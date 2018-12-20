@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CO1::DomandaRiabilitazione</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<table class="table">
+		<tr class="info">
+			<th>KEY</th>
+			<th>VALUE</th>
+		</tr>
+		<tr>
+			<td><strong>Nome &#58;</strong></td>
+			<td>Crea domanda di Riabilitazione</td>
+		</tr>
+		<tr>
+			<td><strong>Riferimenti &#58;</strong></td>
+			<td>Gestione Prenotazioni</td>
+		</tr>
+		<tr>
+			<td><strong>Pre-condizioni &#58;</strong></td>
+			<td><ul>
+					<li>Lo studente deve aver precedentemente superato il limite
+						massimo di biglietti non obliterati</li>
+					<li>Il Sistema deve conoscere le credenziali dello Studente che
+						vuole effettuare domanda</li>
+					<li>Il Sistema deve conoscere almeno un Amministratore per
+						potergli inoltrare la domanda</li>
+					<li>Il Sistema deve conoscere la data e l&#39;ora correnti</li>
+				</ul></td>
+		</tr>
+		<tr>
+			<td><strong>Post-condizioni &#58;</strong></td>
+			<td><ul>
+					<li>Viene creata un&#39;istanza di Domanda</li>
+					<li>Viene creata un&#39;associazione tra la nuova Domanda e lo
+						Studente richiedente</li>
+					<li>Viene creata un&#39;associazione tra la nuova Domanda e
+						l&#39;Amministratore alla quale &eacute; stata inviata
+						quest&#39;ultima</li>
+				</ul></td>
+		</tr>
+	</table>
+
+</body>
+</html>

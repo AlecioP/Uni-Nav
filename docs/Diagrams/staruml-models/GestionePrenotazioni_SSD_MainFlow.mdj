@@ -456,9 +456,9 @@
 														"$ref": "AAAAAAFny9JXoWheq8Q="
 													},
 													"font": "Arial;13;0",
-													"left": 505,
+													"left": 501,
 													"top": 166,
-													"width": 94.64990234375,
+													"width": 103.33349609375,
 													"height": 13,
 													"alpha": -1.6539367310970738,
 													"distance": 12.041594578792296,
@@ -466,7 +466,7 @@
 														"$ref": "AAAAAAFny9JXomhfHAk="
 													},
 													"edgePosition": 1,
-													"text": "2 : Confirm login"
+													"text": "2 : conferma login"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -1357,7 +1357,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnyBGdP2fLgyc="
 									},
-									"name": "Confirm login",
+									"name": "conferma login",
 									"source": {
 										"$ref": "AAAAAAFnyBIpg2fcGSY="
 									},
