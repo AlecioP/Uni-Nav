@@ -23,7 +23,7 @@
 		</tr>
 		<tr>
 			<td><strong>Nome &#58;</strong></td>
-			<td>richiediDomanda()</td>
+			<td>effettuaDomandaRiabilitazione()</td>
 		</tr>
 		<tr>
 			<td><strong>Riferimenti &#58;</strong></td>
@@ -32,21 +32,23 @@
 		<tr>
 			<td><strong>Pre-condizioni &#58;</strong></td>
 			<td><ul>
-					<li>Lo studente deve aver precedentemente superato il limite
-						massimo di biglietti non obliterati</li>
-					<li>Il Sistema deve conoscere le credenziali dello Studente che
-						vuole effettuare domanda</li>
-					<li>Il Sistema deve conoscere almeno un Amministratore per
-						potergli inoltrare la domanda</li>
-					<li>Il Sistema deve conoscere la data e l&#39;ora correnti</li>
+					<li>Il valore di flag attali associati allo studente che sta
+						effettuando la domanda deve essere maggiore del numero limite N di
+						flag tollerabili</li>
+					<li>Il sistema deve conoscere la matricola dello studente che
+						sta effettuando la richiesta. Per questo motivo lo studente
+						dovr&aacute; gi&aacute; essere autenticato</li>
+					<li>Deve esistere almeno un&#39;istanza di Amministratore per
+						potergli recapitare la domanda</li>
+
 				</ul></td>
 		</tr>
 		<tr>
 			<td><strong>Post-condizioni &#58;</strong></td>
 			<td><ul>
-					<li>Viene creata un&#39;istanza di Domanda</li>
-					<li>Viene creata un&#39;associazione tra la nuova Domanda e lo
-						Studente richiedente</li>
+					<li>Viene creata un&#39;istanza di Domanda Riabilitazione</li>
+					<li>Viene creata un&#39;associazione tra la nuova Domanda
+						Riabilitazione e lo Studente richiedente</li>
 					<li>Viene creata un&#39;associazione tra la nuova Domanda e
 						l&#39;Amministratore alla quale &eacute; stata inviata
 						quest&#39;ultima</li>

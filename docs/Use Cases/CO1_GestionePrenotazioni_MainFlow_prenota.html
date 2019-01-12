@@ -33,11 +33,14 @@
 			<td><strong>Pre-condizioni &#58;</strong></td>
 			<td><ul>
 					<li>Il sistema deve conoscere la matricola dello studente che
-						sta effettuando la richiesta. Per questo motivo lo studente dovrà
-						già essere autenticato</li>
-					<li>Il sistema deve conoscere la data odierna</li>
-					<li>Il sistema deve conoscere l&#39;identit&aacute;
-						dell&#39;Autista alla guida della navetta</li>
+						sta effettuando la richiesta. Per questo motivo lo studente dovr&aacute;
+						gi&aacute; essere autenticato</li>
+					<li>Deve esistere un&#39;istanza di Registro prenotazioni
+						riportante la data odierna</li>
+					<li>Deve esistere un&#39;istanza di Linea registro, associata ad
+						un&#39;istanza di Registro attivit&aacute; navette riportante la data
+						odierna, associata ad un autista ed ad una navetta che corrisponda
+						alla navetta indicata dallo studente nella sua prenotazione</li>
 				</ul></td>
 		</tr>
 		<tr>
@@ -51,10 +54,10 @@
 						la nuova Prenotazione</li>
 					<li>Viene creata una o pi&uacute; associazioni tra la nuova
 						Prenotazione ed uno o pi&uacute; Tratti di linea</li>
-					<li>Viene creata un&#39;associazione tra la nuova Prenotazione ed
-						il Registro delle Prenotazioni</li>
-					<li>Viene creata un&#39;associazione tra la nuova Prenotazione ed
-						una istanza di Navetta</li>
+					<li>Viene creata un&#39;associazione tra la nuova Prenotazione
+						ed il Registro delle Prenotazioni</li>
+					<li>Viene creata un&#39;associazione tra la nuova Prenotazione
+						ed una istanza di Navetta</li>
 				</ul></td>
 		</tr>
 	</table>
