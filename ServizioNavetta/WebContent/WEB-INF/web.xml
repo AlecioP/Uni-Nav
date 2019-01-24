@@ -34,5 +34,14 @@
 		<servlet-name>IscriviStudente</servlet-name>
 		<url-pattern>/inviaDatiStudente</url-pattern>
 	</servlet-mapping>
+	<servlet>
+
+		<servlet-name>ModuloIscrizione</servlet-name>
+		<servlet-class>controller.ModuloIscrizione</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ModuloIscrizione</servlet-name>
+		<url-pattern>/moduloIscrizione</url-pattern>
+	</servlet-mapping>
 
 </web-app>

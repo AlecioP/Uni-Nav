@@ -19,7 +19,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="js/loadStudent.js"></script>
 <!-- Custom style import -->
-<!--<link rel="stylesheet" type="text/css" href="css/common.css">-->
+<link rel="stylesheet" type="text/css" href="css/common.css">
 
 </head>
 <body>
@@ -65,24 +65,14 @@
 					<input class="form-control" name="password2" type="password" />
 				</div>
 			</div>
-			<input class="btn btn-success" type="submit" /> <input
-				class="btn btn-warning" type="reset" />
-			<div class="col-sm-5">
-				<select id="erro" class="form-control" name="errore"
-					onchange="loadStudent();">
-					<option>---</option>
-					<c:forEach items="${matricola}" var="err">
-						<option value="${dip.codice}">${dip.nome}</option>
-					</c:forEach>
-				</select>
-			</div>
+			
+			<input id="reset" class="btn btn-warning" type="reset" />
 		</form>
-		<div class="col-sm-5">
-				<input name="errore" type="text" />
-			</div>
-
-
-
+		<c:if test="${registration-error != null }">
+			<c:set var="message" value="registration-error" />
+			<span class="error-message"><c:out
+					value="${sessionScope[message]}" /></span>
+		</c:if>
 
 
 

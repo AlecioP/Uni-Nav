@@ -35,7 +35,7 @@ public class IscriviStudente extends HttpServlet {
 		StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
 		Studente s = sdao.findByPrimaryKey(matricola);
 		if (s != null) {
-			// req.setAttribute("errore", new String("esisteeeeeeee"));
+			req.getSession().setAttribute("registration-error", "errore di compilazione");
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/iscriviStudenti.jsp");
 			rd.forward(req, resp);
 			// resp.getWriter().println("esiste non si puo registrare");
