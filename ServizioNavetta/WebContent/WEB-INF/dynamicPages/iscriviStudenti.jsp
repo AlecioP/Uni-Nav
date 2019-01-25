@@ -65,7 +65,7 @@
 					<input class="form-control" name="password2" type="password" />
 				</div>
 			</div>
-			
+
 			<input id="reset" class="btn btn-warning" type="reset" />
 		</form>
 		<c:if test="${registration-error != null }">

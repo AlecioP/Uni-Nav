@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,12 +22,12 @@ public class IscriviStudente extends HttpServlet {
 		String matricola = req.getParameter("matricola");
 		// resp.getWriter().println(matricola);
 		int matricolaReg = 0;
-		if (matricola != null)
-			matricolaReg = Integer.parseInt(matricola);
+		matricolaReg = Integer.parseInt(matricola);
 		String nome = req.getParameter("nome");
 		String cognome = req.getParameter("cognome");
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
+		String passwordConf = req.getParameter("password2");
 		Password passReg = new Password();
 		passReg.password = password;
 		// resp.getWriter().println(nome + " " + cognome + " " + email + " " + password
@@ -35,16 +36,36 @@ public class IscriviStudente extends HttpServlet {
 		StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
 		Studente s = sdao.findByPrimaryKey(matricola);
 		if (s != null) {
-			req.getSession().setAttribute("registration-error", "errore di compilazione");
+			req.getSession().setAttribute("registration-error", "Studente con matricola già esistente");
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/iscriviStudenti.jsp");
 			rd.forward(req, resp);
 			// resp.getWriter().println("esiste non si puo registrare");
 			// resp.getWriter().println("<option value=\"sbagliat" + "\">" + "</option>");
+		} else if (ceEmail(email)) {
+			req.getSession().setAttribute("registration-error", "Email già esistente");
+			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/iscriviStudenti.jsp");
+			rd.forward(req, resp);
+		} else if (!password.equals(passwordConf)) {
+			req.getSession().setAttribute("registration-error", "Password non uguali");
+			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/iscriviStudenti.jsp");
+			rd.forward(req, resp);
 		} else {
 			s = new Studente(matricolaReg, 0, nome, cognome, email, passReg);
 			sdao.save(s);
-			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
+			req.setAttribute("studente", s);
+			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/homePallino.jsp");
 			rd.forward(req, resp);
 		}
+	}
+
+	private boolean ceEmail(String email) {
+		DAOFactory df = PostgresDAOFactory.getDAOFactory(DAOFactory.POSTGRESQL);
+		StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
+		ArrayList<Studente> s = sdao.findAll();
+		for (Studente studente : s) {
+			if (studente.getEmail().equalsIgnoreCase(email))
+				return true;
+		}
+		return false;
 	}
 }
