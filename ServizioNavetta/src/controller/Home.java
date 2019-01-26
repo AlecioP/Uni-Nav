@@ -32,7 +32,7 @@ public class Home extends HttpServlet {
 		String username = (String) request.getSession().getAttribute("username");
 		if(username!=null) {
 			/*REDIRECT TO SOMETHING ELSE*/
-		}else {
+		}else {	
 			if(Boolean.parseBoolean((String) request.getAttribute("loginRedirect"))) {
 				
 				request.getSession().setAttribute("login-error", "Utente o password errati");

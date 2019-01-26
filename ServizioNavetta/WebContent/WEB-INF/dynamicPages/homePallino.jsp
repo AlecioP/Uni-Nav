@@ -36,20 +36,24 @@ body {
 </head>
 <body>
 	<table>
-		<tr>
+		<!-- <tr>
 			<th>Matricola</th>
 			<th>Nome</th>
 			<th>Cognome</th>
-		</tr>
+		</tr> -->
 		<tr>
-			<td>${studente.matricola}</td>
+			<%-- <td>${studente.matricola}</td>
 			<td>${studente.nome}</td>
-			<td>${studente.cognome}</td>
-			<td><input id="qr" type="button"
-				onclick=" updateQRCode('${studente.matricola}');" /></td>
+			<td>${studente.cognome}</td> --%>
+			<td><input id="qr" type="button" value="Genera Biglietto"
+				onclick=" updateQRCode('${studente.matricola}'+'${studente.nome}');" /></td>
 		</tr>
 	</table>
-
+	<!-- <form action="generaCodice" method="post">
+				<button type="submit">Submit</button>
+			</form>
+			  <a href="generaCodice">Genera codice</a>
+			  -->
 	<div id="qrcode"></div>
 	<script type="text/javascript">
 		function updateQRCode(text) {

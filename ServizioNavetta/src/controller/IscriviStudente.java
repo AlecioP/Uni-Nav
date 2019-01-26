@@ -52,7 +52,7 @@ public class IscriviStudente extends HttpServlet {
 		} else {
 			s = new Studente(matricolaReg, 0, nome, cognome, email, passReg);
 			sdao.save(s);
-			req.setAttribute("studente", s);
+			req.getSession().setAttribute("studente", s);
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/homePallino.jsp");
 			rd.forward(req, resp);
 		}
