@@ -1,1 +1,4 @@
 /controller/
+/persistence/
+/tests/
+/model/

@@ -34,6 +34,7 @@ public class Home extends HttpServlet {
 			/*REDIRECT TO SOMETHING ELSE*/
 		}else {
 			if(Boolean.parseBoolean((String) request.getAttribute("loginRedirect"))) {
+				
 				request.getSession().setAttribute("login-error", "Utente o password errati");
 //				System.out.println("ATTR "+request.getSession().getAttribute("login-error"));
 			}
