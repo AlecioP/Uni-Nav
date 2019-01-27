@@ -17,6 +17,11 @@ import persistence.persistentModel.Studente;
 
 public class IscriviStudente extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6007577153637459820L;
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String matricola = req.getParameter("matricola");
@@ -36,13 +41,13 @@ public class IscriviStudente extends HttpServlet {
 		StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
 		Studente s = sdao.findByPrimaryKey(matricola);
 		if (s != null) {
-			req.getSession().setAttribute("registration-error", "Studente con matricola già esistente");
+			req.getSession().setAttribute("registration-error", "Studente con matricola giï¿½ esistente");
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/iscriviStudenti.jsp");
 			rd.forward(req, resp);
 			// resp.getWriter().println("esiste non si puo registrare");
 			// resp.getWriter().println("<option value=\"sbagliat" + "\">" + "</option>");
 		} else if (ceEmail(email)) {
-			req.getSession().setAttribute("registration-error", "Email già esistente");
+			req.getSession().setAttribute("registration-error", "Email giï¿½ esistente");
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/iscriviStudenti.jsp");
 			rd.forward(req, resp);
 		} else if (!password.equals(passwordConf)) {

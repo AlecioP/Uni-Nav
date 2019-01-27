@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ModuloIscrizione extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5360077047437165711L;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/iscriviStudenti.jsp");
