@@ -30,8 +30,18 @@ public class MakeRegistration extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String username = (String) request.getSession().getAttribute("username");
+		String mode = (String) request.getSession().getAttribute("login-type");
 		if(username!=null) {
-			//visualizza o studentehome o autistahome
+			if(mode=="driver")
+			{
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/driver.html");
+				rd.forward(request, response);
+			}
+			else
+			{
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.html");
+				rd.forward(request, response);
+			}
 		}else {
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/registration.jsp");
 		rd.forward(request, response);}
