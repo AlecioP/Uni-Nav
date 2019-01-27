@@ -52,6 +52,15 @@
 		<servlet-name>DammiQR</servlet-name>
 		<url-pattern>/generaCodice</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>controller.doLogin</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/doLogin</url-pattern>
+	</servlet-mapping>
 
 
 </web-app>

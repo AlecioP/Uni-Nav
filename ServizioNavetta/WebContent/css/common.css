@@ -23,3 +23,7 @@ body {
 	color: red;
 	/*text-transform: uppercase;*/
 }
+
+.register-div {
+	margin-top : 1.5em;
+}

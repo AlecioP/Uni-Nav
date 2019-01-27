@@ -29,7 +29,7 @@
 	<h1>Servizio Navetta Unical : Benvenuto!</h1>
 	<div class="sx-col myCol-6"></div>
 	<div class="dx-col myCol-6">
-		<form action="GET">
+		<form action="doLogin" method="post">
 			<div class="panel-group">
 				<div class="panel panel-primary">
 					<div class="panel-heading">Tipo login :</div>
@@ -70,9 +70,13 @@
 			<fieldset>
 
 				<input class="btn btn-success" type="submit" value="LOGIN!">
-				<input class="register btn btn-info" type="button"
-					value="Registrati">
 			</fieldset>
+		</form>
+		<form action="moduloIscrizione" method="get">
+			<div class="register-div">
+				<input class="register btn btn-info" type="submit"
+					value="Registrati">
+			</div>
 		</form>
 	</div>
 </body>
