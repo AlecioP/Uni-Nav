@@ -36,9 +36,9 @@
  <!-- Leaftlet Routing Machine -->
  
  <!-- Leaftlet Routing Machine css -->
- <link rel="stylesheet" href="leafletRoutingMachine/dist/leaflet-routing-machine.css" />
+ <link rel="stylesheet" href="leaflet/leafletRoutingMachine/dist/leaflet-routing-machine.css" />
  <!-- Leaftlet Routing Machine js -->
- <script type="text/javascript" src="leafletRoutingMachine/dist/leaflet-routing-machine.js"></script>
+ <script type="text/javascript" src="leaflet/leafletRoutingMachine/dist/leaflet-routing-machine.js"></script>
 
 
 </head>

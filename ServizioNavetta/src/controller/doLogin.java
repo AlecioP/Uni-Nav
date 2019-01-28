@@ -35,7 +35,7 @@ public class doLogin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String prova = (String) request.getAttribute("id");
+//		String prova = (String) request.getAttribute("id");
 		String username = (String) request.getAttribute("id");
 		String pass = (String) request.getAttribute("pass");
 		System.out.println(username +" "+ pass);

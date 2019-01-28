@@ -4,6 +4,9 @@
  *
  */
 
+
+var myToken = 'pk.eyJ1IjoibWltbW9mbG93IiwiYSI6ImNqcDZ4eGF4ZTFlazQzdmxrb3UwYXV2MnAifQ.60aM8oR1UjGXezjzNZkacw';
+var mapAttribution = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 var LAT = 0.0;
 var LNG = 0.0;
 function Fermata(){}
@@ -14,27 +17,36 @@ prossimaFermata.nome = "Cubo 30b";
 var polyTratto;//Leaflet JS Object
 var autistaID;// Integer representing the Id of Driver
 /*This method is invoked every time the position of the device changes*/
-navigator.geolocation.getCurrentPosition(function (position) {
-    LAT = position.coords.latitude;
-    LNG = position.coords.longitude;
+$(function(){ /* DOM ready */
+	navigator.geolocation.getCurrentPosition(function (position) {
+    	LAT = position.coords.latitude;
+    	LNG = position.coords.longitude;
     
-    if(amIinNewPolyLine()) {
-        /**/
-        $.ajax({type: "POST", url: "driverRegisterMediator", data : {lat : LAT, lng : LNG},
-                success: function(data){
-					/*CALLBACK POLY LINE CHANGED*/
-                    /**/
-				}	
-        });
-        /**/
-    }else{
-        adjustMap();
-    }
+    	if(amIinNewPolyLine()) {
+        	/**/
+    		$.ajax({type: "POST", url: "driverRegisterMediator", data : {lat : LAT, lng : LNG},
+        			success: function(data){
+						/*CALLBACK POLY LINE CHANGED*/
+                    	/**/
+					}	
+        	});
+        	/**/
+    	}else{
+    		adjustMap();
+    	}
+	});
 });
 
-
 function amIinNewPolyLine() {//boolean
-    /*TO-DO */
+	
+	/*
+    if(polyTratto!=undefined){
+    	var point1 = polyTratto.getWaypoints()[0].latLng;
+    	var point2 = polyTratto.getWaypoints()[1].latLng;
+    	var tollerance = 1;
+    	return ! belongsSegment(L.latLng(LAT,LNG),point1,point2,tollerance);
+    }
+    */
     return false;
 }
 
@@ -46,11 +58,11 @@ function adjustMap() {
     var mymap = L.map('mapid').setView([LAT,LNG],15);
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', 
 			{
-		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		attribution: mapAttribution,
 		maxZoom: 18,
 		id: 'mapbox.streets',
 		/*acquisito su mapbox.com -> Token pubblico di default*/
-		accessToken: 'pk.eyJ1IjoibWltbW9mbG93IiwiYSI6ImNqcDZ4eGF4ZTFlazQzdmxrb3UwYXV2MnAifQ.60aM8oR1UjGXezjzNZkacw'
+		accessToken: myToken
 			}
 	).addTo(mymap);
     var customIcon = L.icon({
@@ -76,7 +88,7 @@ function adjustMap() {
             L.latLng(prossimaFermata.lat, prossimaFermata.lng)
         ],
         routeWhileDragging: true,
-        router : L.Routing.mapbox('pk.eyJ1IjoibWltbW9mbG93IiwiYSI6ImNqcDZ4eGF4ZTFlazQzdmxrb3UwYXV2MnAifQ.60aM8oR1UjGXezjzNZkacw')
+        router : L.Routing.mapbox(myToken)
     }).addTo(mymap);
     
     var array = $("#next-stop-value");
