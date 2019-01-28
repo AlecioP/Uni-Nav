@@ -11,11 +11,16 @@ var LAT = 0.0;
 var LNG = 0.0;
 function Fermata(){}
 var prossimaFermata = new Fermata();//JSON of Fermata Object
+
+/*DEBUG*/
 prossimaFermata.lng = 16.226335;
 prossimaFermata.lat = 39.363219;
 prossimaFermata.nome = "Cubo 30b";
+/*DEBUG*/
+
 var polyTratto;//Leaflet JS Object
-var autistaID;// Integer representing the Id of Driver
+
+var lineaAttuale;
 /*This method is invoked every time the position of the device changes*/
 $(function(){ /* DOM ready */
 	navigator.geolocation.getCurrentPosition(function (position) {
@@ -23,11 +28,32 @@ $(function(){ /* DOM ready */
     	LNG = position.coords.longitude;
     
     	if(amIinNewPolyLine()) {
+    		var repeatData = false;
+    		if(polyTratto==undefined)
+    			repeatData = true;
         	/**/
-    		$.ajax({type: "POST", url: "driverRegisterMediator", data : {lat : LAT, lng : LNG},
+    		/*The session should already contain an attribute called "username" */
+    		$.ajax({type: "POST", url: "driverRegisterMediator", data : {/*lat : LAT, lng : LNG*/repeat : repeatData},
         			success: function(data){
 						/*CALLBACK POLY LINE CHANGED*/
+//        				alert("DATA IS : "+data);
+        				lineaAttuale = JSON.parse(data);
+        				
+        				/*Update prossimaFermata*/
+        				/*var stopTxt = $("#next-stop-value")[0];
+        				stopTxt.innerHTML = lineaAttuale.posizione.arrivo.nome;*/
+        				prossimaFermata.nome = lineaAttuale.posizione.arrivo.nome;
+        				prossimaFermata.lat = lineaAttuale.posizione.arrivo.latitudine;
+        				prossimaFermata.lng = lineaAttuale.posizione.arrivo.longitudine;
+        				/**/
+        				
+        				adjustMap();
+        				
                     	/**/
+        				
+        				/*DEBUG*/
+//        				amIinNewPolyLine();
+        				/*DEBUG*/
 					}	
         	});
         	/**/
@@ -39,19 +65,22 @@ $(function(){ /* DOM ready */
 
 function amIinNewPolyLine() {//boolean
 	
-	/*
+	
     if(polyTratto!=undefined){
     	var point1 = polyTratto.getWaypoints()[0].latLng;
     	var point2 = polyTratto.getWaypoints()[1].latLng;
     	var tollerance = 1;
-    	return ! belongsSegment(L.latLng(LAT,LNG),point1,point2,tollerance);
+    	var actualPosition = L.latLng(LAT,LNG);
+//    	alert(point1+" "+point2+" "+tollerance+" "+actualPosition);
+    	var response = L.GeometryUtil.belongsSegment(actualPosition, point1, point2, tollerance);
+//    	alert("BOOL : "+response);
+    	return response;
     }
-    */
-    return false;
+//	return true;
+    return true;
 }
 
 function adjustMap() {
-    /*TO-DO */
     
     L.map('mapid').remove();
     
@@ -88,7 +117,8 @@ function adjustMap() {
             L.latLng(prossimaFermata.lat, prossimaFermata.lng)
         ],
         routeWhileDragging: true,
-        router : L.Routing.mapbox(myToken)
+        router : L.Routing.mapbox(myToken),
+        createMarker: function() { return null; }//To hide markers of route
     }).addTo(mymap);
     
     var array = $("#next-stop-value");

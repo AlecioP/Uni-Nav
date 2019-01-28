@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -8,11 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import model.LineaRegistroNavette;
 import model.RegistroAttivitaNavette;
 import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
 import persistence.persistentModel.Autista;
+import persistence.persistentModel.Fermata;
 import persistence.persistentModel.Linea;
 import persistence.persistentModel.Navetta;
 import persistence.persistentModel.TrattoLinea;
@@ -80,12 +84,47 @@ public class DriverRegisterMediator extends HttpServlet {
 			Navetta navetta = (Navetta) daoFactory.getNavettaDAO().findByPrimaryKey(navettaId);
 			lineaRegistro.setNavetta(navetta);
 			Linea linea = new Linea(nomeLinea);
-			TrattoLinea posizione = linea.getTratti().get(capolinea);
-			lineaRegistro.setPosizione(posizione);
+			ArrayList<TrattoLinea> tratti = linea.getTratti();
+			if(tratti.isEmpty()==false) {
+				TrattoLinea posizione = tratti.get(capolinea);
+				lineaRegistro.setPosizione(posizione);
+			}
+			/*DEBUG*/
+			else {
+				Fermata f1 = new Fermata("Pensiline Università", 39.3569466, 16.2263765), 
+						f2 = new Fermata("University Club", 39.3591417, 16.2261368);
+				TrattoLinea farlocco = new TrattoLinea(f1, f2, 1, 1);
+				lineaRegistro.setPosizione(farlocco);
+			}
+			/*DEBUG*/
 			lineaRegistro.setLinea(linea);
 		}
 		
-		request.setAttribute("linea-registro", lineaRegistro);
+		
+		boolean repeat = Boolean.parseBoolean(request.getParameter("repeat"));
+		
+		if( !repeat) {
+			int currentIndex = lineaRegistro.getLinea().getTratti().indexOf(lineaRegistro.getPosizione());
+			if(lineaRegistro.getLinea().getTratti().size()-1==currentIndex) {
+				lineaRegistro.setPosizione(lineaRegistro.getLinea().getTratti().get(0));
+				lineaRegistro.handleCompletedRound();
+			}else {
+				lineaRegistro.setPosizione(lineaRegistro.getLinea().getTratti().get(currentIndex+1));
+			}
+		}
+		
+		
+		
+		JSONObject lineaJson = new JSONObject(lineaRegistro);
+		response.getOutputStream().println(lineaJson.toString());
+//		request.setAttribute("linea-registro", lineaRegistro);
+		
+		/*DEBUG*/
+		System.out.println("Attr : "+request.getAttribute("repeat"));
+		System.out.println("Session attr : "+request.getSession().getAttribute("repeat"));
+		System.out.println("Param : "+request.getParameter("repeat"));
+		/*DEBUG*/
+		
 		
 	}
 

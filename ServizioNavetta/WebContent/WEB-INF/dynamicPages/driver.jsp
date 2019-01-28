@@ -39,6 +39,9 @@
  <link rel="stylesheet" href="leaflet/leafletRoutingMachine/dist/leaflet-routing-machine.css" />
  <!-- Leaftlet Routing Machine js -->
  <script type="text/javascript" src="leaflet/leafletRoutingMachine/dist/leaflet-routing-machine.js"></script>
+ 
+ <!-- Leaflet Geometry Util import -->
+ <script type="text/javascript" src="leaflet/leafletGeometryUtil/src/leaflet.geometryutil.js"></script>
 
 
 </head>

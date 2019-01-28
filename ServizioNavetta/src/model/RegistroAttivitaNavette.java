@@ -29,6 +29,7 @@ public class RegistroAttivitaNavette {
 	
 	public RegistroAttivitaNavette(Date data) {
 		this.data = data;
+		linee = new HashMap<Integer,LineaRegistroNavette>();
 	}
 
 	public boolean addLinea(int AutistaId) {

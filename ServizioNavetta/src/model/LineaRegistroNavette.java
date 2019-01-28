@@ -50,6 +50,9 @@ public class LineaRegistroNavette {
 		this.linea = linea;
 	}
 	
-	
+	public boolean handleCompletedRound() {
+		//TODO handle the event of a round completed from the bus
+		return true;
+	}
 
 }
