@@ -1,23 +1,20 @@
 package model;
 
 import persistence.persistentModel.Autista;
+import persistence.persistentModel.Linea;
+import persistence.persistentModel.Navetta;
 import persistence.persistentModel.TrattoLinea;
 
 public class LineaRegistroNavette {
 	
-	private int navettaId;
+	private Navetta navetta;
 	private int giriCompletati;
 	private Autista autista;
 	private TrattoLinea posizione;
+	private Linea linea;
 	
 	public LineaRegistroNavette() {}
 	
-	public int getNavettaId() {
-		return navettaId;
-	}
-	public void setNavettaId(int navettaId) {
-		this.navettaId = navettaId;
-	}
 	public int getGiriCompletati() {
 		return giriCompletati;
 	}
@@ -35,6 +32,22 @@ public class LineaRegistroNavette {
 	}
 	public void setPosizione(TrattoLinea posizione) {
 		this.posizione = posizione;
+	}
+
+	public Navetta getNavetta() {
+		return navetta;
+	}
+
+	public void setNavetta(Navetta navetta) {
+		this.navetta = navetta;
+	}
+
+	public Linea getLinea() {
+		return linea;
+	}
+
+	public void setLinea(Linea linea) {
+		this.linea = linea;
 	}
 	
 	

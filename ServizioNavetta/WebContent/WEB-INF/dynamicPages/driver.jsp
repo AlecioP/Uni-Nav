@@ -19,11 +19,26 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <!-- Custom style import -->
-<link rel="stylesheet" type="text/css" href="../../css/driver.css">
+<link rel="stylesheet" type="text/css" href="css/driver.css">
 <!-- Custom javascript import -->
-<script type="text/javascript" src="../../js/bootstrapConverter.js"></script>
+<script type="text/javascript" src="js/bootstrapConverter.js"></script>
 
-<script type="text/javascript" src=""></script>
+<script type="text/javascript" src="js/driverMap.js"></script>
+
+<!-- Leaftlet imports -->
+
+<!--  Leaftlet css-->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"/>
+<!--  Leaftlet js-->
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script type="text/javascript" src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+ 
+ <!-- Leaftlet Routing Machine -->
+ 
+ <!-- Leaftlet Routing Machine css -->
+ <link rel="stylesheet" href="leafletRoutingMachine/dist/leaflet-routing-machine.css" />
+ <!-- Leaftlet Routing Machine js -->
+ <script type="text/javascript" src="leafletRoutingMachine/dist/leaflet-routing-machine.js"></script>
 
 
 </head>
@@ -45,12 +60,14 @@
 		<div class="row">
 			
 			<div id="map" class="myCol-12">
-				<!-- Temporary -->
+				<!-- Temporary --
 				
 					<img
 						src="https://snazzy-maps-cdn.azureedge.net/assets/127403-no-label-bright-colors.png?v=20171101110035">
 				
-				<!-- Temporary -->
+				-- Temporary -->
+				<div id="mapid">
+				</div>
 			</div>
 		</div>
 	</div>
