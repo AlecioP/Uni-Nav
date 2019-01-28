@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MakeRegistration
+ * Servlet implementation class ObliteraBiglietto
  */
-@WebServlet("/MakeRegistration")
-public class MakeRegistration extends HttpServlet {
+@WebServlet("/ObliteraBiglietto")
+public class ObliteraBiglietto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MakeRegistration() {
+    public ObliteraBiglietto() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,22 +29,8 @@ public class MakeRegistration extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String username = (String) request.getSession().getAttribute("username");
-		String mode = (String) request.getSession().getAttribute("login-type");
-		if(username!=null) {
-			if(mode=="driver")
-			{
-				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/driver.html");
-				rd.forward(request, response);
-			}
-			else
-			{
-				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.html");
-				rd.forward(request, response);
-			}
-		}else {
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/registration.jsp");
-		rd.forward(request, response);}
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/obliteraBiglietto.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
