@@ -64,5 +64,14 @@
 		<servlet-name>DriverRegisterMediator</servlet-name>
 		<url-pattern>/driverRegisterMediator</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CreaPrenotazione</servlet-name>
+		<servlet-class>controller.CreaPrenotazione</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreaPrenotazione</servlet-name>
+		<url-pattern>/creaPrenotazione</url-pattern>
+	</servlet-mapping>
 
 </web-app>

@@ -56,24 +56,5 @@
 			</ul>
 		</div>
 	</nav>
-	<div class="myCol-1"></div>
-	<div class="myCol-10">
-		<div id="actual-position" class="row">
-			<span>Posizione Attuale: </span> <span id="actual-position-img">img-index</span>
-		</div>
-		<div class="row">
-			
-			<div id="map" class="myCol-12">
-				<!-- Temporary --
-				
-					<img
-						src="https://snazzy-maps-cdn.azureedge.net/assets/127403-no-label-bright-colors.png?v=20171101110035">
-				
-				-- Temporary -->
-				<div id="mapid">
-				</div>
-			</div>
-		</div>
-	</div>
 </body>
 </html>
