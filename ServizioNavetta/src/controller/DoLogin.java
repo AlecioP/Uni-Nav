@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
+import persistence.daoManage.crud.Crud;
 import persistence.daoManage.crud.SecurityDAO;
+import persistence.persistentModel.Autista;
 import persistence.persistentModel.Password;
+import persistence.persistentModel.Studente;
 
 /**
  * Servlet implementation class doLogin
@@ -62,13 +65,35 @@ public class DoLogin extends HttpServlet {
 		String type =  request.getParameter("login-type");
 		switch(type) {
 		case "driver" : {
+			Crud autistaDao=daoFactory.getAutistaDAO();
+			Autista a= (Autista) autistaDao.findByPrimaryKey(username);
+			if(a==null) {
+				request.setAttribute("login-error", "Non sei un Autista.");
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
+				rd.forward(request, response);
+				return;
+			}
+			request.getSession().setAttribute("username", username);
+			request.getSession().setAttribute("tipo-login", type);
+
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/driver.jsp");
 			rd.forward(request, response);
 			break;
 		}
 		case "student" : {
+			Crud studenteDao=daoFactory.getStudenteDAO();
+			Studente a= (Studente) studenteDao.findByPrimaryKey(username);
+			if(a==null) {
+				request.setAttribute("login-error", "Non sei uno Studente.");
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
+				rd.forward(request, response);
+				return;
+			}
+			request.getSession().setAttribute("username", username);
+			request.getSession().setAttribute("tipo-login", type);
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.html");
 			rd.forward(request, response);
+			break;
 		}
 		default :{
 
