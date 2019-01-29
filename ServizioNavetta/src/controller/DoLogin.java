@@ -44,10 +44,10 @@ public class DoLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//		String prova = (String) request.getAttribute("id");
-		String username = (String) request.getAttribute("id");
-		String pass = (String) request.getAttribute("pass");
+		String username = (String) request.getParameter("id");
+		String pass = (String) request.getParameter("pass");
 		//Debug
-		//System.out.println(username +" "+ pass);
+//		System.out.println(username +" "+ pass);
 		DAOFactory daoFactory = DatabaseManager.getInstance().getDaoFactory();
 		SecurityDAO credenziali = daoFactory.getPersonaSecureDAO();
 		credenziali.authorizeDao("1", "p");
@@ -91,7 +91,7 @@ public class DoLogin extends HttpServlet {
 			}
 			request.getSession().setAttribute("username", username);
 			request.getSession().setAttribute("tipo-login", type);
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.html");
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.jsp");
 			rd.forward(request, response);
 			break;
 		}
