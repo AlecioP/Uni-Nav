@@ -1,2 +1,5 @@
 /controller/
 /model/
+/persistence/
+/tests/
+/dscac.class
