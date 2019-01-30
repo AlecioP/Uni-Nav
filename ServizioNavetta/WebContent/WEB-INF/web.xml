@@ -64,12 +64,68 @@
 		<servlet-name>DriverRegisterMediator</servlet-name>
 		<url-pattern>/driverRegisterMediator</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
-		<servlet-name>ObliteraBiglietto</servlet-name>
-		<servlet-class>controller.ObliteraBiglietto</servlet-class>
+		<servlet-name>CreaPrenotazione</servlet-name>
+		<servlet-class>controller.CreaPrenotazione</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ObliteraBiglietto</servlet-name>
-		<url-pattern>/obliteraBiglietto</url-pattern>
+		<servlet-name>CreaPrenotazione</servlet-name>
+		<url-pattern>/creaPrenotazione</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ObliteraManualmente</servlet-name>
+		<servlet-class>controller.ObliteraManualmente</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ObliteraManualmente</servlet-name>
+		<url-pattern>/ObliteraManualmente</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MostraPrenotazioni</servlet-name>
+		<servlet-class>controller.MostraPrenotazioni</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MostraPrenotazioni</servlet-name>
+		<url-pattern>/MostraPrenotazioni</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ObliteraEntrataManualmente</servlet-name>
+		<servlet-class>controller.ObliteraEntrataManualmente</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ObliteraEntrataManualmente</servlet-name>
+		<url-pattern>/obliteraEntrataManualmente</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ProvaGeneraBiglietto</servlet-name>
+		<servlet-class>controller.ProvaGeneraBiglietto</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProvaGeneraBiglietto</servlet-name>
+		<url-pattern>/provaGeneraBiglietto</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ProvaFeedback</servlet-name>
+		<servlet-class>controller.ProvaFeedback</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProvaFeedback</servlet-name>
+		<url-pattern>/provaFeedback</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LasciaFeedback</servlet-name>
+		<servlet-class>controller.LasciaFeedback</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LasciaFeedback</servlet-name>
+		<url-pattern>/lasciaFeedback</url-pattern>
+	</servlet-mapping>
+
 </web-app>

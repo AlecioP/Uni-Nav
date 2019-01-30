@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import persistence.daoManage.DAOFactory;
+import persistence.daoManage.DatabaseManager;
 import persistence.daoManage.PostgresDAOFactory;
+import persistence.daoManage.jdbcDao.PrenotazioneDaoJDBC;
 import persistence.daoManage.jdbcDao.StudenteDaoJDBC;
 import persistence.persistentModel.Password;
+import persistence.persistentModel.Prenotazione;
 import persistence.persistentModel.Studente;
 
 public class IscriviStudente extends HttpServlet {
@@ -57,10 +60,20 @@ public class IscriviStudente extends HttpServlet {
 		} else {
 			s = new Studente(matricolaReg, 0, nome, cognome, email, passReg);
 			sdao.save(s);
+			//ArrayList<Prenotazione> pr = prenStudente(s);
 			req.getSession().setAttribute("studente", s);
+			//req.getSession().setAttribute("prenotazioni", pr);
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/homePallino.jsp");
 			rd.forward(req, resp);
 		}
+	}
+
+	@SuppressWarnings("unused")
+	private ArrayList<Prenotazione> prenStudente(Studente s) {
+		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
+		PrenotazioneDaoJDBC pdao = (PrenotazioneDaoJDBC) df.getPrenotazioneDAO();
+		ArrayList<Prenotazione> p = pdao.findByReference(s);
+		return p;
 	}
 
 	private boolean ceEmail(String email) {

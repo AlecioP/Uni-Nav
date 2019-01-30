@@ -74,7 +74,7 @@ public class FermataDaoJDBC implements Crud {
 	}
 
 	@Override
-	public List<? extends CrudTag> findAll() {
+	public List<Fermata> findAll() {
 		ArrayList<Fermata> result = new ArrayList<Fermata>();
 		Connection con = ds.getConnection();
 		String query = "select * from \"Fermata\"";

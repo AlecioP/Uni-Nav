@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+body {
+	position: relative;
+	top : 5em;
+}
+
+#map{
+	height: 30em;
+	width: 100%;
+	border: 5px solid black;
+}

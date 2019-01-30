@@ -30,24 +30,43 @@ body {
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script src="js/loadStudent.js"></script>
+<script src="js/biglietto.js"></script>
 <!-- Custom style import -->
 <!--<link rel="stylesheet" type="text/css" href="css/common.css">-->
 </head>
 <body>
+	<h1>${studente.nome}</h1>
 	<table>
-		<!-- <tr>
-			<th>Matricola</th>
-			<th>Nome</th>
-			<th>Cognome</th>
-		</tr> -->
 		<tr>
-			<%-- <td>${studente.matricola}</td>
-			<td>${studente.nome}</td>
-			<td>${studente.cognome}</td> --%>
-			<td><input id="qr" type="button" value="Genera Biglietto"
-				onclick=" updateQRCode('${studente.matricola}'+'${studente.nome}');" /></td>
+			<th>Prenotazione</th>
+			<th>Autista</th>
+			<th>Giro</th>
+			<th>Navetta</th>
+			<th>Partenza</th>
+			<th>Arrivo</th>
 		</tr>
+		<c:forEach items="${prenotazione}" var="pren">
+			<tr>
+				<td>${pren.ID}</td>
+				<td>${pren.autista.ID}</td>
+				<td>${pren.giro}</td>
+				<td>${pren.navetta.ID}</td>
+				<td>${pren.tratto.partenza.nome}</td>
+				<td>${pren.tratto.arrivo.nome}</td>
+				<td><input id="qr" class="biglietti" type="button"
+					value="Genera Biglietto"
+					onclick=" updateQRCode('${studente.matricola}'+'${pren.ID}');" /></td>
+				<!-- <th>Nome</th>
+			<th>Cognome</th> -->
+			</tr>
+			<%-- <tr>
+				<td>${studente.matricola}</td>
+			<td>${studente.nome}</td>
+			<td>${studente.cognome}</td>
+				<td><input id="qr" type="button" value="Genera Biglietto"
+					onclick=" updateQRCode('${studente.matricola}'+'${pren.ID}');" /></td>
+			</tr> --%>
+		</c:forEach>
 	</table>
 	<!-- <form action="generaCodice" method="post">
 				<button type="submit">Submit</button>

@@ -88,7 +88,7 @@ public class TrattoLineaDaoJDBC implements Crud {
 	}
 
 	@Override
-	public List<? extends CrudTag> findAll() {
+	public List<TrattoLinea> findAll() {
 		ArrayList<TrattoLinea> ret = new ArrayList<TrattoLinea>();
 		Connection con = ds.getConnection();
 		String query = "select * from \"Tratto_di_linea\"";
