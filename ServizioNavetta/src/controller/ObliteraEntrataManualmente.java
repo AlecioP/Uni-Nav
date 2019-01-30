@@ -14,13 +14,16 @@ import org.json.JSONObject;
 
 import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
-import persistence.daoManage.PostgresDAOFactory;
 import persistence.daoManage.jdbcDao.PrenotazioneDaoJDBC;
 import persistence.daoManage.jdbcDao.StudenteDaoJDBC;
 import persistence.persistentModel.Prenotazione;
-import persistence.persistentModel.Studente;
 
 public class ObliteraEntrataManualmente extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -771141708825267352L;
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String jsonReceived = "";
@@ -36,9 +39,10 @@ public class ObliteraEntrataManualmente extends HttpServlet {
 
 			DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 			PrenotazioneDaoJDBC pdao = (PrenotazioneDaoJDBC) df.getPrenotazioneDAO();
+			@SuppressWarnings("unused")
 			StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
 			// System.out.println(json.getString("id") + " jsonnn");
-			Prenotazione p = pdao.findByPrimaryKey(json.getString("id"));
+			Prenotazione p = (Prenotazione) pdao.findByPrimaryKey(json.getString("id"));
 			// Studente s = sdao.findByPrimaryKey(p.getStudente().getMatricola() + "");
 			// System.out.println(p.getID() + " iddd");
 			// System.out.println(p.getTratto().getArrivo() + " nomeee");

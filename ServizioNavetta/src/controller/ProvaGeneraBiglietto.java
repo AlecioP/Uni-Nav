@@ -17,6 +17,11 @@ import persistence.persistentModel.Prenotazione;
 import persistence.persistentModel.Studente;
 
 public class ProvaGeneraBiglietto extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2674366772336696342L;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("ccc");

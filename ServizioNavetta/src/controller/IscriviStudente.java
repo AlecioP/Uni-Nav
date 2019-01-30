@@ -68,6 +68,7 @@ public class IscriviStudente extends HttpServlet {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private ArrayList<Prenotazione> prenStudente(Studente s) {
 		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 		PrenotazioneDaoJDBC pdao = (PrenotazioneDaoJDBC) df.getPrenotazioneDAO();
