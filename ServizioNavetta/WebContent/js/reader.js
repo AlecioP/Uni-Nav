@@ -1,22 +1,22 @@
 let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
 scanner.addListener('scan', function (content) {
-        console.log(content);
-        var ticketCode = {code:content};
-        $.post({
-    		type: "POST",
-    		url: "obliteraBiglietto",
-    		datatype: "json",
-    		data: JSON.stringify(ticketCode),
-    		success: function (data){
-    			var codeOk = JSON.parse(data);
-    			if(codeOk.verified == true){
-    				alert("ok");
-    			}
-    			else{
-    				alert("No");
-    			}
-    		}
-    	});
+		console.log(content);
+		 var ticketCode = {code:content};
+	        $.post({
+	    		type: "POST",
+	    		url: "ObliteraBiglietto",
+	    		datatype: "json",
+	    		data: JSON.stringify(ticketCode),
+	    		success: function (data){
+	    			var codeOk = JSON.parse(data);
+	    			if(codeOk.verified == true){
+	    				alert("ok");
+	    			}
+	    			else{
+	    				alert("No");
+	    			} 
+	    		}
+	    	});
       
 });
 Instascan.Camera.getCameras().then(function (cameras) {

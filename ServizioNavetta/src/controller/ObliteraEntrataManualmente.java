@@ -36,7 +36,6 @@ public class ObliteraEntrataManualmente extends HttpServlet {
 		// System.out.println(jsonReceived);
 		try {
 			JSONObject json = new JSONObject(jsonReceived);
-
 			DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 			PrenotazioneDaoJDBC pdao = (PrenotazioneDaoJDBC) df.getPrenotazioneDAO();
 			@SuppressWarnings("unused")
