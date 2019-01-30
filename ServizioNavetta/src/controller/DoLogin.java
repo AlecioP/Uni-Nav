@@ -43,24 +43,34 @@ public class DoLogin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession().removeAttribute("login-error");
 		//		String prova = (String) request.getAttribute("id");
 		String username = (String) request.getParameter("id");
 		String pass = (String) request.getParameter("pass");
-		//Debug
-//		System.out.println(username +" "+ pass);
+		try {
+			Integer.parseInt(username);
+		}
+		catch (NumberFormatException e) {
+			request.getSession().setAttribute("login-error", "L'username deve essere un valore numerico.");
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
+			rd.forward(request, response);
+			return;
+		}
 		DAOFactory daoFactory = DatabaseManager.getInstance().getDaoFactory();
 		SecurityDAO credenziali = daoFactory.getPersonaSecureDAO();
 		credenziali.authorizeDao("1", "p");
 		Password checkPass = (Password) credenziali.retriveSensitiveData(username);
 		if(checkPass==null) {
-			request.setAttribute("login-error", "L'utente non esiste.");
+			request.getSession().setAttribute("login-error", "L'utente non esiste.");
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
 			rd.forward(request, response);
+			return;
 		}
 		else if(checkPass.password.equals(pass)==false) {
-			request.setAttribute("login-error", "Password errata.");
+			request.getSession().setAttribute("login-error", "Password errata.");
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
 			rd.forward(request, response);
+			return;
 		}
 		String type =  request.getParameter("login-type");
 		switch(type) {
@@ -68,7 +78,7 @@ public class DoLogin extends HttpServlet {
 			Crud autistaDao=daoFactory.getAutistaDAO();
 			Autista a= (Autista) autistaDao.findByPrimaryKey(username);
 			if(a==null) {
-				request.setAttribute("login-error", "Non sei un Autista.");
+				request.getSession().setAttribute("login-error", "Non sei un Autista.");
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
 				rd.forward(request, response);
 				return;
@@ -78,13 +88,13 @@ public class DoLogin extends HttpServlet {
 
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/driver.jsp");
 			rd.forward(request, response);
-			break;
+			return;
 		}
 		case "student" : {
 			Crud studenteDao=daoFactory.getStudenteDAO();
 			Studente a= (Studente) studenteDao.findByPrimaryKey(username);
 			if(a==null) {
-				request.setAttribute("login-error", "Non sei uno Studente.");
+				request.getSession().setAttribute("login-error", "Non sei uno Studente.");
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
 				rd.forward(request, response);
 				return;
@@ -93,7 +103,7 @@ public class DoLogin extends HttpServlet {
 			request.getSession().setAttribute("tipo-login", type);
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.jsp");
 			rd.forward(request, response);
-			break;
+			return;
 		}
 		default :{
 
