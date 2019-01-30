@@ -20,33 +20,38 @@ import persistence.persistentModel.TrattoLinea;
 import persistence.daoManage.jdbcDao.FermataDaoJDBC;
 
 public class CreaPrenotazione extends HttpServlet{
-	
+
 	/**
 	 * 
 	 */
-	
+
 	private static final int NUMERO_FERMATE_VICINE = 5;
-	
+
 	private static final long serialVersionUID = 7019570969697763456L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		/*Verifica ban*/
-		
+
 		/**/
-		
-		
-		
 		String state = (String) req.getParameter("state");
-		double actualLat = Double.parseDouble(req.getParameter("start-lat"));
-		double actualLng = Double.parseDouble(req.getParameter("actual-lng"));
-		ArrayList<Fermata> fermatevicine = new ArrayList<Fermata>();
-		if(state.equals("partenza") || state.equals("arrivo")) {
+		if(state==null) {
+			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/NuovaPrenotazioneMap.jsp");
+			rd.forward(req, resp);
+		}
+
+		switch(state) {
+
+		case "partenza":
+		case "arrivo":{
+			double actualLat = Double.parseDouble(req.getParameter("start-lat"));
+			double actualLng = Double.parseDouble(req.getParameter("actual-lng"));
+			ArrayList<Fermata> fermatevicine = new ArrayList<Fermata>();
 			DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
-			
+
 			FermataDaoJDBC fermataDao = (FermataDaoJDBC) df.getFermataDAO();
 			ArrayList<Fermata> tuttefermate = (ArrayList<Fermata>) fermataDao.findAll();
-			
+
 			for(Fermata f : tuttefermate) {
 				if(fermatevicine.size()<NUMERO_FERMATE_VICINE)
 					fermatevicine.add(f);
@@ -65,18 +70,13 @@ public class CreaPrenotazione extends HttpServlet{
 						fermatevicine.add(f);
 					}
 				}
-				
+
 			}
 			JSONObject fermate = new JSONObject(fermatevicine);
 			resp.getOutputStream().println(fermate.toString());
-			return;
+			break;
 		}
-		
-		
-		
-		
-		switch(state) {
-		
+
 		case "computeLine" :{
 			String partenzaNome = (String) req.getSession().getAttribute("partenza-nome");
 			String arrivoNome = (String) req.getSession().getAttribute("arrivo-nome");
@@ -90,12 +90,8 @@ public class CreaPrenotazione extends HttpServlet{
 			break;
 		}
 		case "computeBus" : {
-			
+
 			break;
-		}
-		default : {
-			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/NuovaPrenotazioneMap.jsp");
-			rd.forward(req, resp);
 		}
 		}
 	}
