@@ -31,7 +31,22 @@ public class Home extends HttpServlet {
 //		System.out.println(request.getContextPath());
 		String username = (String) request.getSession().getAttribute("username");
 		if(username!=null) {
-			/*REDIRECT TO SOMETHING ELSE*/
+			String tipo_login = (String) request.getSession().getAttribute("tipo-login");
+			switch(tipo_login) {
+			case "driver":{
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/driver.jsp");
+				rd.forward(request, response);
+				return;
+			}
+			case "student":{
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.jsp");
+				rd.forward(request, response);
+				return;
+			}
+			default : {
+				
+			}
+			}
 		}else {	
 			if(Boolean.parseBoolean((String) request.getAttribute("loginRedirect"))) {
 				

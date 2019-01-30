@@ -23,8 +23,6 @@
 <!-- Custom javascript import -->
 <script type="text/javascript" src="js/bootstrapConverter.js"></script>
 
-<script type="text/javascript" src="js/driverMap.js"></script>
-
 <!-- Leaftlet imports -->
 
 <!--  Leaftlet css-->
