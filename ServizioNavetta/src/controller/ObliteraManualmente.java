@@ -16,11 +16,13 @@ import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
 import persistence.daoManage.jdbcDao.AutistaDaoJDBC;
 import persistence.daoManage.jdbcDao.NavettaDaoJDBC;
+import persistence.daoManage.jdbcDao.StudenteDaoJDBC;
+import persistence.daoManage.jdbcDao.TrattoLineaDaoJDBC;
 import persistence.persistentModel.Autista;
-import persistence.persistentModel.Fermata;
 import persistence.persistentModel.Linea;
 import persistence.persistentModel.Navetta;
-import persistence.persistentModel.TrattoLinea;
+import persistence.persistentModel.Prenotazione;
+import persistence.persistentModel.Studente;
 
 public class ObliteraManualmente extends HttpServlet {
 	/**
@@ -33,23 +35,44 @@ public class ObliteraManualmente extends HttpServlet {
 		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 		AutistaDaoJDBC adao = (AutistaDaoJDBC) df.getAutistaDAO();
 		NavettaDaoJDBC ndao = (NavettaDaoJDBC) df.getNavettaDAO();
-		RegistroAttivitaNavette r = new RegistroAttivitaNavette(new Date());
-		Autista a = (Autista) adao.findByPrimaryKey("2");
-		r.addLinea(a.getID());
-		LineaRegistroNavette l = r.getLineaRegistro(a.getID());
-		l.setAutista(a);
-		l.setGiriCompletati(0);
-		Navetta n = (Navetta) ndao.findByPrimaryKey("1");
-		// insert into "Linea" values (ARRAY[['l'],['i'],['n'],['e'],['a']]);
-		/**/
-		l.setNavetta(n);
-		Linea lineaA = new Linea("a");
-		Linea lineaB = new Linea("b");
-		Fermata f1 = new Fermata("a", 2.1, 2.2), f2 = new Fermata("b", 2.1, 2.2);
-		TrattoLinea farlocco = new TrattoLinea(f1, f2, 1, 1);
-		l.setPosizione(farlocco);
-		l.setLinea(lineaA);
-		req.getServletContext().setAttribute("registro", r);
+		TrattoLineaDaoJDBC ldao = (TrattoLineaDaoJDBC) df.getTrattoLineaDAO();
+		StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
+		String tmp = (String) req.getSession().getAttribute("username");
+		int autistaID = Integer.parseInt(tmp);
+		RegistroAttivitaNavette registro = (RegistroAttivitaNavette) req.getServletContext().getAttribute("registro");
+		if (registro == null) {
+			registro = new RegistroAttivitaNavette(new Date());
+			req.getServletContext().setAttribute("registro", registro);
+		}
+		LineaRegistroNavette linea = registro.getLineaRegistro(autistaID);
+		if (linea == null) {
+			registro.addLinea(autistaID);
+			linea = registro.getLineaRegistro(autistaID);
+			Autista a = (Autista) adao.findByPrimaryKey(autistaID + "");
+			linea.setAutista(a);
+			linea.setGiriCompletati(0);
+			linea.setNavetta((Navetta) ndao.findByPrimaryKey("1"));
+			linea.setLinea(new Linea("a"));
+			linea.setPosizione(ldao.findByPrimaryKeyComposed("b", "a"));
+		}
+		String matricola = req.getParameter("current-matricola");
+		Studente s = sdao.findByPrimaryKey(matricola);
+		if (s != null) {
+			ArrayList<Prenotazione> prenotazioniS = s.getPrenotazioni();
+			for (Prenotazione pren : prenotazioniS) {
+				if (pren.getGiro() == linea.getGiriCompletati() + 1 && pren.getAutista().getID() == autistaID
+						&& pren.getNavetta().getID() == linea.getNavetta().getID()
+						&& pren.getDateTime().getTime().equals(registro.getData())
+						&& pren.getTratto().getPartenza().getNome().equals(linea.getPosizione().getPartenza().getNome())
+						&& pren.getTratto().getArrivo().getNome().equals(linea.getPosizione().getArrivo().getNome())) {
+					req.setAttribute("prenotazioneID", Integer.valueOf(pren.getID()));
+					RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/mostraPrenotazione.jsp");
+					rd.forward(req, resp);
+					return;
+				}
+			}
+		}
+		req.getSession().setAttribute("error-message", "Lo studente non è prenotato");
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/obliteraManualmente.jsp");
 		rd.forward(req, resp);
 	}
