@@ -3,9 +3,9 @@ $(function() { /* DOM ready */
 		var array = $(".biglietti");
 		alert(array.length);
 		for (var i = 0; i < array.length; i++) {
-			alert("for");
+		//	alert("for");
 			if (array[i] != this) {
-				alert("uu");
+			//	alert("uu");
 				array[i].disabled = true;
 				// $("#entrata").attr("disabled",
 				// "disabled");

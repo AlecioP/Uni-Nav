@@ -76,7 +76,7 @@ body {
 	<div id="qrcode"></div>
 	<script type="text/javascript">
 		function updateQRCode(text) {
-			alert("erf");
+			//alert("erf");
 			var element = document.getElementById("qrcode");
 
 			var bodyElement = document.body;
