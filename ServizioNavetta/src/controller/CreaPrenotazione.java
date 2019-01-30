@@ -38,6 +38,7 @@ public class CreaPrenotazione extends HttpServlet{
 		if(state==null) {
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/NuovaPrenotazioneMap.jsp");
 			rd.forward(req, resp);
+			return;
 		}
 
 		switch(state) {
