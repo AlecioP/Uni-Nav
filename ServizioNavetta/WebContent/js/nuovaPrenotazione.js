@@ -9,6 +9,11 @@ var myToken = 'pk.eyJ1IjoibWltbW9mbG93IiwiYSI6ImNqcDZ4eGF4ZTFlazQzdmxrb3UwYXV2Mn
 var mapAttribution = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 var LAT = 0.0;
 var LNG = 0.0;
+var mymap;
+
+/*DEBUG*/
+var debFermate;
+/**/
 /*
  * HINT : 
  * 
@@ -29,8 +34,8 @@ $(function(){ /* DOM ready */
     	LNG = position.coords.longitude;
     	
     	/**/
-    	//Probably in some if
-    	var mymap = L.map('map').setView([LAT,LNG],15);
+    	
+    	mymap = L.map('map').setView([LAT,LNG],15);
     	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', 
     			{
     		attribution: mapAttribution,
@@ -41,5 +46,34 @@ $(function(){ /* DOM ready */
     			}
     	).addTo(mymap);
     	/**/
+    	
+    	$.ajax({type: "GET", url: "creaPrenotazione", data : {"state" : "partenza", "actual-lat" : LAT, "actual-lng" : LNG },
+    		success: function(data){
+    			var fermateVicine = JSON.parse(data);
+                /*DEBUG*/
+                debFermate =fermateVicine;
+                /*DEBUG*/
+                if(mymap!=undefined){
+                	for(var i=0;i<fermateVicine.length;i++){
+                		var f_lat=fermateVicine[i].latitudine;
+                    	var f_lng=fermateVicine[i].longitudine;
+                    	L.marker([f_lat, f_lng]).addTo(mymap);
+                	}
+                }
+                
+    		}	
+    	});
 	});
+	
+	
+	$("#start-geoloc").click(function(){
+		
+	});
+	$("#start-map").click(function(){
+		
+	});
+	$("#stop-map").click(function(){
+		
+	});
+	
 });
