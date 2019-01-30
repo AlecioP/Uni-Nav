@@ -23,7 +23,7 @@ var polyTratto;//Leaflet JS Object
 var lineaAttuale;
 /*This method is invoked every time the position of the device changes*/
 $(function(){ /* DOM ready */
-	navigator.geolocation.getCurrentPosition(function (position) {
+	navigator.geolocation.watchPosition(function (position) {
     	LAT = position.coords.latitude;
     	LNG = position.coords.longitude;
     

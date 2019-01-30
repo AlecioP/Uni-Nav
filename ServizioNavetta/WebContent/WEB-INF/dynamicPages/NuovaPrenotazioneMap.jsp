@@ -50,7 +50,7 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 			<ul class="nav navbar-nav">
-					<li><a href="#">Home</a></li>
+					<li><a href="Home">Home</a></li>
 					<li><a href="#">Prenotazioni Effettuate</a></li>
 					<li><a href="creaPrenotazione">Esegui Nuova Prenotazione</a></li>
 					<li><a href="#">Lascia un Feedback</a></li>
@@ -66,11 +66,11 @@
 				<div class="panel-heading">Partenza :</div>
 				<div class="panel-body">
 					<label class="checkbox-inline">
-						<input class="start" type="radio" name="start" value="geoloc" checked="checked">
+						<input id="start-geoloc" class="start" type="radio" name="start" value="geoloc" checked="checked">
 						<span>Posizione Attuale</span>
 					</label> 
 					<label class="checkbox-inline">
-						<input class="start" type="radio" name="start" value="from-map">
+						<input id="start-map" class="start" type="radio" name="start" value="from-map">
 						<span>Seleziona sulla mappa</span>
 					</label>
 				</div>
@@ -78,7 +78,7 @@
 			<div class="panel panel-success">
 				<div class="panel-heading">Arrivo :</div>
 				<div class="panel-body">
-					<input placeholder="Seleziona sulla mappa..." disabled>
+					<input id="stop-map" placeholder="Seleziona sulla mappa..." disabled>
 				</div>
 			</div>
 			<button class="btn btn-info" disabled>Calcola percorsi</button>
