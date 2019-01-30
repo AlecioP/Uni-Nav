@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import model.geoUtil.GeoUtil;
@@ -45,7 +46,7 @@ public class CreaPrenotazione extends HttpServlet{
 
 		case "partenza":
 		case "arrivo":{
-			double actualLat = Double.parseDouble(req.getParameter("start-lat"));
+			double actualLat = Double.parseDouble(req.getParameter("actual-lat"));
 			double actualLng = Double.parseDouble(req.getParameter("actual-lng"));
 			ArrayList<Fermata> fermatevicine = new ArrayList<Fermata>();
 			DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
@@ -73,7 +74,11 @@ public class CreaPrenotazione extends HttpServlet{
 				}
 
 			}
-			JSONObject fermate = new JSONObject(fermatevicine);
+			ArrayList<JSONObject> fermateJson = new ArrayList<JSONObject>();
+			for(Fermata f : fermatevicine) {
+				fermateJson.add(new JSONObject(f));
+			}
+			JSONArray fermate = new JSONArray(fermateJson);
 			resp.getOutputStream().println(fermate.toString());
 			break;
 		}
