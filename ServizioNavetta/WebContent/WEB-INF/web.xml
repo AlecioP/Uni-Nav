@@ -80,7 +80,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ObliteraManualmente</servlet-name>
-		<url-pattern>/ObliteraManualmente</url-pattern>
+		<url-pattern>/obliteraManualmente</url-pattern>
 	</servlet-mapping>
 
 	<servlet>

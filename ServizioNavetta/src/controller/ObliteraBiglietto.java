@@ -45,6 +45,7 @@ public class ObliteraBiglietto extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		String jsonReceived = "";
+		Convertitor convertitor = new Convertitor();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
 		String line = reader.readLine();
 		while (line != null) {
@@ -53,6 +54,12 @@ public class ObliteraBiglietto extends HttpServlet {
 		}
 		JSONObject jsonResult;
 		try {
+			
+			if(convertitor.getPrenotazione(line).getID()!= -1) {
+				System.out.println(convertitor.getPrenotazione(line).getID());
+			}
+			
+			
 			jsonResult = new JSONObject();
 			jsonResult.put("verified",true);
 			response.getWriter().println(jsonResult);

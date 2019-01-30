@@ -1,8 +1,12 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import persistence.daoManage.DAOFactory;
+import persistence.daoManage.DatabaseManager;
+import persistence.daoManage.jdbcDao.PrenotazioneDaoJDBC;
 import persistence.persistentModel.Prenotazione;
 
 public class Convertitor {
@@ -12,13 +16,17 @@ public class Convertitor {
 	
 	
 	public Prenotazione getPrenotazione(String code) {
-		return null;
-		 
+		//espressioni regolari?
+		String[] tokens = code.split("-");
+		String codePren = tokens[tokens.length-1];
+		DAOFactory daoFactory = DatabaseManager.getInstance().getDaoFactory();
+		PrenotazioneDaoJDBC prenotationDao = (PrenotazioneDaoJDBC) daoFactory.getPrenotazioneDAO();
+		Prenotazione prenotation = (Prenotazione) prenotationDao.findByPrimaryKey(codePren);
+		return prenotation;
 	}
 	
 	public String getCode(Prenotazione prenotazione) {
 		Calendar calendar = prenotazione.getDateTime();
-		Date time = calendar.getTime();	
 		String codePrenString =  String.valueOf(prenotazione.getID());
 		int n = (int)  (Math.random()*100000);
 		String codeRandom = String.valueOf(n);

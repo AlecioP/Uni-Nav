@@ -4,7 +4,7 @@ scanner.addListener('scan', function (content) {
 		 var ticketCode = {code:content};
 	        $.post({
 	    		type: "POST",
-	    		url: "ObliteraBiglietto",
+	    		url: "obliteraBiglietto",
 	    		datatype: "json",
 	    		data: JSON.stringify(ticketCode),
 	    		success: function (data){
