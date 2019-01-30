@@ -31,7 +31,7 @@ public class ObliteraManualmente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 		AutistaDaoJDBC adao = (AutistaDaoJDBC) df.getAutistaDAO();
 		NavettaDaoJDBC ndao = (NavettaDaoJDBC) df.getNavettaDAO();
@@ -55,25 +55,34 @@ public class ObliteraManualmente extends HttpServlet {
 			linea.setLinea(new Linea("a"));
 			linea.setPosizione(ldao.findByPrimaryKeyComposed("b", "a"));
 		}
+		if (linea.getNavetta() == null)
+			linea.setNavetta((Navetta) ndao.findByPrimaryKey("1"));
+
 		String matricola = req.getParameter("current-matricola");
 		Studente s = sdao.findByPrimaryKey(matricola);
 		if (s != null) {
 			ArrayList<Prenotazione> prenotazioniS = s.getPrenotazioni();
 			for (Prenotazione pren : prenotazioniS) {
+				System.out.println("inizio");
 				if (pren.getGiro() == linea.getGiriCompletati() + 1 && pren.getAutista().getID() == autistaID
-						&& pren.getNavetta().getID() == linea.getNavetta().getID()
-						&& pren.getDateTime().getTime().equals(registro.getData())
-						&& pren.getTratto().getPartenza().getNome().equals(linea.getPosizione().getPartenza().getNome())
-						&& pren.getTratto().getArrivo().getNome().equals(linea.getPosizione().getArrivo().getNome())) {
+						&& pren.getNavetta().getID() == linea.getNavetta().getID()) {
+					/*
+					 * && pren.getDateTime().getTime().equals(registro.getData()) &&
+					 * pren.getTratto().getPartenza().getNome().equals(linea.getPosizione().
+					 * getPartenza().getNome()) &&
+					 * pren.getTratto().getArrivo().getNome().equals(linea.getPosizione().getArrivo(
+					 * ).getNome()))
+					 */
+					System.out.println("pren trovata");
 					req.setAttribute("prenotazioneID", Integer.valueOf(pren.getID()));
-					RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/mostraPrenotazione.jsp");
+					RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/mostraPrenotazioni.jsp");
 					rd.forward(req, resp);
 					return;
 				}
 			}
 		}
 		req.getSession().setAttribute("error-message", "Lo studente non è prenotato");
-		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/obliteraManualmente.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/obliteraBiglietto.jsp");
 		rd.forward(req, resp);
 	}
 }
