@@ -64,5 +64,12 @@
 		<servlet-name>DriverRegisterMediator</servlet-name>
 		<url-pattern>/driverRegisterMediator</url-pattern>
 	</servlet-mapping>
-
+	<servlet>
+		<servlet-name>ObliteraBiglietto</servlet-name>
+		<servlet-class>controller.ObliteraBiglietto</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ObliteraBiglietto</servlet-name>
+		<url-pattern>/obliteraBiglietto</url-pattern>
+	</servlet-mapping>
 </web-app>
