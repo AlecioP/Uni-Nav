@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.conversionUtil.Converter;
 import model.LineaRegistroNavette;
 import model.RegistroAttivitaNavette;
 import persistence.daoManage.DAOFactory;
@@ -84,7 +83,7 @@ public class ObliteraManualmente extends HttpServlet {
 				}
 			}
 		}
-		req.getSession().setAttribute("registration-error", "Lo studente non è prenotato");
+		req.getSession().setAttribute("registration-error", "Lo studente non ï¿½ prenotato");
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/obliteraBiglietto.jsp");
 		rd.forward(req, resp);
 	}
