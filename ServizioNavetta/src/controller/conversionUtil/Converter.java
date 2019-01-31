@@ -1,16 +1,14 @@
-package controller;
+package controller.conversionUtil;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
 import persistence.daoManage.jdbcDao.PrenotazioneDaoJDBC;
 import persistence.persistentModel.Prenotazione;
 
-public class Convertitor {
-	public Convertitor() {
+public class Converter {
+	public Converter() {
 		
 	}
 	

@@ -9,18 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.LineaRegistroNavette;
 import model.RegistroAttivitaNavette;
 import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
 import persistence.daoManage.jdbcDao.PrenotazioneDaoJDBC;
 import persistence.daoManage.jdbcDao.StudenteDaoJDBC;
-import persistence.persistentModel.Autista;
-import persistence.persistentModel.Linea;
-import persistence.persistentModel.Navetta;
 import persistence.persistentModel.Prenotazione;
 import persistence.persistentModel.Studente;
-import persistence.persistentModel.TrattoLinea;
 
 public class MostraPrenotazioni extends HttpServlet {
 	/**
@@ -31,6 +26,7 @@ public class MostraPrenotazioni extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String matricola = req.getParameter("matricola");
+		@SuppressWarnings("unused")
 		RegistroAttivitaNavette r = (RegistroAttivitaNavette) req.getServletContext().getAttribute("registro");
 		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 		StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
