@@ -38,7 +38,7 @@ body {
 <body>
 	<h1>${studente.nome}</h1>
 
-	<div id="prenotazioni" class="container">
+	<div id="prenotazioni">
 		<table>
 			<tr>
 				<th>Prenotazione</th>
@@ -48,7 +48,7 @@ body {
 				<th>Partenza</th>
 				<th>Arrivo</th>
 			</tr>
-			<c:forEach items="${prenotazione}" var="pren">
+			<c:forEach items="${prenotazione}" var="pren" varStatus="v">
 				<tr>
 					<td>${pren.ID}</td>
 					<td>${pren.autista.ID}</td>
@@ -58,7 +58,7 @@ body {
 					<td>${pren.tratto.arrivo.nome}</td>
 					<td><input id="qr" class="biglietti" type="button"
 						value="Genera Biglietto"
-						onclick=" updateQRCode('${studente.matricola}'+'${pren.ID}');" /></td>
+						onclick=" updateQRCode('${codici[v.index]}');" /></td>
 					<!-- <th>Nome</th>
 			<th>Cognome</th> -->
 				</tr>

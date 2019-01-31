@@ -38,7 +38,7 @@
 
 	<script type="text/javascript" src="js/reader.js"></script>
 
-	<form action="ObliteraManualmente" method="post">
+	<form action="obliteraManualmente" method="post">
 		<input type="text" id="matricola" name="current-matricola" />
 		<button type="submit" value="Submit">Submit</button>
 	</form>
