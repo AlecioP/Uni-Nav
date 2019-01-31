@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import controller.conversionUtil.Converter;
+
 /**
  * Servlet implementation class ObliteraBiglietto
  */
@@ -45,7 +47,7 @@ public class ObliteraBiglietto extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		String jsonReceived = "";
-		Convertitor convertitor = new Convertitor();
+		Converter convertitor = new Converter();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
 		String line = reader.readLine();
 		while (line != null) {
