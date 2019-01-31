@@ -53,7 +53,6 @@
 					<li><a href="provaFeedback">Lascia un Feedback</a></li>
 					<li><a href="DoLogout">Logout</a></li>
 			</ul>
-			
 		</div>
 	</nav>
 </body>
