@@ -52,10 +52,8 @@
 				<li><a href="Home">Home</a></li>
 				<li><a href="ObliteraBiglietto">Oblitera Biglietto</a></li>
 				<li><a href="#">Prenotazione Manuale</a></li>
+				<li><a href="DoLogout">Logout</a></li>
 			</ul>
-			<div class="col-md-12" align="right" style="margin-top:-2%">
-				<a href="DoLogout">Logout</a>
-			</div>
 		</div>
 	</nav>
 	<div class="myCol-1"></div>
