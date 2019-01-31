@@ -48,7 +48,7 @@ body {
 				<th>Partenza</th>
 				<th>Arrivo</th>
 			</tr>
-			<c:forEach items="${prenotazione}" var="pren" varStatus="v">
+			<c:forEach items="${prenotazione}" var="pren" varStatus="i">
 				<tr>
 					<td>${pren.ID}</td>
 					<td>${pren.autista.ID}</td>
@@ -58,7 +58,7 @@ body {
 					<td>${pren.tratto.arrivo.nome}</td>
 					<td><input id="qr" class="biglietti" type="button"
 						value="Genera Biglietto"
-						onclick=" updateQRCode('${codici[v.index]}');" /></td>
+						onclick=" updateQRCode('${codici[i.index]}');" /></td>
 					<!-- <th>Nome</th>
 			<th>Cognome</th> -->
 				</tr>
