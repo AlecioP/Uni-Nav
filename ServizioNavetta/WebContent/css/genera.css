@@ -1,0 +1,6 @@
+#bottone {
+	position: relative;
+	/* align: bottom; */
+	background-color: red;
+	float: right;
+}
