@@ -17,6 +17,7 @@ import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
 import persistence.daoManage.crud.Crud;
 import persistence.persistentModel.Fermata;
+import persistence.persistentModel.Studente;
 import persistence.persistentModel.TrattoLinea;
 import persistence.daoManage.jdbcDao.FermataDaoJDBC;
 
@@ -27,16 +28,26 @@ public class CreaPrenotazione extends HttpServlet{
 	 */
 
 	private static final int NUMERO_FERMATE_VICINE = 5;
+	private static final int NUMERO_MASSIMO_FLAG = -1;
+	
 
 	private static final long serialVersionUID = 7019570969697763456L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		/*Verifica ban*/
-
-		/**/
+		
 		String state = (String) req.getParameter("state");
 		if(state==null) {
+			/*Verifica ban*/
+			Crud studenteDao = DatabaseManager.getInstance().getDaoFactory().getStudenteDAO();
+			String matricola = (String) req.getSession().getAttribute("username");
+			int nFlag= ((Studente)studenteDao.findByPrimaryKey(matricola)).getFlag();
+			if(nFlag>NUMERO_MASSIMO_FLAG) {
+				RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/inviaDomandaRiabilitazione.jsp");
+				rd.forward(req, resp);
+				return;
+			}
+			/**/
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/NuovaPrenotazioneMap.jsp");
 			rd.forward(req, resp);
 			return;

@@ -31,10 +31,10 @@ public class MostraPrenotazioni extends HttpServlet {
 		RegistroAttivitaNavette r = (RegistroAttivitaNavette) req.getServletContext().getAttribute("registro");
 		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 		StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
-		@SuppressWarnings("unused")
+		
 		Studente s = sdao.findByPrimaryKey(matricola);
 		PrenotazioneDaoJDBC p = (PrenotazioneDaoJDBC) df.getPrenotazioneDAO();
-		@SuppressWarnings("unchecked")
+		
 		ArrayList<Prenotazione> pr = (ArrayList<Prenotazione>) p.findByReference(s);
 		ArrayList<String> c = new ArrayList<String>();
 		Converter co = new Converter();
