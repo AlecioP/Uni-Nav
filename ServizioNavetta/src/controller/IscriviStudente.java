@@ -60,10 +60,10 @@ public class IscriviStudente extends HttpServlet {
 		} else {
 			s = new Studente(matricolaReg, 0, nome, cognome, email, passReg);
 			sdao.save(s);
-			//ArrayList<Prenotazione> pr = prenStudente(s);
-			req.getSession().setAttribute("studente", s);
-			//req.getSession().setAttribute("prenotazioni", pr);
-			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/homePallino.jsp");
+			// ArrayList<Prenotazione> pr = prenStudente(s);
+			// req.getSession().setAttribute("studente", s);
+			// req.getSession().setAttribute("prenotazioni", pr);
+			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
 			rd.forward(req, resp);
 		}
 	}
