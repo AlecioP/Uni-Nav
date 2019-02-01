@@ -25,6 +25,7 @@ public class HomeSenzaErrori extends HttpServlet {
 			return;
 		}
 		case "student": {
+			req.getSession().setAttribute("request-error", null);
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.jsp");
 			rd.forward(req, resp);
 			return;

@@ -40,7 +40,7 @@ public class IscriviStudente extends HttpServlet {
 		passReg.password = password;
 		// resp.getWriter().println(nome + " " + cognome + " " + email + " " + password
 		// + " " + matricolaReg);
-		DAOFactory df = PostgresDAOFactory.getDAOFactory(DAOFactory.POSTGRESQL);
+		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 		StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
 		Studente s = sdao.findByPrimaryKey(matricola);
 		if (s != null) {
