@@ -28,13 +28,14 @@ public class CreaPrenotazione extends HttpServlet{
 	 */
 
 	private static final int NUMERO_FERMATE_VICINE = 5;
-	private static final int NUMERO_MASSIMO_FLAG = -1;
+	private static final int NUMERO_MASSIMO_FLAG = 5;
 	
 
 	private static final long serialVersionUID = 7019570969697763456L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("In servlet : CreaPrenotazione");
 		
 		String state = (String) req.getParameter("state");
 		if(state==null) {

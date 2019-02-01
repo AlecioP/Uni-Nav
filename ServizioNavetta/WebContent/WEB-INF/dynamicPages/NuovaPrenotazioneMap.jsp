@@ -54,8 +54,8 @@
 					<li><a href="MostraPrenotazioni">Prenotazioni Effettuate</a></li>
 					<li><a href="creaPrenotazione">Esegui Nuova Prenotazione</a></li>
 					<li><a href="provaFeedback">Lascia un Feedback</a></li>
+					<li><a href="DoLogout">Logout</a></li>
 			</ul>
-			<p class="navbar-text navbar-right"><a href="DoLogout">Logout</a></p>
 		</div>
 	</nav>
 
@@ -67,7 +67,7 @@
 				<div class="panel-heading">Partenza :</div>
 				<div class="panel-body">
 					<label class="checkbox-inline">
-						<input id="start-geoloc" class="start" type="radio" name="start" value="geoloc" checked="checked">
+						<input id="start-geoloc" class="start" type="radio" name="start" value="geoloc" checked>
 						<span>Posizione Attuale</span>
 					</label> 
 					<label class="checkbox-inline">
@@ -79,14 +79,21 @@
 			<div class="panel panel-success">
 				<div class="panel-heading">Arrivo :</div>
 				<div class="panel-body">
-					<input id="stop-map" placeholder="Seleziona sulla mappa..." disabled>
+					<label class="checkbox-inline">
+						<input id="stop-geoloc" class="stop" type="radio" name="stop" value="geoloc" >
+						<span>Posizione Attuale</span>
+					</label> 
+					<label class="checkbox-inline">
+						<input id="stop-map" class="stop" type="radio" name="stop" value="from-map" checked>
+						<span>Seleziona sulla mappa</span>
+					</label>
 				</div>
 			</div>
-			<button class="btn btn-info" disabled>Calcola percorsi</button>
+			<button id="compute-routes" class="btn btn-info" disabled>Calcola percorsi</button>
 		</div>
 	</div>
 	<div class="mycol-1"></div>
-	<div class="col-dx mycol-4">
+	<div id="map-container"class="col-dx mycol-4">
 		<div id="map"></div>
 	</div>
 
