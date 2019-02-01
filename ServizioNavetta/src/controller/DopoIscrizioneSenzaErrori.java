@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class DopoIscrizioneSenzaErrori extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5440092540205709127L;
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getSession().setAttribute("registration-error", null);

@@ -8,11 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import persistence.daoManage.crud.Crud;
-import persistence.persistentModel.Autista;
-import persistence.persistentModel.Studente;
-
 public class HomeSenzaErrori extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9158374689381900638L;
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getSession().setAttribute("registration-error", null);
