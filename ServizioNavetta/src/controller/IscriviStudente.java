@@ -63,6 +63,7 @@ public class IscriviStudente extends HttpServlet {
 			// ArrayList<Prenotazione> pr = prenStudente(s);
 			// req.getSession().setAttribute("studente", s);
 			// req.getSession().setAttribute("prenotazioni", pr);
+			req.getSession().setAttribute("registration-error", null);
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
 			rd.forward(req, resp);
 		}

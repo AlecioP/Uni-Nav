@@ -77,7 +77,9 @@ body {
 			</form>
 			  <a href="generaCodice">Genera codice</a>
 			  -->
-	<div id="qrcode" style="display: none">
+
+	<div id="pallino" style="display: none">
+		<div id="qrcode"></div>
 		<button id="bottone" onclick="indietro()">Indietro</button>
 	</div>
 	<script type="text/javascript">
@@ -89,19 +91,19 @@ body {
 			if (element.lastChild) {
 				element.replaceChild(showQRCode(text), element.lastChild);
 				$("#prenotazioni").hide();
-				$("#qrcode").show();
+				$("#pallino").show();
 				//alert("ee");
 			} else {
 				element.appendChild(showQRCode(text));
 				$("#prenotazioni").hide();
-				$("#qrcode").show();
+				$("#pallino").show();
 			}
 
 		}
 	</script>
 	<script type="text/javascript">
 		function indietro() {
-			$("#qrcode").hide();
+			$("#pallino").hide();
 			$("#prenotazioni").show();
 		}
 	</script>

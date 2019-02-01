@@ -131,12 +131,21 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>HomeDopoObliterazione</servlet-name>
-		<servlet-class>controller.HomeDopoObliterazione</servlet-class>
+		<servlet-name>DopoIscrizioneSenzaErrori</servlet-name>
+		<servlet-class>controller.DopoIscrizioneSenzaErrori</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>HomeDopoObliterazione</servlet-name>
-		<url-pattern>/DopoObliterazione</url-pattern>
+		<servlet-name>DopoIscrizioneSenzaErrori</servlet-name>
+		<url-pattern>/DopoIscrizioneSenzaErrori</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>HomeSenzaErrori</servlet-name>
+		<servlet-class>controller.HomeSenzaErrori</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HomeSenzaErrori</servlet-name>
+		<url-pattern>/HomeSenzaErrori</url-pattern>
 	</servlet-mapping>
 
 </web-app>

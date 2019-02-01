@@ -42,14 +42,14 @@
 
 	<form action="obliteraManualmente" method="post">
 		<input type="text" id="matricola" name="current-matricola" />
-		<button type="submit" value="Submit">Submit</button>
+		<button type="submit" value="Submit">Obliterazione manuale</button>
 	</form>
 	<c:if test="${registration-error != null }">
 		<c:set var="message" value="registration-error" />
 		<span class="error-message"><c:out
 				value="${sessionScope[message]}" /></span>
 	</c:if>
-	<form action="DopoObliterazione" method="post">
+	<form action="HomeSenzaErrori" method="post">
 		<button type="submit" value="Indietro">Indietro</button>
 	</form>
 </body>
