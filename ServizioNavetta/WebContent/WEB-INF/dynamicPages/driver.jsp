@@ -46,16 +46,7 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
-			<ul class="nav navbar-nav">
-				<li><a href="Home">Home</a></li>
-				<li><a href="obliteraBigliettoQR">Oblitera Biglietto</a></li>
-				<li><a href="#">Prenotazione Manuale</a></li>
-			</ul>
-			<p class="navbar-text navbar-right"><a href="DoLogout">Logout</a></p>
-		</div>
-	</nav>
+	<%@ include file="driverNavbar.jsp" %> 
 	<div class="myCol-1"></div>
 	<div class="myCol-10">
 		<div id="next-stop" class="row">
