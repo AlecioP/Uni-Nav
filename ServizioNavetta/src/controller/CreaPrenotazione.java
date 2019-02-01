@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import model.geoUtil.GeoUtil;
@@ -96,12 +97,22 @@ public class CreaPrenotazione extends HttpServlet{
 		}
 
 		case "computeLine" :{
-			String partenzaNome = (String) req.getSession().getAttribute("partenza-nome");
-			String arrivoNome = (String) req.getSession().getAttribute("arrivo-nome");
+			
+			String partenzaStr = (String) req.getParameter("partenza-nome");
+			String arrivoStr = (String) req.getParameter("arrivo-nome");
+			JSONObject partenzaJson,arrivoJson;
+			String partenzaID="",arrivoID="";
+			try {
+				partenzaJson = new JSONObject(partenzaStr);
+				arrivoJson = new JSONObject(arrivoStr);
+				partenzaID = partenzaJson.getString("nome");
+				arrivoID = arrivoJson.getString("nome");
+				
+			}catch(JSONException ex) {/*Handle exception*/}
 			DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 			Crud fermataDao = df.getFermataDAO();
-			Fermata partenza = (Fermata) fermataDao.findByPrimaryKey(partenzaNome), 
-					arrivo = (Fermata) fermataDao.findByPrimaryKey(arrivoNome);
+			Fermata partenza = (Fermata) fermataDao.findByPrimaryKey(partenzaID), 
+					arrivo = (Fermata) fermataDao.findByPrimaryKey(arrivoID);
 			ArrayList<ArrayList<TrattoLinea> > routes = GeoUtil.computeRoutes(partenza, arrivo);
 			JSONObject routesJson = new JSONObject(routes);
 			resp.getOutputStream().println(routesJson.toString());

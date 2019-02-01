@@ -1,6 +1,7 @@
 package persistence.daoManage.jdbcDao;
 
 import java.sql.Connection;
+import java.sql.JDBCType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,8 +38,8 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			smt.setInt(1, domanda.getID());
 			LocalDate date = domanda.getDateTime().toLocalDate();
 			LocalTime time = domanda.getDateTime().toLocalTime();
-			smt.setObject(2, date);
-			smt.setObject(3, time);
+			smt.setObject(2, date,JDBCType.DATE);
+			smt.setObject(3, time,JDBCType.TIME);
 			smt.setInt(4, domanda.getStudente().getMatricola());
 			smt.setInt(5, domanda.getAmministratore().getID());
 			
