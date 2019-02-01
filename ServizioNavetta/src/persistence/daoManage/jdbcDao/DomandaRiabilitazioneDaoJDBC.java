@@ -70,8 +70,8 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			smt.setInt(1, key);
 			ResultSet res = smt.executeQuery();
 			if(res.next()) {
-				LocalTime time = (LocalTime) res.getObject("Data");
-				LocalDate date = (LocalDate) res.getObject("Ora");
+				LocalTime time = res.getObject("Data",LocalTime.class);
+				LocalDate date = res.getObject("Ora",LocalDate.class);
 				LocalDateTime dateTime = LocalDateTime.of(date, time);
 				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID")+"");
 				Amministratore admin = new AmministratoreDaoJDBC(ds).findByPrimaryKey(res.getInt("Amministratore_ID")+"");
@@ -100,8 +100,8 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			ResultSet res = smt.executeQuery();
 			while(res.next()) {
 				int key = res.getInt("ID");
-				LocalTime time = (LocalTime) res.getObject("Data");
-				LocalDate date = (LocalDate) res.getObject("Ora");
+				LocalTime time = res.getObject("Data",LocalTime.class);
+				LocalDate date = res.getObject("Ora",LocalDate.class);
 				LocalDateTime dateTime = LocalDateTime.of(date, time);
 				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID")+"");
 				Amministratore admin = new AmministratoreDaoJDBC(ds).findByPrimaryKey(res.getInt("Amministratore_ID")+"");
@@ -181,8 +181,8 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			smt.setInt(1, key);
 			ResultSet res = smt.executeQuery();
 			while(res.next()) {
-				LocalTime time = (LocalTime) res.getObject("Data");
-				LocalDate date = (LocalDate) res.getObject("Ora");
+				LocalTime time = res.getObject("Data",LocalTime.class);
+				LocalDate date = res.getObject("Ora",LocalDate.class);
 				LocalDateTime dateTime = LocalDateTime.of(date, time);
 				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID")+"");
 				Amministratore admin = new AmministratoreDaoJDBC(ds).findByPrimaryKey(res.getInt("Amministratore_ID")+"");
