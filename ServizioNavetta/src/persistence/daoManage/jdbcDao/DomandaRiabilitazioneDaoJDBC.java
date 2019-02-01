@@ -19,9 +19,9 @@ import persistence.persistentModel.DomandaRiabilitazione;
 import persistence.persistentModel.Studente;
 
 public class DomandaRiabilitazioneDaoJDBC implements Crud {
-	
+
 	private DataSource ds;
-	
+
 	public DomandaRiabilitazioneDaoJDBC(DataSource ds) {
 		this.ds = ds;
 	}
@@ -30,18 +30,19 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 	public void save(CrudTag obj) {
 		DomandaRiabilitazione domanda = (DomandaRiabilitazione) obj;
 		Connection con = ds.getConnection();
-		String query ="insert into \"Domanda_Riabilitazione\"(\"ID\",\"Data\",\"Ora\",\"Studente_ID\",\"Amministratore_ID\")"
-					+ "values (?,?,?,?,?)";
+		String query = "insert into \"Domanda_Riabilitazione\"(\"ID\",\"Data\",\"Ora\",\"Studente_ID\",\"Amministratore_ID\")"
+				+ "values (?,?,?,?,?)";
 		try {
 			PreparedStatement smt = con.prepareStatement(query);
 			smt.setInt(1, domanda.getID());
 			LocalDate date = domanda.getDateTime().toLocalDate();
 			LocalTime time = domanda.getDateTime().toLocalTime();
+			System.out.println(date + " ss " + time);
 			smt.setObject(2, date);
 			smt.setObject(3, time);
 			smt.setInt(4, domanda.getStudente().getMatricola());
 			smt.setInt(5, domanda.getAmministratore().getID());
-			
+
 			smt.executeUpdate();
 		} catch (SQLException e) {
 			throw new PersistenceException(e.getMessage());
@@ -59,21 +60,24 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 		int key = 0;
 		try {
 			key = Integer.parseInt(pKey);
-		}catch(NumberFormatException e) {return null;}
-		
+		} catch (NumberFormatException e) {
+			return null;
+		}
+
 		Connection con = ds.getConnection();
-		
+
 		String query = "select * from \"Domanda_Riabilitazione\" where \"ID\" = ?";
 		try {
 			PreparedStatement smt = con.prepareStatement(query);
 			smt.setInt(1, key);
 			ResultSet res = smt.executeQuery();
-			if(res.next()) {
+			if (res.next()) {
 				LocalTime time = (LocalTime) res.getObject("Data");
 				LocalDate date = (LocalDate) res.getObject("Ora");
 				LocalDateTime dateTime = LocalDateTime.of(date, time);
-				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID")+"");
-				Amministratore admin = new AmministratoreDaoJDBC(ds).findByPrimaryKey(res.getInt("Amministratore_ID")+"");
+				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID") + "");
+				Amministratore admin = new AmministratoreDaoJDBC(ds)
+						.findByPrimaryKey(res.getInt("Amministratore_ID") + "");
 				return new DomandaRiabilitazione(key, dateTime, stud, admin);
 			}
 			return null;
@@ -90,20 +94,21 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 
 	@Override
 	public List<? extends CrudTag> findAll() {
-		ArrayList<DomandaRiabilitazione> domande = new ArrayList<DomandaRiabilitazione>(); 
+		ArrayList<DomandaRiabilitazione> domande = new ArrayList<DomandaRiabilitazione>();
 		Connection con = ds.getConnection();
 		String query = "select * from \"Domanda_Riabilitazione\" ";
 		try {
 			PreparedStatement smt = con.prepareStatement(query);
-			
+
 			ResultSet res = smt.executeQuery();
-			while(res.next()) {
+			while (res.next()) {
 				int key = res.getInt("ID");
 				LocalTime time = (LocalTime) res.getObject("Data");
 				LocalDate date = (LocalDate) res.getObject("Ora");
 				LocalDateTime dateTime = LocalDateTime.of(date, time);
-				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID")+"");
-				Amministratore admin = new AmministratoreDaoJDBC(ds).findByPrimaryKey(res.getInt("Amministratore_ID")+"");
+				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID") + "");
+				Amministratore admin = new AmministratoreDaoJDBC(ds)
+						.findByPrimaryKey(res.getInt("Amministratore_ID") + "");
 				domande.add(new DomandaRiabilitazione(key, dateTime, stud, admin));
 			}
 			return domande;
@@ -123,8 +128,7 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 		DomandaRiabilitazione domanda = (DomandaRiabilitazione) obj;
 		Connection con = ds.getConnection();
 		String query = "update \"Domanda_Riabilitazione\""
-						+ "set (\"Data\",\"Ora\",\"Studente_ID\",\"Amministratore_ID\") = (?,?,?,?)"
-						+ "where \"ID\" = ?";
+				+ "set (\"Data\",\"Ora\",\"Studente_ID\",\"Amministratore_ID\") = (?,?,?,?)" + "where \"ID\" = ?";
 		try {
 			PreparedStatement smt = con.prepareStatement(query);
 			LocalDate date = domanda.getDateTime().toLocalDate();
@@ -134,7 +138,7 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			smt.setInt(3, domanda.getStudente().getMatricola());
 			smt.setInt(4, domanda.getAmministratore().getID());
 			smt.setInt(5, domanda.getID());
-			
+
 			smt.executeUpdate();
 		} catch (SQLException e) {
 			throw new PersistenceException(e.getMessage());
@@ -172,19 +176,22 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 		int key = 0;
 		try {
 			key = Integer.parseInt(fkey);
-		}catch(NumberFormatException e) {return null;}
+		} catch (NumberFormatException e) {
+			return null;
+		}
 		Connection con = ds.getConnection();
 		String query = "select * from \"Domanda_Riabilitazione\" where \"Amministratore_ID\" = ?";
 		try {
 			PreparedStatement smt = con.prepareStatement(query);
 			smt.setInt(1, key);
 			ResultSet res = smt.executeQuery();
-			while(res.next()) {
+			while (res.next()) {
 				LocalTime time = (LocalTime) res.getObject("Data");
 				LocalDate date = (LocalDate) res.getObject("Ora");
 				LocalDateTime dateTime = LocalDateTime.of(date, time);
-				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID")+"");
-				Amministratore admin = new AmministratoreDaoJDBC(ds).findByPrimaryKey(res.getInt("Amministratore_ID")+"");
+				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID") + "");
+				Amministratore admin = new AmministratoreDaoJDBC(ds)
+						.findByPrimaryKey(res.getInt("Amministratore_ID") + "");
 				domande.add(new DomandaRiabilitazione(key, dateTime, stud, admin));
 			}
 			return domande;
@@ -198,5 +205,5 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			}
 		}
 	}
-	
+
 }

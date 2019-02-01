@@ -148,4 +148,13 @@
 		<url-pattern>/HomeSenzaErrori</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>InviaDomanda</servlet-name>
+		<servlet-class>controller.InviaDomanda</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InviaDomanda</servlet-name>
+		<url-pattern>/InviaDomanda</url-pattern>
+	</servlet-mapping>
+
 </web-app>
