@@ -80,4 +80,8 @@ public class PostgresDAOFactory extends DAOFactory {
 		return new PersonaSecureDAO(dataSource);
 	}
 
+	public static DataSource getDS() {
+		return dataSource;
+	}
+	
 }
