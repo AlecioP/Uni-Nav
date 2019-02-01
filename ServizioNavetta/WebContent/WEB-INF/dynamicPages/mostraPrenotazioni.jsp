@@ -21,22 +21,20 @@
 			<th>Partenza</th>
 			<th>Arrivo</th>
 		</tr>
-		<c:forEach items="${prenotazioni}" var="pren">
-			<tr>
-				<td>${pren.ID}</td>
-				<td>${pren.autista.ID}</td>
-				<td>${pren.giro}</td>
-				<td>${pren.navetta.ID}</td>
-				<td>${pren.tratto.partenza.nome}</td>
-				<td>${pren.tratto.arrivo.nome}</td>
-				<td>${pren.tratto.arrivo.nome}</td>
-				<td><input id=entrata class="biglietti-pren"
-					value="Oblitera Entrata" type="button"
-					onclick="obliteraEntrata('${pren.ID}');" /></td>
-				<td><input id=uscita value="Oblitera Uscita" type="button"
-					onclick="alert('${pren.ID}')" /></td>
-			</tr>
-		</c:forEach>
+		<tr>
+			<td>${prenotazione.ID}</td>
+			<td>${prenotazione.ID}</td>
+			<td>${prenotazione.giro}</td>
+			<td>${prenotazione.navetta.ID}</td>
+			<td>${prenotazione.tratto.partenza.nome}</td>
+			<td>${prenotazione.tratto.arrivo.nome}</td>
+			<td>${prenotazione.tratto.arrivo.nome}</td>
+			<td><input id=entrata class="biglietti-pren"
+				value="Oblitera Entrata" type="button"
+				onclick="obliteraEntrata('${prenotazioneID}');" /></td>
+			<td><input id=uscita value="Oblitera Uscita" type="button"
+				onclick="alert('${prenotazioneID}')" /></td>
+		</tr>
 	</table>
 	<%-- <h1>${prenotazioni.giro}</h1> --%>
 </body>

@@ -32,7 +32,7 @@ public class ProvaGeneraBiglietto extends HttpServlet {
 		ArrayList<Prenotazione> pr = pdao.findByReference(s);
 		req.getSession().setAttribute("prenotazione", pr);
 		req.getSession().setAttribute("studente", s);
-		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/homePallino.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/generaPrenotazioni.jsp");
 		rd.forward(req, resp);
 	}
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import model.geoUtil.GeoUtil;
@@ -17,6 +18,7 @@ import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
 import persistence.daoManage.crud.Crud;
 import persistence.persistentModel.Fermata;
+import persistence.persistentModel.Studente;
 import persistence.persistentModel.TrattoLinea;
 import persistence.daoManage.jdbcDao.FermataDaoJDBC;
 
@@ -27,16 +29,27 @@ public class CreaPrenotazione extends HttpServlet{
 	 */
 
 	private static final int NUMERO_FERMATE_VICINE = 5;
+	private static final int NUMERO_MASSIMO_FLAG = 5;
+	
 
 	private static final long serialVersionUID = 7019570969697763456L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		/*Verifica ban*/
-
-		/**/
+		System.out.println("In servlet : CreaPrenotazione");
+		
 		String state = (String) req.getParameter("state");
 		if(state==null) {
+			/*Verifica ban*/
+			Crud studenteDao = DatabaseManager.getInstance().getDaoFactory().getStudenteDAO();
+			String matricola = (String) req.getSession().getAttribute("username");
+			int nFlag= ((Studente)studenteDao.findByPrimaryKey(matricola)).getFlag();
+			if(nFlag>NUMERO_MASSIMO_FLAG) {
+				RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/inviaDomandaRiabilitazione.jsp");
+				rd.forward(req, resp);
+				return;
+			}
+			/**/
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/NuovaPrenotazioneMap.jsp");
 			rd.forward(req, resp);
 			return;
@@ -84,12 +97,22 @@ public class CreaPrenotazione extends HttpServlet{
 		}
 
 		case "computeLine" :{
-			String partenzaNome = (String) req.getSession().getAttribute("partenza-nome");
-			String arrivoNome = (String) req.getSession().getAttribute("arrivo-nome");
+			
+			String partenzaStr = (String) req.getParameter("partenza-nome");
+			String arrivoStr = (String) req.getParameter("arrivo-nome");
+			JSONObject partenzaJson,arrivoJson;
+			String partenzaID="",arrivoID="";
+			try {
+				partenzaJson = new JSONObject(partenzaStr);
+				arrivoJson = new JSONObject(arrivoStr);
+				partenzaID = partenzaJson.getString("nome");
+				arrivoID = arrivoJson.getString("nome");
+				
+			}catch(JSONException ex) {/*Handle exception*/}
 			DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 			Crud fermataDao = df.getFermataDAO();
-			Fermata partenza = (Fermata) fermataDao.findByPrimaryKey(partenzaNome), 
-					arrivo = (Fermata) fermataDao.findByPrimaryKey(arrivoNome);
+			Fermata partenza = (Fermata) fermataDao.findByPrimaryKey(partenzaID), 
+					arrivo = (Fermata) fermataDao.findByPrimaryKey(arrivoID);
 			ArrayList<ArrayList<TrattoLinea> > routes = GeoUtil.computeRoutes(partenza, arrivo);
 			JSONObject routesJson = new JSONObject(routes);
 			resp.getOutputStream().println(routesJson.toString());

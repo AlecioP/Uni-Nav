@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,16 +32,25 @@
 
 
 <!-- Custom style import -->
-<link rel="stylesheet" type="text/css" href="css/common.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/common.css"> -->
+<link rel="stylesheet" type="text/css" href="css/obliterazione.css">
 </head>
 <body>
 	<video id="preview"></video>
 
 	<script type="text/javascript" src="js/reader.js"></script>
 
-	<form action="ObliteraManualmente" method="post">
+	<form action="obliteraManualmente" method="post">
 		<input type="text" id="matricola" name="current-matricola" />
-		<button type="submit" value="Submit">Submit</button>
+		<button type="submit" value="Submit">Obliterazione manuale</button>
+	</form>
+	<c:if test="${registration-error != null }">
+		<c:set var="message" value="registration-error" />
+		<span class="error-message"><c:out
+				value="${sessionScope[message]}" /></span>
+	</c:if>
+	<form action="HomeSenzaErrori" method="post">
+		<button type="submit" value="Indietro">Indietro</button>
 	</form>
 </body>
 </html>

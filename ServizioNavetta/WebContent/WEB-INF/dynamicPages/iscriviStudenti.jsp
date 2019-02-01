@@ -68,6 +68,9 @@
 
 			<input id="reset" class="btn btn-warning" type="reset" />
 		</form>
+		<form action="DopoIscrizioneSenzaErrori" method="post">
+			<button type="submit" value="Indietro">Indietro</button>
+		</form>
 		<c:if test="${registration-error != null }">
 			<c:set var="message" value="registration-error" />
 			<span class="error-message"><c:out

@@ -32,6 +32,7 @@ public class ObliteraManualmente extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("entraa");
 		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 		AutistaDaoJDBC adao = (AutistaDaoJDBC) df.getAutistaDAO();
 		NavettaDaoJDBC ndao = (NavettaDaoJDBC) df.getNavettaDAO();
@@ -74,6 +75,7 @@ public class ObliteraManualmente extends HttpServlet {
 					 * ).getNome()))
 					 */
 					System.out.println("pren trovata");
+					req.setAttribute("prenotazione", pren);
 					req.setAttribute("prenotazioneID", Integer.valueOf(pren.getID()));
 					RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/mostraPrenotazioni.jsp");
 					rd.forward(req, resp);
@@ -81,7 +83,7 @@ public class ObliteraManualmente extends HttpServlet {
 				}
 			}
 		}
-		req.getSession().setAttribute("error-message", "Lo studente non è prenotato");
+		req.getSession().setAttribute("registration-error", "Lo studente non ï¿½ prenotato");
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/obliteraBiglietto.jsp");
 		rd.forward(req, resp);
 	}

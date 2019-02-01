@@ -52,10 +52,7 @@
 					<li><a href="creaPrenotazione">Esegui Nuova Prenotazione</a></li>
 					<li><a href="provaFeedback">Lascia un Feedback</a></li>
 			</ul>
-			
-			<div class="col-md-12" align="right" style="margin-top:-2%">
-			<a href="DoLogout">Logout</a>
-			</div>
+			<p class="navbar-text navbar-right"><a href="DoLogout">Logout</a></p>
 		</div>
 	</nav>
 </body>

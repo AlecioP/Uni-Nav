@@ -105,11 +105,14 @@ public class DriverRegisterMediator extends HttpServlet {
 		
 		if( !repeat) {
 			int currentIndex = lineaRegistro.getLinea().getTratti().indexOf(lineaRegistro.getPosizione());
-			if(lineaRegistro.getLinea().getTratti().size()-1==currentIndex) {
-				lineaRegistro.setPosizione(lineaRegistro.getLinea().getTratti().get(0));
+			ArrayList<TrattoLinea> tratti = lineaRegistro.getLinea().getTratti();
+			if(tratti.isEmpty()) {
+				
+			}else if(tratti.size()-1==currentIndex) {
+				lineaRegistro.setPosizione(tratti.get(0));
 				lineaRegistro.handleCompletedRound();
 			}else {
-				lineaRegistro.setPosizione(lineaRegistro.getLinea().getTratti().get(currentIndex+1));
+				lineaRegistro.setPosizione(tratti.get(currentIndex+1));
 			}
 		}
 		

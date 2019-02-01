@@ -1,6 +1,13 @@
 #bottone {
-	position: relative;
+	/* position: relative; */
 	/* align: bottom; */
+	font-size: 16px;
 	background-color: red;
-	float: right;
+	width: 180px;
+	height: 50px;
+	background-color: #e7e7e7;
+	color: black;
+	border: 2px solid #555555;
+	/* padding: 10px 24px; */
+	/* 	float: right; */
 }

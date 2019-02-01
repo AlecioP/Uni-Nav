@@ -38,7 +38,7 @@ body {
 <body>
 	<h1>${studente.nome}</h1>
 
-	<div id="prenotazioni" class="container">
+	<div id="prenotazioni">
 		<table>
 			<tr>
 				<th>Prenotazione</th>
@@ -48,7 +48,7 @@ body {
 				<th>Partenza</th>
 				<th>Arrivo</th>
 			</tr>
-			<c:forEach items="${prenotazione}" var="pren">
+			<c:forEach items="${prenotazione}" var="pren" varStatus="i">
 				<tr>
 					<td>${pren.ID}</td>
 					<td>${pren.autista.ID}</td>
@@ -58,7 +58,7 @@ body {
 					<td>${pren.tratto.arrivo.nome}</td>
 					<td><input id="qr" class="biglietti" type="button"
 						value="Genera Biglietto"
-						onclick=" updateQRCode('${studente.matricola}'+'${pren.ID}');" /></td>
+						onclick=" updateQRCode('${codici[i.index]}');" /></td>
 					<!-- <th>Nome</th>
 			<th>Cognome</th> -->
 				</tr>
@@ -77,8 +77,11 @@ body {
 			</form>
 			  <a href="generaCodice">Genera codice</a>
 			  -->
-	<div id="qrcode" style="display: none">
-		<button id="bottone" onclick="indietro()">Indietro</button>
+
+	<div class="cointaner" align="center" id="pallino"
+		style="display: none">
+		<div id="qrcode"></div>
+		<button id="bottone" type="button" onclick="indietro()">Indietro</button>
 	</div>
 	<script type="text/javascript">
 		function updateQRCode(text) {
@@ -89,19 +92,19 @@ body {
 			if (element.lastChild) {
 				element.replaceChild(showQRCode(text), element.lastChild);
 				$("#prenotazioni").hide();
-				$("#qrcode").show();
+				$("#pallino").show();
 				//alert("ee");
 			} else {
 				element.appendChild(showQRCode(text));
 				$("#prenotazioni").hide();
-				$("#qrcode").show();
+				$("#pallino").show();
 			}
 
 		}
 	</script>
 	<script type="text/javascript">
 		function indietro() {
-			$("#qrcode").hide();
+			$("#pallino").hide();
 			$("#prenotazioni").show();
 		}
 	</script>

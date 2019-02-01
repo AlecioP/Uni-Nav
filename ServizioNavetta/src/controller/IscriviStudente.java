@@ -40,7 +40,7 @@ public class IscriviStudente extends HttpServlet {
 		passReg.password = password;
 		// resp.getWriter().println(nome + " " + cognome + " " + email + " " + password
 		// + " " + matricolaReg);
-		DAOFactory df = PostgresDAOFactory.getDAOFactory(DAOFactory.POSTGRESQL);
+		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 		StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
 		Studente s = sdao.findByPrimaryKey(matricola);
 		if (s != null) {
@@ -60,10 +60,11 @@ public class IscriviStudente extends HttpServlet {
 		} else {
 			s = new Studente(matricolaReg, 0, nome, cognome, email, passReg);
 			sdao.save(s);
-			//ArrayList<Prenotazione> pr = prenStudente(s);
-			req.getSession().setAttribute("studente", s);
-			//req.getSession().setAttribute("prenotazioni", pr);
-			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/homePallino.jsp");
+			// ArrayList<Prenotazione> pr = prenStudente(s);
+			// req.getSession().setAttribute("studente", s);
+			// req.getSession().setAttribute("prenotazioni", pr);
+			req.getSession().setAttribute("registration-error", null);
+			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
 			rd.forward(req, resp);
 		}
 	}
