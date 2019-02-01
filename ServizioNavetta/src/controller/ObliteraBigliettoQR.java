@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,18 +14,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import controller.conversionUtil.Converter;
+import controller.conversionUtil.Validator;
+import persistence.persistentModel.Prenotazione;
 
 /**
  * Servlet implementation class ObliteraBiglietto
  */
-@WebServlet("/ObliteraBiglietto")
-public class ObliteraBiglietto extends HttpServlet {
+
+public class ObliteraBigliettoQR extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ObliteraBiglietto() {
+    public ObliteraBigliettoQR() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,9 +46,9 @@ public class ObliteraBiglietto extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 		String jsonReceived = "";
 		Converter convertitor = new Converter();
+		Validator validator = new Validator();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
 		String line = reader.readLine();
 		while (line != null) {
@@ -55,15 +56,15 @@ public class ObliteraBiglietto extends HttpServlet {
 			line = reader.readLine();
 		}
 		JSONObject jsonResult;
+		System.out.println(jsonReceived);
+		Prenotazione prenotation = convertitor.getPrenotazione(jsonReceived);
 		try {
-			
-			if(convertitor.getPrenotazione(line).getID()!= -1) {
-				System.out.println(convertitor.getPrenotazione(line).getID());
-			}
-			
-			
 			jsonResult = new JSONObject();
-			jsonResult.put("verified",true);
+			if(validator.validate(prenotation)) {
+				jsonResult.put("verified",true);}	
+			else {
+				jsonResult.put("verified", false);
+			}
 			response.getWriter().println(jsonResult);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
