@@ -51,8 +51,8 @@
 					<li><a href="MostraPrenotazioni">Prenotazioni Effettuate</a></li>
 					<li><a href="creaPrenotazione">Esegui Nuova Prenotazione</a></li>
 					<li><a href="provaFeedback">Lascia un Feedback</a></li>
-					<li><a href="DoLogout">Logout</a></li>
 			</ul>
+			<p class="navbar-text navbar-right"><a href="DoLogout">Logout</a></p>
 		</div>
 	</nav>
 </body>
