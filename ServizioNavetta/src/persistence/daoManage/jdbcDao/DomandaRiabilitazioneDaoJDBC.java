@@ -130,8 +130,8 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			PreparedStatement smt = con.prepareStatement(query);
 			LocalDate date = domanda.getDateTime().toLocalDate();
 			LocalTime time = domanda.getDateTime().toLocalTime();
-			smt.setObject(1, date);
-			smt.setObject(2, time);
+			smt.setObject(1, date,JDBCType.DATE);
+			smt.setObject(2, time,JDBCType.TIME);
 			smt.setInt(3, domanda.getStudente().getMatricola());
 			smt.setInt(4, domanda.getAmministratore().getID());
 			smt.setInt(5, domanda.getID());
