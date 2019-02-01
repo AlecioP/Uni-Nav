@@ -6,7 +6,7 @@ import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
 import persistence.daoManage.jdbcDao.PrenotazioneDaoJDBC;
 import persistence.persistentModel.Prenotazione;
-
+//singleton??
 public class Converter {
 	public Converter() {
 		
@@ -28,7 +28,7 @@ public class Converter {
 		String codePrenString =  String.valueOf(prenotazione.getID());
 		int n = (int)  (Math.random()*100000);
 		String codeRandom = String.valueOf(n);
-		String code = calendar.get(Calendar.HOUR_OF_DAY) + "-" +calendar.get(Calendar.MINUTE) + codeRandom + "-" + codePrenString;
+		String code = calendar.get(Calendar.HOUR_OF_DAY) + "-" +calendar.get(Calendar.MINUTE) +"-" + codeRandom + "-" + codePrenString;
 		return code; 
 	}
 }

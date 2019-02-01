@@ -4,13 +4,13 @@ scanner.addListener('scan', function (content) {
 		 var ticketCode = {code:content};
 	        $.post({
 	    		type: "POST",
-	    		url: "obliteraBiglietto",
+	    		url: "obliteraBigliettoQR",
 	    		datatype: "json",
 	    		data: JSON.stringify(ticketCode),
 	    		success: function (data){
 	    			var codeOk = JSON.parse(data);
 	    			if(codeOk.verified == true){
-	    				alert("ok");
+	    				alert("Ok");
 	    			}
 	    			else{
 	    				alert("No");

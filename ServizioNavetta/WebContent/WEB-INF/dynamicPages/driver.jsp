@@ -50,7 +50,7 @@
 		<div class="container-fluid">
 			<ul class="nav navbar-nav">
 				<li><a href="Home">Home</a></li>
-				<li><a href="ObliteraBiglietto">Oblitera Biglietto</a></li>
+				<li><a href="ObliteraBigliettoQR">Oblitera Biglietto</a></li>
 				<li><a href="#">Prenotazione Manuale</a></li>
 			</ul>
 			<div class="col-md-12" align="right" style="margin-top:-2%">

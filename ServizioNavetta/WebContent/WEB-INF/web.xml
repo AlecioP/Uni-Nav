@@ -117,14 +117,21 @@
     <servlet-name>LasciaFeedback</servlet-name>
     <url-pattern>/lasciaFeedback</url-pattern>
   </servlet-mapping>
-  
-<servlet>
-   <servlet-name>Logout</servlet-name>
-   <servlet-class>controller.DoLogout</servlet-class>
- </servlet>
- <servlet-mapping>
-   <servlet-name>Logout</servlet-name>
-   <url-pattern>/DoLogout</url-pattern>
- </servlet-mapping>
-  
+  <servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>controller.DoLogout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/DoLogout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ObliteraBigliettoQR</servlet-name>
+    <servlet-class>controller.ObliteraBigliettoQR</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ObliteraBigliettoQR</servlet-name>
+    <url-pattern>/obliteraBigliettoQR</url-pattern>
+  </servlet-mapping>
+ 
 </web-app>
