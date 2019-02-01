@@ -79,9 +79,9 @@ public class PostgresDAOFactory extends DAOFactory {
 	public SecurityDAO getPersonaSecureDAO() {
 		return new PersonaSecureDAO(dataSource);
 	}
-	
+
 	public static DataSource getDS() {
 		return dataSource;
 	}
-
+	
 }
