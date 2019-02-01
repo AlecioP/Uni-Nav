@@ -78,9 +78,10 @@ body {
 			  <a href="generaCodice">Genera codice</a>
 			  -->
 
-	<div id="pallino" style="display: none">
+	<div class="cointaner" align="center" id="pallino"
+		style="display: none">
 		<div id="qrcode"></div>
-		<button id="bottone" onclick="indietro()">Indietro</button>
+		<button id="bottone" type="button" onclick="indietro()">Indietro</button>
 	</div>
 	<script type="text/javascript">
 		function updateQRCode(text) {
