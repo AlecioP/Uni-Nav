@@ -133,6 +133,7 @@ function fermateNear(lat,lng,whereAdd){
                     	someMarker = marker;
                         if(whereAdd==="start"){
                             nearStart.push(tmp);
+                            //$(marker).click(function(){
                             marker.on('click',function(){
                                 var tmp1 = new Fermata();
                                 tmp1.nome = this.options.title;
