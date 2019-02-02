@@ -42,4 +42,16 @@ public class Fermata implements CrudTag{
 		this.longitudine = longitudine%LNG_MAX_VALUE;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(this==obj)
+			return true;
+		else {
+			if(!(obj instanceof Fermata))
+				return false;
+			Fermata arg = (Fermata) obj;
+			return arg.nome.equals(this.nome);
+		}
+	}
+	
 }

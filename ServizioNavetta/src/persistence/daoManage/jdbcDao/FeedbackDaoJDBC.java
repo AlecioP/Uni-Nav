@@ -26,7 +26,7 @@ public class FeedbackDaoJDBC implements Crud {
 	public void save(CrudTag obj) {
 		FeedBack feedback = (FeedBack) obj;
 		Connection con = ds.getConnection();
-		String query = "insert into \"Feedback\" (\"Prenotazione_ID\",\"Contenuto\") values (?,?)" ;
+		String query = "insert into \"Feedback\" (\"ID\",\"Contenuto\") values (?,?)" ;
 		
 		try {
 			PreparedStatement smt = con.prepareStatement(query);
@@ -54,7 +54,7 @@ public class FeedbackDaoJDBC implements Crud {
 		
 		Connection con = ds.getConnection();
 		
-		String query = "select * from \"Feedback\" where \"Prenotazione_ID\" = ?";
+		String query = "select * from \"Feedback\" where \"ID\" = ?";
 		
 		try {
 			PreparedStatement smt = con.prepareStatement(query);
@@ -114,7 +114,7 @@ public class FeedbackDaoJDBC implements Crud {
 		
 		String query = "update \"Feedback\""
 						+ "set (\"Contenuto\")"
-						+ "where \"Prenotazione_ID\" = ?";
+						+ "where \"ID\" = ?";
 		try {
 			PreparedStatement smt = con.prepareStatement(query);
 			smt.setInt(1, feedback.getPrenotazione().getID());
@@ -135,7 +135,7 @@ public class FeedbackDaoJDBC implements Crud {
 		FeedBack feedback = (FeedBack) obj;
 		Connection con  = ds.getConnection();
 		String query = "delete from \"Feedback\""
-						+ "where \"Prenotazione_ID\" = ?";
+						+ "where \"ID\" = ?";
 		try {
 			PreparedStatement smt = con.prepareStatement(query);
 			smt.setInt(1, feedback.getPrenotazione().getID());

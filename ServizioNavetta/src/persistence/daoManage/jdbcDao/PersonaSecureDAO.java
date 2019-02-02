@@ -106,6 +106,7 @@ public class PersonaSecureDAO implements SecurityDAO {
 			Connection connection = ds.getConnection();
 			try {
 				PreparedStatement statement = connection.prepareStatement(query);
+//				System.out.println(pKey);
 				statement.setInt(1,Integer.parseInt(pKey));
 				ResultSet result = statement.executeQuery();
 				if(result.next()) {

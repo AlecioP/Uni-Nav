@@ -1,6 +1,7 @@
 package persistence.daoManage.jdbcDao;
 
 import java.sql.Connection;
+import java.sql.JDBCType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,8 +38,8 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			smt.setInt(1, domanda.getID());
 			LocalDate date = domanda.getDateTime().toLocalDate();
 			LocalTime time = domanda.getDateTime().toLocalTime();
-			smt.setObject(2, date);
-			smt.setObject(3, time);
+			smt.setObject(2, date,JDBCType.DATE);
+			smt.setObject(3, time,JDBCType.TIME);
 			smt.setInt(4, domanda.getStudente().getMatricola());
 			smt.setInt(5, domanda.getAmministratore().getID());
 			
@@ -69,8 +70,8 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			smt.setInt(1, key);
 			ResultSet res = smt.executeQuery();
 			if(res.next()) {
-				LocalTime time = (LocalTime) res.getObject("Data");
-				LocalDate date = (LocalDate) res.getObject("Ora");
+				LocalTime time = res.getObject("Data",LocalTime.class);
+				LocalDate date = res.getObject("Ora",LocalDate.class);
 				LocalDateTime dateTime = LocalDateTime.of(date, time);
 				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID")+"");
 				Amministratore admin = new AmministratoreDaoJDBC(ds).findByPrimaryKey(res.getInt("Amministratore_ID")+"");
@@ -99,8 +100,8 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			ResultSet res = smt.executeQuery();
 			while(res.next()) {
 				int key = res.getInt("ID");
-				LocalTime time = (LocalTime) res.getObject("Data");
-				LocalDate date = (LocalDate) res.getObject("Ora");
+				LocalTime time = res.getObject("Data",LocalTime.class);
+				LocalDate date = res.getObject("Ora",LocalDate.class);
 				LocalDateTime dateTime = LocalDateTime.of(date, time);
 				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID")+"");
 				Amministratore admin = new AmministratoreDaoJDBC(ds).findByPrimaryKey(res.getInt("Amministratore_ID")+"");
@@ -129,8 +130,8 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			PreparedStatement smt = con.prepareStatement(query);
 			LocalDate date = domanda.getDateTime().toLocalDate();
 			LocalTime time = domanda.getDateTime().toLocalTime();
-			smt.setObject(1, date);
-			smt.setObject(2, time);
+			smt.setObject(1, date,JDBCType.DATE);
+			smt.setObject(2, time,JDBCType.TIME);
 			smt.setInt(3, domanda.getStudente().getMatricola());
 			smt.setInt(4, domanda.getAmministratore().getID());
 			smt.setInt(5, domanda.getID());
@@ -180,8 +181,8 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			smt.setInt(1, key);
 			ResultSet res = smt.executeQuery();
 			while(res.next()) {
-				LocalTime time = (LocalTime) res.getObject("Data");
-				LocalDate date = (LocalDate) res.getObject("Ora");
+				LocalTime time = res.getObject("Data",LocalTime.class);
+				LocalDate date = res.getObject("Ora",LocalDate.class);
 				LocalDateTime dateTime = LocalDateTime.of(date, time);
 				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID")+"");
 				Amministratore admin = new AmministratoreDaoJDBC(ds).findByPrimaryKey(res.getInt("Amministratore_ID")+"");
