@@ -13,6 +13,7 @@ import persistence.daoManage.PersistenceException;
 import persistence.daoManage.crud.Crud;
 import persistence.daoManage.crud.CrudTag;
 import persistence.persistentModel.Fermata;
+import persistence.persistentModel.Linea;
 import persistence.persistentModel.TrattoLinea;
 import persistence.utility.Utility;
 
@@ -179,6 +180,35 @@ public class TrattoLineaDaoJDBC implements Crud {
 			}
 		}
 
+	}
+	
+	public ArrayList<Linea> getLinee(TrattoLinea t){
+		String query = "select * from \"Linea_X_Tratto\" where \"fermata_partenza\" = ? AND \"fermata_arrivo\" = ?";
+		Connection con = ds.getConnection();
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			Array partenza = Utility.convertStringArray(t.getPartenza().getNome(), con);
+			Array arrivo = Utility.convertStringArray(t.getArrivo().getNome(), con);
+			stm.setArray(1, partenza);
+			stm.setArray(2, arrivo);
+			ResultSet res = stm.executeQuery();
+			ArrayList<Linea> linee = new ArrayList<Linea>();
+			while(res.next()) {
+				String nome = Utility.deleteArrayElements(res.getString(3));
+				Linea linea = new Linea(nome);
+				linee.add(linea);
+			}
+			return linee;
+		}catch (SQLException e) {
+			throw new PersistenceException(e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				throw new PersistenceException(e.getMessage());
+			}
+		}
+						
 	}
 
 }

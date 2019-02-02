@@ -10,10 +10,12 @@ import org.jgrapht.alg.shortestpath.KShortestSimplePaths;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
+import model.RegistroAttivitaNavette;
 import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
 import persistence.daoManage.jdbcDao.TrattoLineaDaoJDBC;
 import persistence.persistentModel.Fermata;
+import persistence.persistentModel.Navetta;
 import persistence.persistentModel.TrattoLinea;
 
 public class GeoUtil {
@@ -77,6 +79,14 @@ public class GeoUtil {
 			indexPath++;
 		}
 		
+		return ret;
+	}
+	
+	public static ArrayList<ArrayList<Navetta> > computeBus(ArrayList<TrattoLinea> route,RegistroAttivitaNavette registro){
+		ArrayList<ArrayList<Navetta> > ret = new ArrayList<ArrayList<Navetta> >();
+//		for(TrattoLinea t : route) {
+//			
+//		}
 		return ret;
 	}
 
