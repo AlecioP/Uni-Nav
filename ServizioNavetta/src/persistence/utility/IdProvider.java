@@ -32,54 +32,82 @@ public class IdProvider {
 		DataSource ds = PostgresDAOFactory.getDS();
 		Connection con = ds.getConnection();
 		
-		String query = "";
+		String tableName;
+		
+		String refresh = "REFRESH MATERIALIZED VIEW \"TablesIdProvider\"";
+		
+		String query = "select \"nextid\"" + 
+					"from \"TablesIdProvider\"" + 
+					"where	\"TableName\" = ?";
 		
 		switch(table) {
 		case "persona":{
-			query = "select min(s.i)" + 
-					"from generate_series(0,(select max(P1.\"ID\")from \"Persona\" as P1)+1) s(i)" + 
-					"where not exists (select P.\"ID\" from \"Persona\" as P where P.\"ID\" = s.i)";
+			tableName="Persona";
+			
 			break;
 		}
 		case "prenotazione":{
-			query = "select min(s.i)" + 
-					"from generate_series(0,(select max(P1.\"ID\")from \"Prenotazione\" as P1)+1) s(i)" + 
-					"where not exists (select P.\"ID\" from \"Prenotazione\" as P where P.\"ID\" = s.i)";
+			tableName="Prenotazione";
 			break;
 		}
 		case "domanda_riabilitazione":
 		case "domandariabilitazione":
 		case "domanda riabilitazione":{
-			query = "select min(s.i)" + 
-					"from generate_series(0,(select max(P1.\"ID\")from \"Domanda_Riabilitazione\" as P1)+1) s(i)" + 
-					"where not exists (select P.\"ID\" from \"Domanda_Riabilitazione\" as P where P.\"ID\" = s.i)";
+			tableName="Domanda_Riabilitazione";
 			break;
 		}
 		case "feedback":{
-			query = "select min(s.i)" + 
-					"from generate_series(0,(select max(P1.\"Prenotazione_ID\")from \"Feedback\" as P1)+1) s(i)" + 
-					"where not exists (select P.\"Prenotazione_ID\" from \"Feedback\" as P where P.\"ID\" = s.i)";
+			tableName="Feedback";
 			break;
 		}
 		case "navetta":{
-			query = "select min(s.i)" + 
-					"from generate_series(0,(select max(P1.\"ID\")from \"Navetta\" as P1)+1) s(i)" + 
-					"where not exists (select P.\"ID\" from \"Navetta\" as P where P.\"ID\" = s.i)";
+			tableName="Navetta";
 			break;
 		}
 		default :{
 			return -1;
 		}
 		}
-		
+		insertIfNotExistsIndexableTable(tableName, ds);
 		try {
+			PreparedStatement refreshView = con.prepareStatement(refresh);
+			refreshView.execute();
+			
 			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, tableName);
 			ResultSet res = statement.executeQuery();
 			if(res.next()) {
 				int ret = res.getInt(1);
 				return ret;
 			}
 			return -1;
+		} catch (SQLException e) {
+			throw new PersistenceException(e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				throw new PersistenceException(e.getMessage());
+			}
+		}
+	}
+	
+	private boolean insertIfNotExistsIndexableTable(String table,DataSource ds) {
+		Connection con = ds.getConnection();
+		String isIn ="select * from \"IndexableTables\" where \"TableName\"= ?";
+		try {
+			PreparedStatement stm = con.prepareStatement(isIn);
+			stm.setString(1, table);
+			ResultSet res = stm.executeQuery();
+			if(res.next()) {
+				return false;
+			}else {
+				String insert = "insert into \"IndexableTables\" values(?)";
+				PreparedStatement insert1 = con.prepareStatement(insert);
+				insert1.setString(1, table);
+				insert1.executeUpdate();
+				return true;
+			}
 		} catch (SQLException e) {
 			throw new PersistenceException(e.getMessage());
 		} finally {
