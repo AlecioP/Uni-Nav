@@ -113,7 +113,7 @@
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>LasciaFeedback</servlet-name>
-		<servlet-class>controller.LasciaFeedback</servlet-class>
+		<servlet-class>controller.InviaFeedback</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>LasciaFeedback</servlet-name>
@@ -155,13 +155,13 @@
 		<servlet-name>InviaDomanda</servlet-name>
 		<url-pattern>/InviaDomanda</url-pattern>
 	</servlet-mapping>
-	 <servlet>
-    <servlet-name>ObliteraBigliettoQR</servlet-name>
-    <servlet-class>controller.ObliteraBigliettoQR</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ObliteraBigliettoQR</servlet-name>
-    <url-pattern>/obliteraBigliettoQR</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>ObliteraBigliettoQR</servlet-name>
+		<servlet-class>controller.ObliteraBigliettoQR</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ObliteraBigliettoQR</servlet-name>
+		<url-pattern>/obliteraBigliettoQR</url-pattern>
+	</servlet-mapping>
 
 </web-app>

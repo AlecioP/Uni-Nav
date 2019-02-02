@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -52,9 +53,9 @@ public class InviaDomanda extends HttpServlet {
 		}
 		if (id == -1)
 			id = 1;
-		LocalDateTime l = LocalDateTime.of(LocalDate.now(), LocalTime.now());
+		LocalDateTime l = LocalDateTime.now();
 
-		System.out.println(l);
+		// System.out.println(l);
 		DomandaRiabilitazione d = new DomandaRiabilitazione(id, l, s, a);
 		ddao.save(d);
 		req.getSession().setAttribute("request-error", "Domanda effettuata con successo");
