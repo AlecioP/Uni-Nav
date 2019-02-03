@@ -2,11 +2,14 @@ package model;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
 import persistence.daoManage.crud.Crud;
 import persistence.persistentModel.Autista;
+import persistence.persistentModel.Linea;
+import persistence.persistentModel.Navetta;
 
 public class RegistroAttivitaNavette {
 	
@@ -50,4 +53,31 @@ public class RegistroAttivitaNavette {
 		return data;
 	}
 
+	public HashSet<Linea> getLineeAttive(){
+		HashSet<Linea> ret = new HashSet<Linea>();
+		for(LineaRegistroNavette l : linee.values()) {
+			if(l.getLinea()!=null && ret.contains(l.getLinea())==false)
+				ret.add(l.getLinea());
+		}
+		return ret;
+	}
+	
+	public HashSet<Navetta> getNavetteAttive(){
+		HashSet<Navetta> ret = new HashSet<Navetta>();
+		for(LineaRegistroNavette l : linee.values()) {
+			if(l.getNavetta()!=null && ret.contains(l.getNavetta())==false)
+				ret.add(l.getNavetta());
+		}
+		return ret;
+	}
+	
+	public HashSet<Navetta> getNavetteAttive(Linea ln){
+		HashSet<Navetta> ret = new HashSet<Navetta>();
+		for(LineaRegistroNavette l : linee.values()) {
+			if(l.getNavetta()!=null && ret.contains(l.getNavetta())==false && l.getLinea().getNome().equals(ln.getNome()))
+				ret.add(l.getNavetta());
+		}
+		return ret;
+	}
+	
 }

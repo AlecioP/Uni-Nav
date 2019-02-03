@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import model.geoUtil.FermataComparator;
 import model.geoUtil.GeoUtil;
 import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
@@ -30,14 +32,14 @@ public class CreaPrenotazione extends HttpServlet{
 
 	private static final int NUMERO_FERMATE_VICINE = 5;
 	private static final int NUMERO_MASSIMO_FLAG = 5;
-	
+
 
 	private static final long serialVersionUID = 7019570969697763456L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("In servlet : CreaPrenotazione");
-		
+
 		String state = (String) req.getParameter("state");
 		if(state==null) {
 			/*Verifica ban*/
@@ -61,32 +63,16 @@ public class CreaPrenotazione extends HttpServlet{
 		case "arrivo":{
 			double actualLat = Double.parseDouble(req.getParameter("actual-lat"));
 			double actualLng = Double.parseDouble(req.getParameter("actual-lng"));
-			ArrayList<Fermata> fermatevicine = new ArrayList<Fermata>();
+			List<Fermata> fermatevicine = new ArrayList<Fermata>();
 			DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 
 			FermataDaoJDBC fermataDao = (FermataDaoJDBC) df.getFermataDAO();
 			ArrayList<Fermata> tuttefermate = (ArrayList<Fermata>) fermataDao.findAll();
+			tuttefermate.sort(new FermataComparator(actualLat, actualLng));
+			
+			fermatevicine = tuttefermate.subList(0, NUMERO_FERMATE_VICINE);
 
-			for(Fermata f : tuttefermate) {
-				if(fermatevicine.size()<NUMERO_FERMATE_VICINE)
-					fermatevicine.add(f);
-				else {
-					double maxDistance = GeoUtil.distance(actualLat, actualLng, 
-							f.getLatitudine(), f.getLongitudine());
-					int removeIndex = -1;
-					for(Fermata f1 : fermatevicine) {
-						double f1D = GeoUtil.distance(actualLat, actualLng, 
-								f1.getLatitudine(), f1.getLongitudine());
-						if(f1D>maxDistance)
-							removeIndex = fermatevicine.indexOf(f1);
-					}
-					if(removeIndex>=0) {
-						fermatevicine.remove(removeIndex);
-						fermatevicine.add(f);
-					}
-				}
-
-			}
+			
 			ArrayList<JSONObject> fermateJson = new ArrayList<JSONObject>();
 			for(Fermata f : fermatevicine) {
 				fermateJson.add(new JSONObject(f));
@@ -97,29 +83,53 @@ public class CreaPrenotazione extends HttpServlet{
 		}
 
 		case "computeLine" :{
-			
-			String partenzaStr = (String) req.getParameter("partenza-nome");
-			String arrivoStr = (String) req.getParameter("arrivo-nome");
-			JSONObject partenzaJson,arrivoJson;
+
+			String partenzaStr = (String) req.getParameter("start-point");
+			String arrivoStr = (String) req.getParameter("stop-point");
+			JSONObject partenzaJson = null,arrivoJson=null;
 			String partenzaID="",arrivoID="";
 			try {
 				partenzaJson = new JSONObject(partenzaStr);
 				arrivoJson = new JSONObject(arrivoStr);
 				partenzaID = partenzaJson.getString("nome");
 				arrivoID = arrivoJson.getString("nome");
-				
+
+
 			}catch(JSONException ex) {/*Handle exception*/}
 			DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 			Crud fermataDao = df.getFermataDAO();
 			Fermata partenza = (Fermata) fermataDao.findByPrimaryKey(partenzaID), 
 					arrivo = (Fermata) fermataDao.findByPrimaryKey(arrivoID);
+			try {
+				if(partenza==null)
+					partenza = new Fermata(partenzaJson.getString("nome"), 
+							Double.parseDouble(partenzaJson.getString("latitudine")), 
+							Double.parseDouble(partenzaJson.getString("longitudine")));
+				if(arrivo==null)
+					arrivo = new Fermata(arrivoJson.getString("nome"), 
+							Double.parseDouble(arrivoJson.getString("latitudine")), 
+							Double.parseDouble(arrivoJson.getString("longitudine")));
+
+			}catch(JSONException ex) {/*Handle exception*/}
 			ArrayList<ArrayList<TrattoLinea> > routes = GeoUtil.computeRoutes(partenza, arrivo);
-			JSONObject routesJson = new JSONObject(routes);
-			resp.getOutputStream().println(routesJson.toString());
-			break;
+			ArrayList<JSONArray> arrayRoutes = new ArrayList<JSONArray>();
+			for(ArrayList<TrattoLinea> at : routes) {
+				ArrayList<JSONObject> route = new ArrayList<JSONObject>();
+				for(TrattoLinea tr : at) {
+					route.add(new JSONObject(tr));
+				}
+				arrayRoutes.add(new JSONArray(route));
+			}
+			JSONArray routesArray = new JSONArray(arrayRoutes);
+			
+			resp.getOutputStream().println(routesArray.toString());
+			
+			return;
 		}
 		case "computeBus" : {
-
+			req.getSession().setAttribute("", "");
+			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/pickBus.jsp");
+			rd.forward(req, resp);
 			break;
 		}
 		}

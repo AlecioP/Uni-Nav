@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Servizio Navetta - Driver Homepage</title>
 
-
+<%@ include file="leafletImport.jsp" %> 
 <!-- Custom style import -->
 <link rel="stylesheet" type="text/css" href="css/driver.css">
 <!-- Custom javascript import -->
@@ -16,7 +16,7 @@
 <script type="text/javascript" src="js/driverMap.js"></script>
 
 
-<%@ include file="leafletImport.jsp" %> 
+
 
 </head>
 <body>

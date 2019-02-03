@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Nuova Prenotazione - ${username}</title>
-
+<%@ include file="leafletImport.jsp" %> 
 
 <!-- Custom javascript import -->
 <script type="text/javascript" src="js/bootstrapConverter.js"></script>
@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="css/nuovaPrenotazione.css">
 <link rel="stylesheet" type="text/css" href="css/common.css">
 
-<%@ include file="leafletImport.jsp" %> 
+
 
 </head>
 <body>
@@ -27,7 +27,7 @@
 	<div class="col-sx mycol-4">
 
 		<div class="asynch-form panel-group">
-			<div class="panel panel-primary">
+			<div id="start-panel" class="panel panel-primary selectable-panel">
 				<div class="panel-heading">Partenza :</div>
 				<div class="panel-body">
 					<label class="checkbox-inline">
@@ -40,7 +40,7 @@
 					</label>
 				</div>
 			</div>
-			<div class="panel panel-success">
+			<div id="stop-panel" class="panel panel-success">
 				<div class="panel-heading">Arrivo :</div>
 				<div class="panel-body">
 					<label class="checkbox-inline">
@@ -54,6 +54,7 @@
 				</div>
 			</div>
 			<button id="compute-routes" class="btn btn-info" disabled>Calcola percorsi</button>
+			<span id="error-space" class="row"> </span>
 		</div>
 	</div>
 	<div class="mycol-1"></div>

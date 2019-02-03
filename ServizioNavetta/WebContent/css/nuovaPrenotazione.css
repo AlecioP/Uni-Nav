@@ -10,3 +10,27 @@ body {
 	width: 100%;
 	border: 5px solid black;
 }
+
+#compute-routes {
+	margin-top: 1.5em;
+}
+
+#error-space {
+	font-size : 1.5em;
+	color : red;
+	margin: 5em;
+	padding: 5em;
+	text-shadow: -5 -5 4px white;
+}
+
+.selectable-panel {
+	border: 5px solid yellow;
+}
+
+.selectable-panel-success{
+	border: 5px solid limegreen;
+}
+
+.selectable-panel-error{
+	border: 5px solid red;
+}

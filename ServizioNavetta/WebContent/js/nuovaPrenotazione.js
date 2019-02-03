@@ -10,6 +10,7 @@ var mapAttribution = 'Map data &copy; <a href="https://www.openstreetmap.org/">O
 var LAT = 0.0;
 var LNG = 0.0;
 var customIcon;
+var redIcon;
 var mymap;
 var tileLayer;
 var nearStart = [];
@@ -18,68 +19,69 @@ var fermataPartenza = undefined;/* new Fermata();*/
 var fermataArrivo = undefined;/* new Fermata();*/
 var lastElClicked = "start";
 
+/*TEST*/
+var viewLAT;
+var viewLNG;
+
 /*DEBUG*/
-var clickPoint;
 var someMarker;
-/**/
+
+var lines;
 
 $(function(){ /* DOM ready */
     
     initCustomMarker();
-	navigator.geolocation.getCurrentPosition(function (position) {	
-    	LAT = position.coords.latitude;
-    	LNG = position.coords.longitude;
-    	createMap();
-        fermataPartenza = new Fermata();
-        fermataPartenza.nome ="Actual Position";
-        fermataPartenza.latitudine = LAT;
-        fermataPartenza.longitudine = LNG;
-        fermateNear(LAT,LNG,"start");
-	});
+	updatePosition("start");
 	
 	
-	$("#start-geoloc").click(function(){
+	$("#start-geoloc").click(function(ev){
+        graphicClick("start");
+        //ev.preventDefault();
+        //ev.stopPropagation();
+        lastElClicked ="start";
         this.checked = true;
         emptyArray(nearStart);
-		updatePosition();
-        fermateNear(LAT,LNG,"start");
+        /*STD*/
+		updatePosition("start");
         checkDisabledButton();
-        lastElClicked="start";
-        markStop(fermataArrivo);
-        markStop(fermataPartenza);
 	});/*ACTION LISTENER*/
     
-	$("#start-map").click(function(){
+	$("#start-map").click(function(ev){
+        graphicClick("start");
+        //ev.preventDefault();
+        //ev.stopPropagation();
+        lastElClicked ="start";
         this.checked = true;
         emptyArray(nearStart);
-        createMap();
+        /*STD*/
+        updatePosition("start");
         checkDisabledButton();
-        lastElClicked="start";
-        markStop(fermataArrivo);
-        markStop(fermataPartenza);
 	});/*ACTION LISTENER*/
     
-	$("#stop-map").click(function(){
+    $("#stop-geoloc").click(function(ev){
+        graphicClick("stop");
+        //ev.preventDefault();
+        //ev.stopPropagation();
+        lastElClicked ="stop";
         this.checked = true;
 		emptyArray(nearStop);
-        createMap();
+        /*STD*/
+		updatePosition("stop");
         checkDisabledButton();
-        lastElClicked="stop";
-        markStop(fermataArrivo);
-        markStop(fermataPartenza);
+        
 	});/*ACTION LISTENER*/
     
-	$("#stop-geoloc").click(function(){
+	$("#stop-map").click(function(ev){
+        graphicClick("stop");
+        //ev.preventDefault();
+        //ev.stopPropagation();
+        lastElClicked ="stop";
         this.checked = true;
 		emptyArray(nearStop);
-		updatePosition();
-        fermateNear(LAT,LNG,"stop");
+        /*STD*/
+        updatePosition("stop");
         checkDisabledButton();
-        lastElClicked="stop";
-        markStop(fermataArrivo);
-        markStop(fermataPartenza);
 	});/*ACTION LISTENER*/
-    
     
     $("#compute-routes").click(function(){
         var disabled = this.hasAttribute("disabled");
@@ -91,19 +93,80 @@ $(function(){ /* DOM ready */
                     "stop-point" : JSON.stringify(fermataArrivo)
                 },
                 success: function(data){
+                    createMap();
                     /*add routes in map*/
+                    lines = JSON.parse(data);
+                    if(lines.length===0){
+                        ($("#error-space")[0]).innerHTML="Nessuna linea trovata !";
+                        return;
+                    }
+                    if(mymap==undefined){
+                        alert("There isn't any map to add routes to !");
+                        return;
+                    }
+                    for(var i = 0 ; i < lines.length ; i++){
+                        var jsonRoute = lines[i];
+                        var wp = [];
+                        if(jsonRoute.length>0){
+                            wp.push(new L.latLng(jsonRoute[0].partenza.latitudine, jsonRoute[0].partenza.longitudine));
+                            for(var j = 0 ; j < jsonRoute.length ; j++){
+                                wp.push(new L.latLng(jsonRoute[j].arrivo.latitudine, jsonRoute[j].arrivo.longitudine));
+                            }
+                        }
+                        
+                        var leafRoute = new L.Routing.control({
+                            waypoints : wp,
+                            routeWhileDragging : true,
+                            router : L.Routing.mapbox(myToken),
+                            /*createMarker : function() {return null;},We don't want any marker to be drawn*/
+                            routeLine: function(route) {
+                                var line = L.Routing.line(route, {
+                                    addWaypoints: false,
+                                    extendToWaypoints: false,
+                                    routeWhileDragging: false,
+                                    autoRoute: true,
+                                    useZoomParameter: false,
+                                    draggableWaypoints: false,
+                                    addWaypoints: false
+                                });
+                                /*line.on('click', function(e) { console.log(e); });*/
+                                line.eachLayer(function(l){
+                                    $(l).click(function(e){
+                                        alert("click");
+                                    });
+                                });
+                                return line;
+                            }
+                        });
+                        
+                        leafRoute.addTo(mymap);
+                        
+                    }
+                    /*VERY DANGEROUS (In every moment it could create
+                        problems cause I don't know if the API needs it in for some reason)*/
+                    $(".leaflet-routing-container").remove();
                 }	
             });/*AJAX CALL*/
         }
 	});/*ACTION LISTENER*/
 });/* DOM ready */
 
-function updatePosition(){
+function updatePosition(whereAdd){
     navigator.geolocation.getCurrentPosition(function(position){
             LAT = position.coords.latitude;
             LNG = position.coords.longitude;
             createMap();
             markCurrentPosition();
+            if(whereAdd==="start"){
+                fermateNear(LAT,LNG,"start");
+                if(fermataArrivo!=undefined)
+                    markStop(fermataArrivo,redIcon);
+            }
+            else if(whereAdd==="stop"){
+                fermateNear(LAT,LNG,"stop");
+                if(fermataPartenza!=undefined)
+                    markStop(fermataPartenza,redIcon);
+            }
         });
 }
 
@@ -123,34 +186,41 @@ function fermateNear(lat,lng,whereAdd){
                 if(mymap!=undefined){
                 	for(var i=0;i<fermateVicine.length;i++){
                         var tmp = new Fermata();
-                        console.log("From server : title "+fermateVicine[i].nome)
                         tmp.nome = fermateVicine[i].nome;
                 		tmp.latitudine=fermateVicine[i].latitudine;
                     	tmp.longitudine=fermateVicine[i].longitudine;
-                    	var marker = new L.Marker([tmp.latitudine, tmp.longitudine]).addTo(mymap);
+                        var marker;
+                        if((whereAdd==="start" && fermataArrivo!=undefined && fermataArrivo.nome===tmp.nome)||
+                           (whereAdd==="stop" && fermataPartenza!=undefined &&fermataPartenza.nome===tmp.nome))
+                            continue;
+                        else
+                    	   var marker = new L.Marker([tmp.latitudine, tmp.longitudine]/*, {icon : redIcon}*/).addTo(mymap);
                     	marker.options.title = tmp.nome;
-                    	console.log(marker.options.title);
-                    	someMarker = marker;
+                        
                         if(whereAdd==="start"){
                             nearStart.push(tmp);
                             //$(marker).click(function(){
                             marker.on('click',function(){
-                                var tmp1 = new Fermata();
-                                tmp1.nome = this.options.title;
-                                tmp1.latitudine = this.getLatLng().lat;
-                                tmp1.longitudine = this.getLatLng().lng;
-                                console.log(this.title);
-                                console.log(this.getLatLng());
+                                var tmp1 = Fermata.fakeConstr(this.options.title, this.getLatLng().lat,this.getLatLng().lng);
                                 fermataPartenza = tmp1;
+                                checkDisabledButton();
+                                createMap();
+                                if(fermataArrivo!=undefined){
+                                    markStop(fermataArrivo,redIcon);
+                                }
+                                markStop(tmp1,redIcon);
                             });
                         }else if(whereAdd==="stop"){
                             nearStop.push(tmp);
                             marker.on('click',function(){
-                                var tmp1 = new Fermata();
-                                tmp1.nome = this.title;
-                                tmp1.latitudine = this.getLatLng().lat;
-                                tmp1.longitudine = this.getLatLng().lng;
+                                var tmp1 = Fermata.fakeConstr(this.options.title, this.getLatLng().lat,this.getLatLng().lng);
                                 fermataArrivo = tmp1;
+                                checkDisabledButton();
+                                createMap();
+                                if(fermataPartenza!=undefined){
+                                    markStop(fermataPartenza,redIcon);
+                                }
+                                markStop(tmp1,redIcon);
                             });
                         }
                 	}
@@ -166,8 +236,15 @@ function emptyArray(array){
 }
 
 function createMap(){
+    
+    var initLat = LAT;
+    var initLng = LNG;
+    if(mymap!=undefined){
+        initLat = mymap.getCenter().lat;
+        initLng = mymap.getCenter().lng;
+    }
     deleteMap();
-    mymap = new L.Map('map').setView([LAT,LNG],15);
+    mymap = new L.Map('map').setView([initLat,initLng],15);
     tileLayer = new L.TileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', 
     {
         attribution: mapAttribution,
@@ -181,7 +258,9 @@ function createMap(){
         var objLatLng = mymap.mouseEventToLatLng(ev.originalEvent);
 //        alert("CLICK ON : LAT "+objLatLng.lat+" LNG "+objLatLng.lng);
         clickPoint = objLatLng;
-        handleMapClick(objLatLng);
+        if(lines==undefined){
+            handleMapClick(objLatLng);
+        }
     }); 
 }
 
@@ -194,6 +273,17 @@ function initCustomMarker(){
         shadowSize:   [8, 8], // size of the shadow
         iconAnchor:   [20, 20], // point of the icon which will correspond to marker's location
         shadowAnchor: [1, 1],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+    
+    redIcon = L.icon({
+        iconUrl: 'img/red-marker.png',
+        shadowUrl: 'img/marker.png',
+
+        iconSize:     [30, 45], // size of the icon
+        shadowSize:   [7, 7], // size of the shadow
+        iconAnchor:   [15, 45], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 4],  // the same for the shadow
         popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
 }
@@ -229,8 +319,11 @@ function handleMapClick(objLatLng){
             tmp.nome="Custom start";
             tmp.latitudine = objLatLng.lat;
             tmp.longitudine = objLatLng.lng;
-            fermataPartenza = tmp;
-            markStop(tmp);
+            createMap();
+            markStop(tmp,customIcon);
+            fermateNear(tmp.latitudine,tmp.longitudine,"start");
+            if(fermataArrivo!=undefined)
+                markStop(fermataArrivo,redIcon);
         }
     }else if(lastElClicked=="stop"){
         var elCH = $("#stop-map")[0];
@@ -240,8 +333,11 @@ function handleMapClick(objLatLng){
             tmp.nome="Custom stop";
             tmp.latitudine = objLatLng.lat;
             tmp.longitudine = objLatLng.lng;
-            fermataArrivo = tmp;
-            markStop(tmp);
+            createMap();
+            markStop(tmp,customIcon);
+            fermateNear(tmp.latitudine,tmp.longitudine,"stop");
+            if(fermataPartenza!=undefined)
+                markStop(fermataPartenza,redIcon);
         }
     }
 }
@@ -254,10 +350,45 @@ function markStop(fermata){
     }
 }
 
+function markStop(fermata,icon1){
+    if(mymap!=undefined && fermata!=undefined){
+        var m = new L.Marker([fermata.latitudine, fermata.longitudine]);
+        m.addTo(mymap);
+        m.options.title = fermata.nome;
+        m.setIcon(icon1);
+        someMarker = m;
+    }
+}
+
+function graphicClick(where){
+	if(where==="start"){
+        
+		$("#stop-panel").removeClass("selectable-panel selectable-panel-success selectable-panel-error");
+        if(fermataPartenza!=undefined)
+            $("#start-panel").addClass("selectable-panel-success");
+        else
+            $("#start-panel").addClass("selectable-panel-error");
+	}else if(where==="stop"){
+		$("#start-panel").removeClass("selectable-panel selectable-panel-success selectable-panel-error");
+		if(fermataArrivo!=undefined)
+            $("#stop-panel").addClass("selectable-panel-success");
+        else
+            $("#stop-panel").addClass("selectable-panel-error");
+	}
+}
+
 class Fermata{
     constructor(){
         this.nome = "";
         this.latitudine=0.0;
         this.longitudine=0.0;
+    }
+    
+    static fakeConstr(nome,lat,lng){
+        var fermata = new Fermata();
+        fermata.nome = nome;
+        fermata.latitudine = lat;
+        fermata.longitudine = lng;
+        return fermata;
     }
 }
