@@ -161,7 +161,16 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ObliteraBigliettoQR</servlet-name>
-		<url-pattern>/obliteraBigliettoQR</url-pattern>
+		<url-pattern>/ObliteraBigliettoQR</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ControlloObliterazione</servlet-name>
+		<servlet-class>controller.ControlloObliterazione</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlloObliterazione</servlet-name>
+		<url-pattern>/controlloObliterazione</url-pattern>
 	</servlet-mapping>
 
 </web-app>

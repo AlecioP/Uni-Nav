@@ -26,15 +26,21 @@ public class InviaFeedback extends HttpServlet {
 		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 		PrenotazioneDaoJDBC pdao = (PrenotazioneDaoJDBC) df.getPrenotazioneDAO();
 		FeedbackDaoJDBC fdao = (FeedbackDaoJDBC) df.getFeedBackDAO();
-		Prenotazione p = (Prenotazione) pdao.findByPrimaryKey(req.getParameter("prenID"));
-//		System.out.println(req.getParameter("prenID") + " ss");
-		String text = req.getParameter("prenID");
-		String text2 = req.getParameter("commento");
-		System.out.println(text+" "+text2);
-		FeedBack feed = new FeedBack(p, text);
-		fdao.save(feed);
-		System.out.println(text);
-		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/feedback.jsp");
-		rd.forward(req, resp);
+		Prenotazione p = (Prenotazione) pdao.findByPrimaryKey(req.getParameter("preno"));
+		String pren = req.getParameter("preno");
+		String comment = req.getParameter("commento");
+		FeedBack feed = new FeedBack(p, comment);
+		FeedBack tmp = (FeedBack) fdao.findByPrimaryKey(p.getID() + "");
+		if (tmp != null) {
+			req.getSession().setAttribute("message-error", "Hai già mandato il feedback di questa prenotazione");
+			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/feedback.jsp");
+			rd.forward(req, resp);
+		} else {
+			fdao.save(feed);
+			System.out.println(pren);
+			req.getSession().setAttribute("message-error", null);
+			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.jsp");
+			rd.forward(req, resp);
+		}
 	}
 }

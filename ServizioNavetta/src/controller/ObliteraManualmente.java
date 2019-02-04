@@ -49,7 +49,7 @@ public class ObliteraManualmente extends HttpServlet {
 			linea.setGiriCompletati(0);
 			linea.setNavetta((Navetta) ndao.findByPrimaryKey("1"));
 			linea.setLinea(new Linea("a"));
-			linea.setPosizione(ldao.findByPrimaryKeyComposed("b", "a"));
+			linea.setPosizione(ldao.findByPrimaryKeyComposed("universita", "quattromiglia"));
 		}
 		if (linea.getNavetta() == null)
 			linea.setNavetta((Navetta) ndao.findByPrimaryKey("1"));

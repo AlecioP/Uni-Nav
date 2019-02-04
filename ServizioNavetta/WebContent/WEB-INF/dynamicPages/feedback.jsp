@@ -21,9 +21,30 @@
 Latest compiled JavaScript
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+<script>
+	$(window).on('load', function() {
+		alert("carica");
+		$("#comment").hide();
+		$("#feedback").show();
+	});
+</script>
+<script>
+	$(function() { /* DOM ready */
+		$(".myButton").click(function() {
+			alert("ww");
+			$("#comment").hide();
+			$("#feedback").show();
+		});
+	});
+</script>
 </head>
 <body>
 	<div id=feedback>
+		<c:if test="${message-error != null }">
+			<c:set var="message" value="message-error" />
+			<span class="error-message"><c:out
+					value="${sessionScope[message]}" /></span>
+		</c:if>
 		<table>
 			<tr>
 				<th>Prenotazione</th>
@@ -56,17 +77,18 @@ Latest compiled JavaScript
 			</c:forEach>
 		</table>
 	</div>
-	<div id=comment style="display: none">
-		<div id=prenotazioneID style="display: none">
-			<input id=codicePren name="prenID" type="text" />
-		</div>
+	<div class="form-horizontal" id=comment style="display: none">
 		<form action="lasciaFeedback" method="get">
 			<!-- 
 		Your name: <br> <input type="text" name="nome"><br>
 		<br> Your email: <br> <input type="text" name="email"><br> -->
+			<div class="form-group" id=prenotazioneID>
+				<input id=codicePren name="preno" type="text" style="display: none" />
+			</div>
 			<%-- <br> Commenti corsa ${prenotazione.ID}: <br> --%>
 			<textarea name="commento" rows="15" cols="50"></textarea>
-			<br> <br> <input type="submit" value="Submi" name="cico">
+			<br> <br> <input class=myButton type="submit"
+				value="Invia Feedback" name="cico">
 			<button id="bottone" type="button" onclick="indietro()">Indietro</button>
 		</form>
 	</div>
