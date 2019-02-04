@@ -89,7 +89,10 @@ public class PrenotazioneDaoJDBC implements Crud {
 				Studente studente = new StudenteDaoJDBC(ds).findByPrimaryKey(result.getInt("Studente_ID")+"");
 				
 				Autista autista = (Autista) new AutistaDaoJDBC(ds).findByPrimaryKey(result.getInt("Autista_ID")+"");
-				return new Prenotazione(prenotazioneID, giro, navetta, tratto, dateTime, autista, studente);
+				Prenotazione pr = new Prenotazione(prenotazioneID, giro, navetta, tratto, dateTime, autista, studente);
+				pr.setObliteratoEntrata(result.getBoolean("Obliterato_entrata"));
+				pr.setObliteratoUscita(result.getBoolean("Obliterato_uscita"));
+				return pr;
 			}
 			return null;
 		}catch (SQLException e) {
@@ -123,7 +126,10 @@ public class PrenotazioneDaoJDBC implements Crud {
 				Studente studente = new StudenteDaoJDBC(ds).findByPrimaryKey(result.getInt("Studente_ID")+"");
 				
 				Autista autista = (Autista) new AutistaDaoJDBC(ds).findByPrimaryKey(result.getInt("Autista_ID")+"");
-				ret.add(new Prenotazione(ID, giro, navetta, tratto, dateTime, autista, studente));
+				Prenotazione pr = new Prenotazione(ID, giro, navetta, tratto, dateTime, autista, studente);
+				pr.setObliteratoEntrata(result.getBoolean("Obliterato_entrata"));
+				pr.setObliteratoUscita(result.getBoolean("Obliterato_uscita"));
+				ret.add(pr);
 			}
 			return ret;
 		}catch (SQLException e) {
