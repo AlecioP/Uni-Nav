@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jgrapht.alg.util.Pair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,14 +20,11 @@ import persistence.daoManage.jdbcDao.PrenotazioneDaoJDBC;
 import persistence.daoManage.jdbcDao.StudenteDaoJDBC;
 import persistence.persistentModel.Prenotazione;
 
-public class ObliteraEntrataManualmente extends HttpServlet {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -771141708825267352L;
+public class ControlloObliterazione extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("oblit");
 		String jsonReceived = "";
 		BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream()));
 		String line = reader.readLine();
@@ -41,26 +39,26 @@ public class ObliteraEntrataManualmente extends HttpServlet {
 			PrenotazioneDaoJDBC pdao = (PrenotazioneDaoJDBC) df.getPrenotazioneDAO();
 			@SuppressWarnings("unused")
 			StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
-			// System.out.println(json.getString("id") + " jsonnn");
+			System.out.println(json.getString("id") + " jsonnn");
 			Prenotazione p = (Prenotazione) pdao.findByPrimaryKey(json.getString("id"));
 			// Studente s = sdao.findByPrimaryKey(p.getStudente().getMatricola() + "");
 			// System.out.println(p.getID() + " iddd");
 			// System.out.println(p.getTratto().getArrivo() + " nomeee");
-			Point tipoOblitarazione = new Point(0, 0);
-			System.out.println(p.isObliteratoEntrata() + " boollllll");
-			// 0 sta obliterando in entrata 1 in uscita
+			int entrata = 0, uscita = 0;
+			System.out.println(p.isObliteratoEntrata()+" boollllll");
 			if (p.isObliteratoEntrata()) {
-				tipoOblitarazione.setLocation(1, 0);
-				p.setObliteratoUscita(true);
-			} else
-				p.setObliteratoEntrata(true);
+				entrata = 1;
+				System.out.println("ooooooo");
+			}
+			if (p.isObliteratoUscita())
+				uscita = 1;
 			// System.out.println(p.getStudente().ge + " fermaa");
-
-			pdao.update(p);
+			// pdao.update(p);
 			// int p = Integer.parseInt(json.getString("id"));
-			JSONObject jsonTipo = new JSONObject(tipoOblitarazione);
-			System.out.println(jsonTipo.toString() + " obliiiii");
-			resp.getWriter().println(jsonTipo.toString());
+			Point coppia = new Point(entrata, uscita);
+			JSONObject jsonCoppia = new JSONObject(coppia);
+			System.out.println(jsonCoppia.toString());
+			resp.getWriter().println(jsonCoppia.toString());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,4 +1,4 @@
-function obliteraEntrata(ID) {
+function obliteraEntrataUscita(ID) {
 	alert("cc");
 	var prenF = {
 		id : ID,
@@ -9,8 +9,13 @@ function obliteraEntrata(ID) {
 		datatype : "json",
 		data : JSON.stringify(prenF),
 		success : function(data) {
+			var x = JSON.parse(data);
 			alert("cc");
-			document.getElementById("entrata").disabled = true;
+			alert(x.x);
+			if (x.x == 0)
+				document.getElementById("entrata").disabled = true;
+			else
+				document.getElementById("uscita").disabled = true;
 
 			// document.getElementsByClassName("entrata")[0].disabled = true;
 			// document.getElementsByTagName("input")[0].disabled = true;
@@ -32,6 +37,7 @@ function obliteraEntrata(ID) {
 	// alert("if");
 	// }
 }
+
 // $(document).ready(function() {
 // $('#entrata').onclick()
 // {
