@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jgrapht.alg.util.Pair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,6 +20,11 @@ import persistence.daoManage.jdbcDao.StudenteDaoJDBC;
 import persistence.persistentModel.Prenotazione;
 
 public class ControlloObliterazione extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7310983108598484101L;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
