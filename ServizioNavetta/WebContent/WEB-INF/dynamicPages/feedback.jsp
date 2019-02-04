@@ -26,7 +26,6 @@ Latest compiled JavaScript
 		alert("carica");
 		$("#comment").hide();
 		$("#feedback").show();
-		alert(document.getElementById("pal").value);
 	});
 </script>
 <script>
@@ -41,6 +40,11 @@ Latest compiled JavaScript
 </head>
 <body>
 	<div id=feedback>
+		<c:if test="${message-error != null }">
+			<c:set var="message" value="message-error" />
+			<span class="error-message"><c:out
+					value="${sessionScope[message]}" /></span>
+		</c:if>
 		<table>
 			<tr>
 				<th>Prenotazione</th>
@@ -74,7 +78,7 @@ Latest compiled JavaScript
 		</table>
 	</div>
 	<div class="form-horizontal" id=comment style="display: none">
-		<form action="lasciaFeedback" method="post">
+		<form action="lasciaFeedback" method="get">
 			<!-- 
 		Your name: <br> <input type="text" name="nome"><br>
 		<br> Your email: <br> <input type="text" name="email"><br> -->
@@ -83,8 +87,8 @@ Latest compiled JavaScript
 			</div>
 			<%-- <br> Commenti corsa ${prenotazione.ID}: <br> --%>
 			<textarea name="commento" rows="15" cols="50"></textarea>
-			<br> <br> <input class=myButton type="submit" value="Submi"
-				name="cico">
+			<br> <br> <input class=myButton type="submit"
+				value="Invia Feedback" name="cico">
 			<button id="bottone" type="button" onclick="indietro()">Indietro</button>
 		</form>
 	</div>

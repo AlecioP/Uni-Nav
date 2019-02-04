@@ -22,7 +22,7 @@ public class InviaFeedback extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 		PrenotazioneDaoJDBC pdao = (PrenotazioneDaoJDBC) df.getPrenotazioneDAO();
 		FeedbackDaoJDBC fdao = (FeedbackDaoJDBC) df.getFeedBackDAO();
@@ -30,9 +30,17 @@ public class InviaFeedback extends HttpServlet {
 		String pren = req.getParameter("preno");
 		String comment = req.getParameter("commento");
 		FeedBack feed = new FeedBack(p, comment);
-		fdao.save(feed);
-		System.out.println(pren);
-		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/feedback.jsp");
-		rd.forward(req, resp);
+		FeedBack tmp = (FeedBack) fdao.findByPrimaryKey(p.getID() + "");
+		if (tmp != null) {
+			req.getSession().setAttribute("message-error", "Hai già mandato il feedback di questa prenotazione");
+			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/feedback.jsp");
+			rd.forward(req, resp);
+		} else {
+			fdao.save(feed);
+			System.out.println(pren);
+			req.getSession().setAttribute("message-error", null);
+			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.jsp");
+			rd.forward(req, resp);
+		}
 	}
 }
