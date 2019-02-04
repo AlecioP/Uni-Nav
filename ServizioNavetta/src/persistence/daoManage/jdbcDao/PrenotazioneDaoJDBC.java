@@ -211,8 +211,10 @@ public class PrenotazioneDaoJDBC implements Crud {
 				String fKey2_arrivo = Utility.deleteArrayElements(result.getString("Tratto::arrivo"));
 				TrattoLinea tratto = new TrattoLineaDaoJDBC(ds).findByPrimaryKeyComposed(fKey1_partenza, fKey2_arrivo);
 				Autista autista = (Autista) new AutistaDaoJDBC(ds).findByPrimaryKey(result.getInt("Autista_ID")+"");
-				
-				returning.add(new Prenotazione(ID, giro, navetta, tratto, dateTime, autista,studente));
+				Prenotazione pr = new Prenotazione(ID, giro, navetta, tratto, dateTime, autista,studente);
+				pr.setObliteratoEntrata(result.getBoolean("Obliterato_entrata"));
+				pr.setObliteratoUscita(result.getBoolean("Obliterato_uscita"));
+				returning.add(pr);
 			}
 			return returning;
 		} catch (SQLException e) {
