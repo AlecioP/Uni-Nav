@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,11 +39,7 @@ public class ObliteraManualmente extends HttpServlet {
 		StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
 		String tmp = (String) req.getSession().getAttribute("username");
 		int autistaID = Integer.parseInt(tmp);
-		RegistroAttivitaNavette registro = (RegistroAttivitaNavette) req.getServletContext().getAttribute("registro");
-		if (registro == null) {
-			registro = new RegistroAttivitaNavette(new Date());
-			req.getServletContext().setAttribute("registro", registro);
-		}
+		RegistroAttivitaNavette registro = RegistroAttivitaNavette.getInstance();
 		LineaRegistroNavette linea = registro.getLineaRegistro(autistaID);
 		if (linea == null) {
 			registro.addLinea(autistaID);

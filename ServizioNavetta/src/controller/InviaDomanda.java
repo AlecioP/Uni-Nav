@@ -1,11 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,7 +40,7 @@ public class InviaDomanda extends HttpServlet {
 		if (domande.size() > 0) {
 			for (DomandaRiabilitazione domandaRiabilitazione : domande) {
 				if (domandaRiabilitazione.getStudente().equals(s)) {
-					req.getSession().setAttribute("request-error", "Hai già effetuato la domanda");
+					req.getSession().setAttribute("request-error", "Hai giï¿½ effetuato la domanda");
 					RequestDispatcher rd = req
 							.getRequestDispatcher("WEB-INF/dynamicPages/inviaDomandaRiabilitazione.jsp");
 					rd.forward(req, resp);

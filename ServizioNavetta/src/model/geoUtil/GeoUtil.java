@@ -27,62 +27,23 @@ public class GeoUtil {
 
 	public static double distance(double p1LAT,double p1LNG, double p2LAT, double p2LNG) {
 
-		/*	function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-  			var R = 6371; // Radius of the earth in km
-  			var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  			var dLon = deg2rad(lon2-lon1); 
-  			var a = 
-    		Math.sin(dLat/2) * Math.sin(dLat/2) +
-    		Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    		Math.sin(dLon/2) * Math.sin(dLon/2)
-    		; 
-  			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  			var d = R * c; // Distance in km
-  			return d;
-		}
-
-		function deg2rad(deg) {
-  		return deg * (Math.PI/180)
-		}*/
-		
 		try {
-		
-		double earthRadius = 6371;//Km
-		double latDifferenceDegrees = (p2LAT-p1LAT) * (Math.PI/180);
-		double lngDifferenceDegrees = (p2LNG-p2LNG) * (Math.PI/180);
-		
-		double a =
-				Math.sin(latDifferenceDegrees/2) * Math.sin(latDifferenceDegrees/2) +
-				Math.cos(p1LAT * (Math.PI/180)) * Math.cos(p2LAT * (Math.PI/180)) *
-				Math.sin(lngDifferenceDegrees/2) * Math.sin(lngDifferenceDegrees/2);
 
-		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-		double distanceInKm = earthRadius * c;
-		
-		return distanceInKm;
+			double earthRadius = 6371;//Km
+			double latDifferenceDegrees = (p2LAT-p1LAT) * (Math.PI/180);
+			double lngDifferenceDegrees = (p2LNG-p2LNG) * (Math.PI/180);
+
+			double a =
+					Math.sin(latDifferenceDegrees/2) * Math.sin(latDifferenceDegrees/2) +
+					Math.cos(p1LAT * (Math.PI/180)) * Math.cos(p2LAT * (Math.PI/180)) *
+					Math.sin(lngDifferenceDegrees/2) * Math.sin(lngDifferenceDegrees/2);
+
+			double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+			double distanceInKm = earthRadius * c;
+
+			return distanceInKm;
 		}catch(Exception e) {return -1;}
 
-		/*
-		double d2r = Math.PI / 180;
-
-		try{
-			double dlong = (p2LNG - p1LNG) * d2r;
-			double dlat = (p2LAT - p1LAT) * d2r;
-			double a =
-					Math.pow(Math.sin(dlat / 2.0), 2)
-					+ Math.cos(p1LAT * d2r)
-					* Math.cos(p2LAT * d2r)
-					* Math.pow(Math.sin(dlong / 2.0), 2);
-			double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-			double d = 6367 * c;
-
-			return d;
-
-		} catch(Exception e){
-			e.printStackTrace();
-			return -1;
-		}
-		*/
 	}
 
 	public static ArrayList<ArrayList<TrattoLinea> > computeRoutes(Fermata partenza, Fermata arrivo){
@@ -150,12 +111,17 @@ public class GeoUtil {
 	}
 
 	public static ArrayList<ArrayList<Navetta> > computeBus(ArrayList<TrattoLinea> route,RegistroAttivitaNavette registro){
+		System.out.println(registro);
 		ArrayList<ArrayList<Navetta> > ret = new ArrayList<ArrayList<Navetta> >();
 		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
 		TrattoLineaDaoJDBC tDao = (TrattoLineaDaoJDBC) df.getTrattoLineaDAO();
 		for(TrattoLinea t : route) {
 			ArrayList<Navetta> navInTratto = new ArrayList<Navetta>();
 			HashSet<Linea> lineeAttive = registro.getLineeAttive();
+			/*DEBUG*/
+			for(Linea ln : lineeAttive)
+				System.out.println("Linea attiva : "+ln.getNome());
+			/*DEBUG*/
 			//Now the collection contains all the active lines that contain "TrattoLinea" "t"
 			lineeAttive.retainAll(tDao.getLinee(t));
 			for(Linea ln : lineeAttive) {

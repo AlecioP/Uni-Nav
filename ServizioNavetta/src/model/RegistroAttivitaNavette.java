@@ -13,6 +13,15 @@ import persistence.persistentModel.Navetta;
 
 public class RegistroAttivitaNavette {
 	
+	
+	private static RegistroAttivitaNavette instance;
+	
+	public static RegistroAttivitaNavette getInstance() {
+		if(instance==null)
+			instance = new RegistroAttivitaNavette(new Date());
+		return instance;
+	}
+	
 	private Date data;
 	
 	
@@ -30,7 +39,7 @@ public class RegistroAttivitaNavette {
 	 * */
 	private HashMap<Integer,LineaRegistroNavette> linee;
 	
-	public RegistroAttivitaNavette(Date data) {
+	private RegistroAttivitaNavette(Date data) {
 		this.data = data;
 		linee = new HashMap<Integer,LineaRegistroNavette>();
 	}
@@ -77,6 +86,14 @@ public class RegistroAttivitaNavette {
 			if(l.getNavetta()!=null && ret.contains(l.getNavetta())==false && l.getLinea().getNome().equals(ln.getNome()))
 				ret.add(l.getNavetta());
 		}
+		return ret;
+	}
+	
+	@Override
+	public String toString() {
+		String ret = "";
+		for(LineaRegistroNavette l : linee.values())
+			ret = ret.concat(l.toString()).concat(System.lineSeparator());
 		return ret;
 	}
 	

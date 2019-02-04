@@ -14,12 +14,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import model.RegistroAttivitaNavette;
 import model.geoUtil.FermataComparator;
 import model.geoUtil.GeoUtil;
 import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
 import persistence.daoManage.crud.Crud;
 import persistence.persistentModel.Fermata;
+import persistence.persistentModel.Navetta;
 import persistence.persistentModel.Studente;
 import persistence.persistentModel.TrattoLinea;
 import persistence.daoManage.jdbcDao.FermataDaoJDBC;
@@ -127,12 +129,37 @@ public class CreaPrenotazione extends HttpServlet{
 			return;
 		}
 		case "computeBus" : {
-			req.getSession().setAttribute("", "");
-			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/pickBus.jsp");
-			rd.forward(req, resp);
-			break;
+			
+			
 		}
 		}
 	}
 
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String jsonSelectedLineArray = req.getParameter("tratto-array");
+		
+		try {
+			JSONArray arrayTratti = new JSONArray(jsonSelectedLineArray);
+			ArrayList<TrattoLinea> route = new ArrayList<TrattoLinea>();
+			for(int i=0;i<arrayTratti.length();i++) {
+				JSONObject partenzaJson = arrayTratti.getJSONObject(i).getJSONObject("partenza"),
+				arrivoJson = arrayTratti.getJSONObject(i).getJSONObject("arrivo");
+				Fermata partenza = new Fermata(partenzaJson.getString("nome"), partenzaJson.getDouble("latitudine"), partenzaJson.getDouble("longitudine")),
+				arrivo = new Fermata(arrivoJson.getString("nome"), arrivoJson.getDouble("latitudine"), arrivoJson.getDouble("longitudine"));
+				double tempo = arrayTratti.getJSONObject(i).getDouble("tempoMIN"),
+				distanza = arrayTratti.getJSONObject(i).getDouble("distanzaKM");
+				route.add(new TrattoLinea(partenza, arrivo, tempo, distanza));
+			}
+			
+			RegistroAttivitaNavette registro = RegistroAttivitaNavette.getInstance();
+			ArrayList<ArrayList<Navetta>> navetteXtratti = GeoUtil.computeBus(route, registro);
+			req.getSession().setAttribute("listeNavette", navetteXtratti);
+			req.getSession().setAttribute("tratti", route);
+		} catch (JSONException e) {/*Handle exception*/}
+		
+		
+		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/pickBus.jsp");
+		rd.forward(req, resp);
+	}
 }

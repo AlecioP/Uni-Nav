@@ -54,5 +54,12 @@ public class LineaRegistroNavette {
 		//TODO handle the event of a round completed from the bus
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return "<"/*Navetta: "+navetta.getID()*/+", Autista: "+autista.getID()+
+				", Tratto: "+posizione.getPartenza().getNome()+" -> "+posizione.getArrivo().getNome()+
+				", Linea: "+linea.getNome()+", Giri Completati: "+giriCompletati+">";
+	}
 
 }

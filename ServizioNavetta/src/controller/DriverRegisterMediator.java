@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -56,13 +55,8 @@ public class DriverRegisterMediator extends HttpServlet {
 //		DAOFactory daoFact = DatabaseManager.getInstance().getDaoFactory();
 		
 		/*DEBUG*/
-		RegistroAttivitaNavette registro = (RegistroAttivitaNavette) request.getServletContext().getAttribute("registro");
-		if(registro==null) {
-			Date data = new Date();
-			registro = new RegistroAttivitaNavette(data);
-			request.getServletContext().setAttribute("registro", registro);
-			
-		}
+		RegistroAttivitaNavette registro = RegistroAttivitaNavette.getInstance();
+		
 		
 		LineaRegistroNavette lineaRegistro = registro.getLineaRegistro(Integer.parseInt(username));
 		if(lineaRegistro==null) {
