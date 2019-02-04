@@ -123,9 +123,18 @@ public class GeoUtil {
 				System.out.println("Linea attiva : "+ln.getNome());
 			/*DEBUG*/
 			//Now the collection contains all the active lines that contain "TrattoLinea" "t"
-			lineeAttive.retainAll(tDao.getLinee(t));
+			ArrayList<Linea> lineeConTratto = tDao.getLinee(t);
+			lineeAttive.retainAll(lineeConTratto);
+			for(Linea ln : lineeAttive)
+				System.out.println("Dopo linea attiva : "+ln.getNome());
 			for(Linea ln : lineeAttive) {
-				navInTratto.addAll(registro.getNavetteAttive(ln));
+				System.out.println("enter");
+				HashSet<Navetta> navetteAttive = registro.getNavetteAttive(ln);
+				/*DEBUG*/
+				for(Navetta nav : navetteAttive)
+					System.out.println("Navetta attiva : "+nav.getID());
+				/*DEBUG*/
+				navInTratto.addAll(navetteAttive);
 			}
 			if(navInTratto.isEmpty())
 				return null;

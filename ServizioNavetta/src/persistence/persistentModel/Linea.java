@@ -28,6 +28,18 @@ public class Linea {
 		this.tratti = tratti;
 	}
 
-	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj==this)
+			return true;
+		else {
+			if(!(obj instanceof Linea))
+				return false;
+			else {
+				Linea clone = (Linea) obj;
+				return this.getNome().equals(clone.getNome());
+			}
+		}
+	}
 	
 }

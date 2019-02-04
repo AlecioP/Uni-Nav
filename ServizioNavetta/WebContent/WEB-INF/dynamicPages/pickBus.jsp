@@ -21,7 +21,7 @@
 
 	<div class="myCol-3"></div>
 	<div class="myCol-6">
-		<form>
+		<form action="booking" method="get">
 			<div class="panel-group">
 				<!-- Iteration using an index, cause it's needed to iterate contemporary bus collection -->
 				<c:set var="cost" value="${1}" />
@@ -37,9 +37,13 @@
 						</div>
 						<c:set var="navette" value="${ listeNavette[i]}" />
 						<c:set var="navNum" value="${fn:length(navette)}" />
+						
+						<input type="text" name="start-${i}" value="${tratto.partenza.nome}" style="display:none;">
+						<input type="text" name="stop-${i}" value="${tratto.arrivo.nome}" style="display:none;">
+						
 						<div class="row panel-body">
 							<c:if test="${navNum!=0 }">
-								<select>
+								<select class="in-body" name="tratto-${i}">
 									<c:forEach var="navetta" items="${ navette}">
 										<option>${navetta.ID}</option>
 									</c:forEach>
@@ -57,6 +61,7 @@
 				<input id="prenota" class="btn btn-info" type="submit" value="Prenota">
 				</div>
 			</div>
+			<input type="text" name="dimension" value="${dim}" hidden="hidden"/>
 		</form>
 	</div>
 </body>

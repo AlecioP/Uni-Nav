@@ -89,6 +89,13 @@ public class RegistroAttivitaNavette {
 		return ret;
 	}
 	
+	public int getIdAutista(int navetta) {
+		for(LineaRegistroNavette l : linee.values())
+			if(l.getNavetta()!=null && l.getNavetta().getID()==navetta)
+				return l.getAutista().getID();
+		return -1;
+	}
+	
 	@Override
 	public String toString() {
 		String ret = "";
