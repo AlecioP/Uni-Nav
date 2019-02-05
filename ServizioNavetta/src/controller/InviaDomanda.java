@@ -18,6 +18,7 @@ import persistence.daoManage.jdbcDao.StudenteDaoJDBC;
 import persistence.persistentModel.Amministratore;
 import persistence.persistentModel.DomandaRiabilitazione;
 import persistence.persistentModel.Studente;
+import persistence.utility.IdProvider;
 
 public class InviaDomanda extends HttpServlet {
 	/**
@@ -36,26 +37,23 @@ public class InviaDomanda extends HttpServlet {
 		ArrayList<DomandaRiabilitazione> domande = (ArrayList<DomandaRiabilitazione>) ddao.findAll();
 		Studente s = sdao.findByPrimaryKey(matricola);
 		Amministratore a = adao.findByPrimaryKey("1");
-		int id = -1;
 		if (domande.size() > 0) {
 			for (DomandaRiabilitazione domandaRiabilitazione : domande) {
-				if (domandaRiabilitazione.getStudente().equals(s)) {
-					req.getSession().setAttribute("request-error", "Hai gi� effetuato la domanda");
+				if (domandaRiabilitazione.getStudente().getMatricola() == s.getMatricola()) {
 					RequestDispatcher rd = req
-							.getRequestDispatcher("WEB-INF/dynamicPages/inviaDomandaRiabilitazione.jsp");
+							.getRequestDispatcher("WEB-INF/dynamicPages/domandaGiaEffettuata.jsp");
 					rd.forward(req, resp);
+					return;
 				}
 			}
-			id = (domande.get(domande.size() - 1).getID()) + 1;
 		}
-		if (id == -1)
-			id = 1;
+		IdProvider provider = IdProvider.getInstance();
+		int id = provider.getNextId("Domanda_Riabilitazione");
 		LocalDateTime l = LocalDateTime.now();
 
 		// System.out.println(l);
 		DomandaRiabilitazione d = new DomandaRiabilitazione(id, l, s, a);
 		ddao.save(d);
-		req.getSession().setAttribute("request-error", "Domanda effettuata con successo");
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.jsp");
 		rd.forward(req, resp);
 	}

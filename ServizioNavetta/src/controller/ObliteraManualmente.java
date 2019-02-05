@@ -1,7 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,6 +45,7 @@ public class ObliteraManualmente extends HttpServlet {
 		RegistroAttivitaNavette registro = RegistroAttivitaNavette.getInstance();
 		LineaRegistroNavette linea = registro.getLineaRegistro(autistaID);
 		if (linea == null) {
+			System.out.println("nulll");
 			registro.addLinea(autistaID);
 			linea = registro.getLineaRegistro(autistaID);
 			Autista a = (Autista) adao.findByPrimaryKey(autistaID + "");
@@ -59,16 +63,21 @@ public class ObliteraManualmente extends HttpServlet {
 		if (s != null) {
 			ArrayList<Prenotazione> prenotazioniS = s.getPrenotazioni();
 			for (Prenotazione pren : prenotazioniS) {
-				System.out.println("inizio");
-				if (pren.getGiro() == linea.getGiriCompletati() + 1 && pren.getAutista().getID() == autistaID
-						&& pren.getNavetta().getID() == linea.getNavetta().getID()) {
-					/*
-					 * && pren.getDateTime().getTime().equals(registro.getData()) &&
-					 * pren.getTratto().getPartenza().getNome().equals(linea.getPosizione().
-					 * getPartenza().getNome()) &&
-					 * pren.getTratto().getArrivo().getNome().equals(linea.getPosizione().getArrivo(
-					 * ).getNome()))
-					 */
+				Date d3 = null, d4 = null;
+				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				Date d1 = pren.getDateTime().getTime();
+				Date d2 = registro.getData();
+				try {
+					d3 = formatter.parse(formatter.format(d1));
+					d4 = formatter.parse(formatter.format(d2));
+					System.out.println(d3 + " " + d4);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (pren.getGiro() == (linea.getGiriCompletati() + 1) && pren.getAutista().getID() == autistaID
+						&& pren.getNavetta().getID() == linea.getNavetta().getID()
+						&& pren.getTratto().getPartenza().getNome().equals(linea.getPosizione().getPartenza().getNome())
+						&& d3.equals(d4)) {
 					System.out.println("pren trovata");
 					req.setAttribute("prenotazione", pren);
 					req.setAttribute("prenotazioneID", Integer.valueOf(pren.getID()));

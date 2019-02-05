@@ -1,10 +1,4 @@
-function validateForm() {
-	var x = document.forms["myForm"]["matricola"].value;
-	if (x == "") {
-		alert("Name must be filled out");
-		return false;
-	}
-}
+
 
 $(function() { /* DOM ready */
 	$(".form-control")

@@ -32,10 +32,5 @@
 	<form action="HomeSenzaErrori" method="post">
 		<button type="submit" class="btn btn-primary">indietro</button>
 	</form>
-	<c:if test="${registration-error != null }">
-		<c:set var="message" value="request-error" />
-		<span class="error-message"><c:out
-				value="${sessionScope[message]}" /></span>
-	</c:if>
 </body>
 </html>

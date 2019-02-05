@@ -19,8 +19,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="js/loadStudent.js"></script>
 <!-- Custom style import -->
-<!-- <link rel="stylesheet" type="text/css" href="css/common.css"> -->
-
+ <link rel="stylesheet" type="text/css" href="css/common.css"> 
+<link rel="stylesheet" type="text/css" href="css/iscriviStudente.css">
 </head>
 <body>
 	<header>
@@ -69,7 +69,7 @@
 			<input id="reset" class="btn btn-warning" type="reset" />
 		</form>
 		<form action="DopoIscrizioneSenzaErrori" method="post">
-			<button type="submit" value="Indietro">Indietro</button>
+			<button type="submit" class="btn btn-primary" value="Indietro">Indietro</button>
 		</form>
 		<c:if test="${registration-error != null }">
 			<c:set var="message" value="registration-error" />
