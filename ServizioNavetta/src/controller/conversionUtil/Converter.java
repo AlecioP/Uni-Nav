@@ -17,6 +17,8 @@ public class Converter {
 		//espressioni regolari?
 		String[] tokens = code.split("-");
 		String codePren = tokens[tokens.length-1];
+		codePren = codePren.substring(0, codePren.length()-3);
+		System.out.println(codePren);
 		DAOFactory daoFactory = DatabaseManager.getInstance().getDaoFactory();
 		PrenotazioneDaoJDBC prenotationDao = (PrenotazioneDaoJDBC) daoFactory.getPrenotazioneDAO();
 		Prenotazione prenotation = (Prenotazione) prenotationDao.findByPrimaryKey(codePren);

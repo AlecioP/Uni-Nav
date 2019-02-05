@@ -30,13 +30,26 @@
 <script type="text/javascript" src="js/bootstrapConverter.js"></script>
 
 
+<%@include file="importBootstrap.jsp" %>
 
 <!-- Custom style import -->
-<!-- <link rel="stylesheet" type="text/css" href="css/common.css"> -->
+<link rel="stylesheet" type="text/css" href="css/common.css">
+
 <link rel="stylesheet" type="text/css" href="css/obliterazione.css">
 </head>
 <body>
-	<video id="preview"></video>
+
+
+	<!-- <TABLE borderColor=grey  cellSpacing=0 cellPadding=0 width="50%" 
+align= center border=20> -->
+
+		<tr>
+		<td>
+			<video id="video"></video>
+		</tr>
+		</td>
+	<table>
+	
 
 	<script type="text/javascript" src="js/reader.js"></script>
 

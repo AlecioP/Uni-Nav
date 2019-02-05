@@ -47,6 +47,7 @@ public class ObliteraBigliettoQR extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String jsonReceived = "";
+		String nameAutista;
 		Converter convertitor = new Converter();
 		Validator validator = new Validator();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
@@ -56,11 +57,11 @@ public class ObliteraBigliettoQR extends HttpServlet {
 			line = reader.readLine();
 		}
 		JSONObject jsonResult;
-		System.out.println(jsonReceived);
+		nameAutista= (String) request.getSession().getAttribute("username");
 		Prenotazione prenotation = convertitor.getPrenotazione(jsonReceived);
 		try {
 			jsonResult = new JSONObject();
-			if(validator.validate(prenotation)) {
+			if(validator.validate(prenotation,nameAutista)) {
 				jsonResult.put("verified",true);}	
 			else {
 				jsonResult.put("verified", false);

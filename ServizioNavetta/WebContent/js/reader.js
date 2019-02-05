@@ -1,19 +1,19 @@
-let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+let scanner = new Instascan.Scanner({ video: document.getElementById('video') });
 scanner.addListener('scan', function (content) {
 		console.log(content);
-		 var ticketCode = {code:content};
+		 var ticketCode = {code:content}; 
 	        $.post({
 	    		type: "POST",
-	    		url: "obliteraBigliettoQR",
+	    		url: "ObliteraBigliettoQR",
 	    		datatype: "json",
 	    		data: JSON.stringify(ticketCode),
 	    		success: function (data){
 	    			var codeOk = JSON.parse(data);
 	    			if(codeOk.verified == true){
-	    				alert("Ok");
+	    				alert("Obliterato in entrata");
 	    			}
 	    			else{
-	    				alert("No");
+	    				alert("Obliterato in uscita");
 	    			} 
 	    		}
 	    	});
