@@ -40,15 +40,8 @@
 <body>
 
 
-	<!-- <TABLE borderColor=grey  cellSpacing=0 cellPadding=0 width="50%" 
-align= center border=20> -->
-
-		<tr>
-		<td>
 			<video id="video"></video>
-		</tr>
-		</td>
-	<table>
+		
 	
 
 	<script type="text/javascript" src="js/reader.js"></script>
