@@ -1,43 +1,58 @@
 package controller.conversionUtil;
 
+import model.LineaRegistroNavette;
+import model.RegistroAttivitaNavette;
+import persistence.daoManage.DAOFactory;
+import persistence.daoManage.DatabaseManager;
+import persistence.daoManage.jdbcDao.PrenotazioneDaoJDBC;
 import persistence.persistentModel.Prenotazione;
 
-/**Servlet??
- * Singleton??
- * #1 controllare che l'istanza di prenotazione esista (not null)
- * #2 controllare se e' entrata o uscita
- * #3 controllare che fermataCorrente == fermataPrenotazioneEntrata o fermataPrenotazioneUscita
- * #4 cambiare attributo
- * #5 se uscita inviare feedback
- * 
- * @author Francesco Cugliari
- *
- */
 public class Validator {
 	public Validator() {
 		
 	}
 	
-	public boolean validate(Prenotazione prenotation) {
+	public boolean validate(Prenotazione prenotation, String autista) {
+		
+		DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
+		PrenotazioneDaoJDBC pdao = (PrenotazioneDaoJDBC) df.getPrenotazioneDAO();
+		
 		if(prenotation==null) {
 			return false;
+			
+			
 		}
-		if(prenotation.isObliteratoEntrata()==false) {
-			//controllare che fermatacorrente== prenotation.getTratto().getPartenza()
-			//in caso positivo
-			// prenotation.setObliteratoEntrata(true);return true;
-			//altrimenti
-			//return false;
-		}else {
-			//caso prenotation.isObliteratoEntrata()==true
-			//controllare che fermata== prenotation.getTratto().getArrivo()
-			//in caso positivo
-			//prenotation.setObliteratoUscita(true);return true;
-			//invia feedback all utente
-			//altrimenti
-			//return false;
+		RegistroAttivitaNavette registro = RegistroAttivitaNavette.getInstance();
+		int autistaID = Integer.parseInt(autista);
+		LineaRegistroNavette linea = registro.getLineaRegistro(autistaID);
+		if(prenotation.isObliteratoEntrata()==false) {		
+		// controlli mancanti su orario per esempio..
+			if(prenotation.getGiro() == linea.getGiriCompletati() + 1 && prenotation.getAutista().getID() == autistaID
+					&& prenotation.getNavetta().getID() == linea.getNavetta().getID()  &&
+					prenotation.getTratto().getPartenza().getNome().equals(linea.getPosizione().
+					getPartenza().getNome())) {
+				prenotation.setObliteratoEntrata(true);
+				pdao.update(prenotation);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}else //si vuole obliterare l uscita
+		{ 
+			if (prenotation.getGiro() == linea.getGiriCompletati() + 1 && prenotation.getAutista().getID() == autistaID
+					&& prenotation.getNavetta().getID() == linea.getNavetta().getID()  &&
+					prenotation.getTratto().getArrivo().getNome().equals("universita")){
+						  prenotation.setObliteratoUscita(true);
+						  pdao.update(prenotation);
+						  return true;
+					  }
+			else {
+				return false;
+			}
+			
 		}
 		
-		return false;
 	}
 }
