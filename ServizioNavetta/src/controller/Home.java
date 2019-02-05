@@ -30,6 +30,7 @@ public class Home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		System.out.println(request.getContextPath());
 		String username = (String) request.getSession().getAttribute("username");
+		System.out.println(request.getServletContext().getContextPath());
 		if(username!=null) {
 			String tipo_login = (String) request.getSession().getAttribute("tipo-login");
 			switch(tipo_login) {
@@ -64,7 +65,8 @@ public class Home extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		System.out.println("bla");
+		response.sendRedirect("/ServizioNavetta/home");
 	}
 
 }
