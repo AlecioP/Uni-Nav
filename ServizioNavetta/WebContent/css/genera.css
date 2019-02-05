@@ -1,13 +1,26 @@
 #bottone {
-	/* position: relative; */
-	/* align: bottom; */
+	/* position: relative;
+	align: bottom;
 	font-size: 16px;
 	background-color: red;
-	width: 180px;
-	height: 50px;
+	
 	background-color: #e7e7e7;
 	color: black;
 	border: 2px solid #555555;
-	/* padding: 10px 24px; */
-	/* 	float: right; */
+	padding: 10px 24px;
+		float: right; */
+	width: 180px;
+	height: 50px;
+}
+
+th {
+	color: red;
+}
+
+td {
+	color: yellow;
+}
+
+#qr {
+	
 }
