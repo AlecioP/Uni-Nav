@@ -28,7 +28,6 @@ public class ControlloObliterazione extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("oblit");
 		String jsonReceived = "";
 		BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream()));
 		String line = reader.readLine();
@@ -36,7 +35,6 @@ public class ControlloObliterazione extends HttpServlet {
 			jsonReceived = jsonReceived + line + "\n";
 			line = reader.readLine();
 		}
-		// System.out.println(jsonReceived);
 		try {
 			JSONObject json = new JSONObject(jsonReceived);
 			DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
@@ -45,20 +43,11 @@ public class ControlloObliterazione extends HttpServlet {
 			StudenteDaoJDBC sdao = (StudenteDaoJDBC) df.getStudenteDAO();
 			System.out.println(json.getString("id") + " jsonnn");
 			Prenotazione p = (Prenotazione) pdao.findByPrimaryKey(json.getString("id"));
-			// Studente s = sdao.findByPrimaryKey(p.getStudente().getMatricola() + "");
-			// System.out.println(p.getID() + " iddd");
-			// System.out.println(p.getTratto().getArrivo() + " nomeee");
 			int entrata = 0, uscita = 0;
-			System.out.println(p.isObliteratoEntrata()+" boollllll");
-			if (p.isObliteratoEntrata()) {
+			if (p.isObliteratoEntrata()) 
 				entrata = 1;
-				System.out.println("ooooooo");
-			}
 			if (p.isObliteratoUscita())
 				uscita = 1;
-			// System.out.println(p.getStudente().ge + " fermaa");
-			// pdao.update(p);
-			// int p = Integer.parseInt(json.getString("id"));
 			Point coppia = new Point(entrata, uscita);
 			JSONObject jsonCoppia = new JSONObject(coppia);
 			System.out.println(jsonCoppia.toString());

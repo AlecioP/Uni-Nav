@@ -13,6 +13,7 @@ function obliteraEntrataUscita(ID) {
 				document.getElementById("entrata").disabled = true;
 			else
 				document.getElementById("uscita").disabled = true;
+			alert("Oblitarazione effettuata con successo");
 		}
 	});
 }

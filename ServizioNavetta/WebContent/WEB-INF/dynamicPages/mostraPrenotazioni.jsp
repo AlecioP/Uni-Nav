@@ -6,12 +6,14 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<%@include file="importBootstrap.jsp"%>
+<link rel="stylesheet" type="text/css" href="css/genera.css">
+<link rel="stylesheet" type="text/css" href="css/common.css">
 <script src="js/prenotazioni.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 	$(window).on('load', function() {
-		alert(document.getElementById("pal").value);
 		var y = document.getElementById("pal").value;
 		var x = {
 			id : y
@@ -23,28 +25,23 @@
 			data : JSON.stringify(x),
 			success : function(data) {
 				var coppia = JSON.parse(data);
-				alert(coppia.x);
-				alert("cxc");
 				if (coppia.x == 1)
 					document.getElementById("entrata").disabled = true;
 				if (coppia.y == 1)
 					document.getElementById("uscita").disabled = true;
-				//document.getElementById("entrata").disabled = true;
-
-				// document.getElementsByClassName("entrata")[0].disabled = true;
-				// document.getElementsByTagName("input")[0].disabled = true;
-				// console.log($('body').html());
-				// $("#entrata").attr("disabled", "disabled");
-				// $("#entrata").removeAttr("disabled");
 			}
 		});
 	});
 </script>
 </head>
 <body>
+	<%@include file="driverNavbar.jsp"%>
 	<input id=pal type="text" name="fname" value="${prenotazione.ID}"
 		style="display: none">
-	<table>
+	<br>
+	<br>
+	<br>
+	<table class="table table-bordered">
 		<tr>
 			<th>Prenotazione</th>
 			<th>Prenotazione</th>
@@ -62,10 +59,11 @@
 			<td>${prenotazione.tratto.partenza.nome}</td>
 			<td>${prenotazione.tratto.arrivo.nome}</td>
 			<td>${prenotazione.tratto.arrivo.nome}</td>
-			<td><input id=entrata class="biglietti-pren"
+			<td><input id=entrata class="btn btn-info"
 				value="Oblitera Entrata" type="button"
 				onclick="obliteraEntrataUscita('${prenotazioneID}');" /></td>
 			<td><input id=uscita value="Oblitera Uscita" type="button"
+				class="btn btn-success"
 				onclick="obliteraEntrataUscita('${prenotazioneID}');" /></td>
 		</tr>
 	</table>

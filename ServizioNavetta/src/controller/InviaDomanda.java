@@ -50,8 +50,6 @@ public class InviaDomanda extends HttpServlet {
 		IdProvider provider = IdProvider.getInstance();
 		int id = provider.getNextId("Domanda_Riabilitazione");
 		LocalDateTime l = LocalDateTime.now();
-
-		// System.out.println(l);
 		DomandaRiabilitazione d = new DomandaRiabilitazione(id, l, s, a);
 		ddao.save(d);
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.jsp");

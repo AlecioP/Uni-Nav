@@ -6,9 +6,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Feedback</title>
-<%@include file="importBootstrap.jsp" %>
-<style type="text/css" media="screen">
-</style>
+<%@include file="importBootstrap.jsp"%>
+<link rel="stylesheet" type="text/css" href="css/genera.css">
+<link rel="stylesheet" type="text/css" href="css/common.css">
+
 <script>
 	$(window).on('load', function() {
 		alert("carica");
@@ -16,7 +17,6 @@
 		$("#feedback").show();
 	});
 	function updateFeedback(text) {
-		alert(text);
 		var element = document.getElementById("qrcode");
 		document.getElementById("codicePren").value = text;
 		alert(document.getElementById("codicePren").value);
@@ -27,16 +27,21 @@
 	}
 	function indietro() {
 		document.getElementById("codicePren").value = null;
-		alert(document.getElementById("codicePren").value);
 		$("#comment").hide();
 		$("#feedback").show();
 	}
 </script>
 </head>
 <body>
+	<%@include file="studNavbar.jsp"%>
 	<div id=feedback>
-		<span class="error-message"> ${message-error}</span>
-		<table class="table">
+		<br> <br> <br>
+		<c:if test="${message-error != null }">
+			<c:set var="message" value="message-error" />
+			<span class="error-message"><c:out
+					value="${sessionScope[message]}" /></span>
+		</c:if>
+		<table class="table table-bordered">
 			<tr>
 				<th>Prenotazione</th>
 				<th>Autista</th>
@@ -53,27 +58,29 @@
 					<td>${pren.navetta.ID}</td>
 					<td>${pren.tratto.partenza.nome}</td>
 					<td>${pren.tratto.arrivo.nome}</td>
-					<td><input type="button" value="Lascia Feedback"
-						onclick=" updateFeedback( ${pren.ID} )" /></td>
+					<td><input id="bottone" class="btn btn-warning" type="button"
+						value="Lascia Feedback" onclick=" updateFeedback( ${pren.ID} )" /></td>
 
 				</tr>
 
 			</c:forEach>
 		</table>
 	</div>
-	<div class="form-horizontal" id=comment style="display: none;">
+	<div class="form-horizontal" id="comment">
 		<form action="lasciaFeedback" method="post">
 			<div class="form-group" id=prenotazioneID>
-				<input id="codicePren" name="preno" type="text" style="display: none;" />
+				<input id="codicePren" name="preno" type="text"
+					style="display: none;" />
 			</div>
-			
+
 			<textarea name="commento" rows="15" cols="50"></textarea>
-			
-			<br> <br> 
-			<input class=myButton type="submit"	value="Invia Feedback" name="cico">
-			
+
+			<br> <br> <input class="btn btn-success" type="submit"
+				value="Invia Feedback" name="cico">
+
 		</form>
-		<button id="bottone" type="button" onclick="indietro()">Indietro</button>
+		<button class="btn btn-danger" id="bottone" type="button"
+			onclick="indietro()">Indietro</button>
 	</div>
 </body>
 </html>

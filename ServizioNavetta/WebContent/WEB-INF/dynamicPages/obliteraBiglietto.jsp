@@ -36,6 +36,7 @@
 <link rel="stylesheet" type="text/css" href="css/common.css">
 
 <link rel="stylesheet" type="text/css" href="css/obliterazione.css">
+<link rel="stylesheet" type="text/css" href="css/genera.css">
 </head>
 <body>
 
@@ -48,7 +49,7 @@
 
 	<form action="obliteraManualmente" method="post">
 		<input type="text" id="matricola" name="current-matricola" />
-		<button type="submit" value="Submit">Obliterazione manuale</button>
+		<button id="bottone" class="btn btn-warning" type="submit" value="Submit">Obliterazione manuale</button>
 	</form>
 	<c:if test="${registration-error != null }">
 		<c:set var="message" value="registration-error" />
@@ -56,7 +57,7 @@
 				value="${sessionScope[message]}" /></span>
 	</c:if>
 	<form action="HomeSenzaErrori" method="post">
-		<button type="submit" value="Indietro">Indietro</button>
+		<button id="bottone" class="btn btn-danger" type="submit" value="Indietro">Indietro</button>
 	</form>
 </body>
 </html>

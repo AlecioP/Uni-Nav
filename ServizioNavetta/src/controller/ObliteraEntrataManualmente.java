@@ -47,7 +47,6 @@ public class ObliteraEntrataManualmente extends HttpServlet {
 			// System.out.println(p.getID() + " iddd");
 			// System.out.println(p.getTratto().getArrivo() + " nomeee");
 			Point tipoOblitarazione = new Point(0, 0);
-			System.out.println(p.isObliteratoEntrata() + " boollllll");
 			// 0 sta obliterando in entrata 1 in uscita
 			if (p.isObliteratoEntrata()) {
 				tipoOblitarazione.setLocation(1, 0);
@@ -59,7 +58,6 @@ public class ObliteraEntrataManualmente extends HttpServlet {
 			pdao.update(p);
 			// int p = Integer.parseInt(json.getString("id"));
 			JSONObject jsonTipo = new JSONObject(tipoOblitarazione);
-			System.out.println(jsonTipo.toString() + " obliiiii");
 			resp.getWriter().println(jsonTipo.toString());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
