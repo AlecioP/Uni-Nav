@@ -44,7 +44,6 @@ public class ObliteraManualmente extends HttpServlet {
 		int autistaID = Integer.parseInt(tmp);
 		RegistroAttivitaNavette registro = RegistroAttivitaNavette.getInstance();
 		LineaRegistroNavette linea = registro.getLineaRegistro(autistaID);
-		linea.setPosizione(ldao.findByPrimaryKeyComposed("Castiglione_Cs._Stazione_FS", "Borromeo"));
 		if (linea == null) {
 			registro.addLinea(autistaID);
 			linea = registro.getLineaRegistro(autistaID);

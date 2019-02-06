@@ -88,8 +88,8 @@ public class DriverRegisterMediator extends HttpServlet {
 			}
 			/* DEBUG */
 			else {
-				Fermata f1 = new Fermata("quattromiglia", 39.3569466, 16.2263765),
-						f2 = new Fermata("universita", 39.3591417, 16.2261368);
+				Fermata f1 = new Fermata("Castiglione_Cs._Stazione_FS", 39.3569466, 16.2263765),
+						f2 = new Fermata("Borromeo", 39.3591417, 16.2261368);
 				TrattoLinea farlocco = new TrattoLinea(f1, f2, 1, 1);
 				lineaRegistro.setPosizione(farlocco);
 			}

@@ -17,7 +17,7 @@ body {
 </style>
 
 <link rel="stylesheet" type="text/css" href="css/genera.css">
-<link rel="stylesheet" type="text/css" href="css/common.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/common.css"> -->
 </head>
 <body>
 	<%@include file="studNavbar.jsp"%>
@@ -35,8 +35,14 @@ body {
 				<th>Arrivo</th>
 				<th>Data</th>
 			</tr>
+			<c:set var="j" value="${0}" />
 			<c:forEach items="${prenotazione}" var="pren" varStatus="i">
-				<tr>
+				<c:set var="j" value="${j+1}" />
+				<c:set var="classVar" value=" " />
+				<c:if test="${ (j%2)!=0}">
+					<c:set var="classVar" value="danger" />
+				</c:if>
+				<tr class="${classVar}">
 					<td>${pren.ID}</td>
 					<td>${pren.autista.ID}</td>
 					<td>${pren.giro}</td>
