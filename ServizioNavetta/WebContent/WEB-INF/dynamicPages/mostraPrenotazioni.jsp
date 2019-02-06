@@ -50,6 +50,7 @@
 			<th>Navetta</th>
 			<th>Partenza</th>
 			<th>Arrivo</th>
+			<th>Data</th>
 		</tr>
 		<tr>
 			<td>${prenotazione.ID}</td>
@@ -59,6 +60,7 @@
 			<td>${prenotazione.tratto.partenza.nome}</td>
 			<td>${prenotazione.tratto.arrivo.nome}</td>
 			<td>${prenotazione.tratto.arrivo.nome}</td>
+			<td>${prenotazione.dateTime.getTime()}</td>
 			<td><input id=entrata class="btn btn-info"
 				value="Oblitera Entrata" type="button"
 				onclick="obliteraEntrataUscita('${prenotazioneID}');" /></td>

@@ -12,16 +12,12 @@
 
 <script>
 	$(window).on('load', function() {
-		alert("carica");
 		$("#comment").hide();
 		$("#feedback").show();
 	});
 	function updateFeedback(text) {
 		var element = document.getElementById("qrcode");
 		document.getElementById("codicePren").value = text;
-		alert(document.getElementById("codicePren").value);
-		
-		
 		$("#feedback").hide();
 		$("#comment").show();
 	}
@@ -49,6 +45,7 @@
 				<th>Navetta</th>
 				<th>Partenza</th>
 				<th>Arrivo</th>
+				<th>Data</th>
 			</tr>
 			<c:forEach items="${prenotazione}" var="pren" varStatus="i">
 				<tr>
@@ -58,8 +55,9 @@
 					<td>${pren.navetta.ID}</td>
 					<td>${pren.tratto.partenza.nome}</td>
 					<td>${pren.tratto.arrivo.nome}</td>
+					<td>${pren.dateTime.getTime()}</td>
 					<td><input id="bottone" class="btn btn-warning" type="button"
-						value="Lascia Feedback" onclick=" updateFeedback( ${pren.ID} )" /></td>
+						value="Lascia Feedback" onclick="updateFeedback( ${pren.ID} )" /></td>
 
 				</tr>
 
@@ -72,7 +70,7 @@
 				<input id="codicePren" name="preno" type="text"
 					style="display: none;" />
 			</div>
-
+			<br> <br> <br>
 			<textarea name="commento" rows="15" cols="50"></textarea>
 
 			<br> <br> <input class="btn btn-success" type="submit"

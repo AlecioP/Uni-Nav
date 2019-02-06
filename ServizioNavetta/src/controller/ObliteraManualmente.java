@@ -44,8 +44,8 @@ public class ObliteraManualmente extends HttpServlet {
 		int autistaID = Integer.parseInt(tmp);
 		RegistroAttivitaNavette registro = RegistroAttivitaNavette.getInstance();
 		LineaRegistroNavette linea = registro.getLineaRegistro(autistaID);
+		linea.setPosizione(ldao.findByPrimaryKeyComposed("Castiglione_Cs._Stazione_FS", "Borromeo"));
 		if (linea == null) {
-			System.out.println("nulll");
 			registro.addLinea(autistaID);
 			linea = registro.getLineaRegistro(autistaID);
 			Autista a = (Autista) adao.findByPrimaryKey(autistaID + "");
@@ -53,7 +53,7 @@ public class ObliteraManualmente extends HttpServlet {
 			linea.setGiriCompletati(0);
 			linea.setNavetta((Navetta) ndao.findByPrimaryKey("1"));
 			linea.setLinea(new Linea("a"));
-			linea.setPosizione(ldao.findByPrimaryKeyComposed("universita", "quattromiglia"));
+			linea.setPosizione(ldao.findByPrimaryKeyComposed("Castiglione_Cs._Stazione_FS", "Borromeo"));
 		}
 		if (linea.getNavetta() == null)
 			linea.setNavetta((Navetta) ndao.findByPrimaryKey("1"));
@@ -74,11 +74,10 @@ public class ObliteraManualmente extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				if (pren.getGiro() == (linea.getGiriCompletati() + 1) && pren.getAutista().getID() == autistaID
+				if (pren.getGiro() == linea.getGiriCompletati() && pren.getAutista().getID() == autistaID
 						&& pren.getNavetta().getID() == linea.getNavetta().getID()
 						&& pren.getTratto().getPartenza().getNome().equals(linea.getPosizione().getPartenza().getNome())
 						&& d3.equals(d4)) {
-					System.out.println("pren trovata");
 					req.setAttribute("prenotazione", pren);
 					req.setAttribute("prenotazioneID", Integer.valueOf(pren.getID()));
 					RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/mostraPrenotazioni.jsp");
@@ -87,7 +86,7 @@ public class ObliteraManualmente extends HttpServlet {
 				}
 			}
 		}
-		req.getSession().setAttribute("registration-error", "Lo studente non ï¿½ prenotato");
+		req.getSession().setAttribute("registration-error", "Lo studente non è prenotato");
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/obliteraBiglietto.jsp");
 		rd.forward(req, resp);
 	}

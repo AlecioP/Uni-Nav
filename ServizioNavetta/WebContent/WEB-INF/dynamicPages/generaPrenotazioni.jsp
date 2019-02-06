@@ -33,6 +33,7 @@ body {
 				<th>Navetta</th>
 				<th>Partenza</th>
 				<th>Arrivo</th>
+				<th>Data</th>
 			</tr>
 			<c:forEach items="${prenotazione}" var="pren" varStatus="i">
 				<tr>
@@ -42,6 +43,7 @@ body {
 					<td>${pren.navetta.ID}</td>
 					<td class="text-left">${pren.tratto.partenza.nome}</td>
 					<td class="text-left">${pren.tratto.arrivo.nome}</td>
+					<td>${pren.dateTime.getTime()}</td>
 					<td><input id="qr" class="btn btn-warning" type="button"
 						value="Genera Biglietto"
 						onclick=" updateQRCode('${codici[i.index]}');" /></td>
@@ -66,8 +68,10 @@ body {
 
 	<div class="cointaner" align="center" id="pallino"
 		style="display: none">
+		<br> <br> <br>
 		<div id="qrcode"></div>
-		<button id="bottone" class="btn btn-danger" type="button" onclick="indietro()">Indietro</button>
+		<button id="bottone" class="btn btn-danger" type="button"
+			onclick="indietro()">Indietro</button>
 	</div>
 	<script type="text/javascript">
 		function updateQRCode(text) {
