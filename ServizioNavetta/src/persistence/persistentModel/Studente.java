@@ -7,6 +7,13 @@ public class Studente extends Persona {
 	private int flag;
 	private ArrayList<Prenotazione> prenotazioni;
 	
+	public Studente() {
+		super("","","",null);
+		matricola = 0;
+		flag = 0;
+		prenotazioni=null;
+		
+	}
 	
 	public Studente(int _matricola,int flag,String nome,String cognome,String email,Password password) {
 		super(nome, cognome, email, password);

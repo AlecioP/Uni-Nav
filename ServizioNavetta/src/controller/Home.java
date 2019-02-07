@@ -30,9 +30,25 @@ public class Home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		System.out.println(request.getContextPath());
 		String username = (String) request.getSession().getAttribute("username");
+		System.out.println(request.getServletContext().getContextPath());
 		if(username!=null) {
-			/*REDIRECT TO SOMETHING ELSE*/
-		}else {
+			String tipo_login = (String) request.getSession().getAttribute("tipo-login");
+			switch(tipo_login) {
+			case "driver":{
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/driver.jsp");
+				rd.forward(request, response);
+				return;
+			}
+			case "student":{
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.jsp");
+				rd.forward(request, response);
+				return;
+			}
+			default : {
+				
+			}
+			}
+		}else {	
 			if(Boolean.parseBoolean((String) request.getAttribute("loginRedirect"))) {
 				
 				request.getSession().setAttribute("login-error", "Utente o password errati");
@@ -49,7 +65,8 @@ public class Home extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		System.out.println("bla");
+		response.sendRedirect("/ServizioNavetta/home");
 	}
 
 }

@@ -61,3 +61,8 @@ div#map>* {
 	height: 100%;
 	width: 100%;
 }
+
+div#mapid {
+	height : 45em;
+	/*width : 100%;*/
+}

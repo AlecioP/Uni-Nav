@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+body{
+	position: relative;
+	top : 4em;
+}
+.table td, .table th {
+	text-align: center;
+}
+
+#bottone{
+	margin-top: 1.5em;
+}
+
+div#comment {
+	margin-left: 30%;
+}
+
+#comment-area {
+	background-color : #99e6ff;
+	border : 5px solid orange;
+	
+}

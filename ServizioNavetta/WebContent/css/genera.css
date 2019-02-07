@@ -1,0 +1,22 @@
+#bottone {
+	margin : 1em;
+	font-size: 2em;
+}
+
+#qrcode {
+	
+	border : 5px solid limegreen;
+	padding : 5px;
+	margin-right: 25%;
+	margin-left: 25%;
+}
+
+body {
+	text-align: center;
+	position: relative;
+	top: 2.5em;
+}
+
+.table td, .table th {
+	text-align: center;
+}

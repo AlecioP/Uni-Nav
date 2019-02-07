@@ -1,23 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Servizio Navetta - Home</title>
-<!-- JQuery import -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<%@include file="importBootstrap.jsp" %>
 
 <!-- Custom javascript import -->
 <script type="text/javascript" src="js/loginbutton.js"></script>
@@ -30,7 +19,7 @@
 	<h1>Servizio Navetta Unical : Benvenuto!</h1>
 	<div class="sx-col myCol-6"></div>
 	<div class="dx-col myCol-6">
-		<form action="GET">
+		<form action="doLogin" method="post">
 			<div class="panel-group">
 				<div class="panel panel-primary">
 					<div class="panel-heading">Tipo login :</div>
@@ -71,9 +60,13 @@
 			<fieldset>
 
 				<input class="btn btn-success" type="submit" value="LOGIN!">
-				<input class="register btn btn-info" type="button"
-					value="Registrati">
 			</fieldset>
+		</form>
+		<form action="moduloIscrizione" method="get">
+			<div class="register-div">
+				<input class="register btn btn-info" type="submit"
+					value="Registrati">
+			</div>
 		</form>
 	</div>
 </body>

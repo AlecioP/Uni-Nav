@@ -2,7 +2,7 @@ package persistence.persistentModel;
 
 import persistence.daoManage.crud.CrudTag;
 
-public class Fermata implements CrudTag{
+public class Fermata implements CrudTag, Comparable<Fermata>{
 
 	private String nome;
 	private Double latitudine;
@@ -53,5 +53,11 @@ public class Fermata implements CrudTag{
 			return arg.nome.equals(this.nome);
 		}
 	}
+
+	@Override
+	public int compareTo(Fermata o) {
+		return this.getNome().compareTo(o.getNome());
+	}
+
 	
 }
