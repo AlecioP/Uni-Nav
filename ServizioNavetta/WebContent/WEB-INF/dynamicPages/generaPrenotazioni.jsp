@@ -5,104 +5,64 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Prenotazioni ${username} </title>
 <%@include file="importBootstrap.jsp"%>
 <script src="js/qrcode.js"></script>
 <script src="js/html5-qrcode.js"></script>
-
-<style type="text/css" media="screen">
-body {
-	text-align: center;
-}
-</style>
-
+<script type="text/javascript" src="js/generaPrenotazioni.js"></script>
 <link rel="stylesheet" type="text/css" href="css/genera.css">
-<!-- <link rel="stylesheet" type="text/css" href="css/common.css"> -->
+
 </head>
 <body>
 	<%@include file="studNavbar.jsp"%>
 
+	<h1>${studente.nome}</h1>
 
 	<div id="prenotazioni">
-		<br> <br> <br>
-		<table class="table table-bordered">
-			<tr>
+		<table class="table table-bordered table-hover">
+			<tr class="warning">
 				<th>Prenotazione</th>
 				<th>Autista</th>
 				<th>Giro</th>
 				<th>Navetta</th>
 				<th>Partenza</th>
 				<th>Arrivo</th>
-				<th>Data</th>
+				<th></th>
 			</tr>
-			<c:set var="j" value="${0}" />
+			<c:set var="j" value="${0}"></c:set>
 			<c:forEach items="${prenotazione}" var="pren" varStatus="i">
-				<c:set var="j" value="${j+1}" />
-				<c:set var="classVar" value=" " />
-				<c:if test="${ (j%2)!=0}">
-					<c:set var="classVar" value="danger" />
-				</c:if>
-				<tr class="${classVar}">
+				<c:set var="j" value="${j+1}"></c:set>
+				<c:set var="classVar" value=" "></c:set>
+				<c:choose>
+					<c:when test="${ (j%2)!=0}">
+						<c:set var="classVar" value="success"></c:set>
+					</c:when>
+					<c:otherwise>
+						<tr>
+					</c:otherwise>
+				</c:choose>
+
+				<tr class="${classVar }">
+
 					<td>${pren.ID}</td>
 					<td>${pren.autista.ID}</td>
 					<td>${pren.giro}</td>
 					<td>${pren.navetta.ID}</td>
-					<td class="text-left">${pren.tratto.partenza.nome}</td>
-					<td class="text-left">${pren.tratto.arrivo.nome}</td>
-					<td>${pren.dateTime.getTime()}</td>
-					<td><input id="qr" class="btn btn-warning" type="button"
-						value="Genera Biglietto"
-						onclick=" updateQRCode('${codici[i.index]}');" /></td>
-					<!-- <th>Nome</th>
-			<th>Cognome</th> -->
+					<td>${pren.tratto.partenza.nome}</td>
+					<td>${pren.tratto.arrivo.nome}</td>
+					<td><input id="qr" class="biglietti btn btn-warning"
+						type="button" value="Genera Biglietto"
+						onclick=" updateQRCode(${codici[i.index]})" /></td>
 				</tr>
-				<%-- <tr>
-				<td>${studente.matricola}</td>
-			<td>${studente.nome}</td>
-			<td>${studente.cognome}</td>
-				<td><input id="qr" type="button" value="Genera Biglietto"
-					onclick=" updateQRCode('${studente.matricola}'+'${pren.ID}');" /></td>
-			</tr> --%>
 			</c:forEach>
 		</table>
 	</div>
-	<!-- <form action="generaCodice" method="post">
-				<button type="submit">Submit</button>
-			</form>
-			  <a href="generaCodice">Genera codice</a>
-			  -->
 
-	<div class="cointaner" align="center" id="pallino"
-		style="display: none">
-		<br> <br> <br>
+
+	<div class="cointaner" align="center" id="pallino" >
 		<div id="qrcode"></div>
-		<button id="bottone" class="btn btn-danger" type="button"
-			onclick="indietro()">Indietro</button>
+		<input class="btn btn-primary" id="bottone" type="button" onclick="indietro()" value="Indietro"/>
 	</div>
-	<script type="text/javascript">
-		function updateQRCode(text) {
-			//alert("erf");
-			var element = document.getElementById("qrcode");
 
-			var bodyElement = document.body;
-			if (element.lastChild) {
-				element.replaceChild(showQRCode(text), element.lastChild);
-				$("#prenotazioni").hide();
-				$("#pallino").show();
-				//alert("ee");
-			} else {
-				element.appendChild(showQRCode(text));
-				$("#prenotazioni").hide();
-				$("#pallino").show();
-			}
-
-		}
-	</script>
-	<script type="text/javascript">
-		function indietro() {
-			$("#pallino").hide();
-			$("#prenotazioni").show();
-		}
-	</script>
 </body>
 </html>

@@ -32,12 +32,12 @@ public class InviaFeedback extends HttpServlet {
 		PrenotazioneDaoJDBC pdao = (PrenotazioneDaoJDBC) df.getPrenotazioneDAO();
 		FeedbackDaoJDBC fdao = (FeedbackDaoJDBC) df.getFeedBackDAO();
 		Prenotazione p = (Prenotazione) pdao.findByPrimaryKey(req.getParameter("preno"));
-		String pren = req.getParameter("preno");
+		
 		String comment = req.getParameter("commento");
 		FeedBack feed = new FeedBack(p, comment);
 		FeedBack tmp = (FeedBack) fdao.findByPrimaryKey(p.getID() + "");
 		if (tmp != null) {
-			req.getSession().setAttribute("message-error", "Hai già mandato il feedback di questa prenotazione");
+			req.getSession().setAttribute("message-error", "Hai giï¿½ mandato il feedback di questa prenotazione");
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/feedback.jsp");
 			rd.forward(req, resp);
 		} else {

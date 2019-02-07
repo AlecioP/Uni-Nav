@@ -99,6 +99,7 @@ public class DoLogin extends HttpServlet {
 				rd.forward(request, response);
 				return;
 			}
+			request.getSession().setAttribute("stud", a);
 			request.getSession().setAttribute("username", username);
 			request.getSession().setAttribute("tipo-login", type);
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.jsp");

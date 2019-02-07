@@ -88,6 +88,9 @@ public class FinalizzaPrenotazione extends HttpServlet {
 		}
 		
 		/*CLEAN SESSION*/
+		StudenteDaoJDBC studenteDao = (StudenteDaoJDBC) DatabaseManager.getInstance().getDaoFactory().getStudenteDAO();
+		Studente a= (Studente) studenteDao.findByPrimaryKey(username);
+		
 		String type = (String) request.getSession().getAttribute("tipo-login");
 		Enumeration<String> attributes  = request.getSession().getAttributeNames();
 		try {
@@ -96,6 +99,7 @@ public class FinalizzaPrenotazione extends HttpServlet {
 				request.getSession().removeAttribute(el);
 			}
 		}catch(NoSuchElementException e) {}
+		request.getSession().setAttribute("stud", a);
 		request.getSession().setAttribute("username", username);
 		request.getSession().setAttribute("tipo-login", type);
 		/*CLEAN SESSION*/

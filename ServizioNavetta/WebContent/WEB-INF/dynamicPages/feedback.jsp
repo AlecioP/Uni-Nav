@@ -5,55 +5,38 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Feedback</title>
-<%@include file="importBootstrap.jsp"%>
-<link rel="stylesheet" type="text/css" href="css/genera.css">
-<!-- <link rel="stylesheet" type="text/css" href="css/common.css"> -->
+<title>Feedback - ${username}</title>
+<%@include file="importBootstrap.jsp" %>
+<script type="text/javascript" src="js/feedback.js"></script>
+<script type="text/javascript" src="js/bootstrapConverter.js"></script>
+<link rel="stylesheet" type="text/css" href="css/feedback.css">
 
-<script>
-	$(window).on('load', function() {
-		$("#comment").hide();
-		$("#feedback").show();
-	});
-	function updateFeedback(text) {
-		var element = document.getElementById("qrcode");
-		document.getElementById("codicePren").value = text;
-		$("#feedback").hide();
-		$("#comment").show();
-	}
-	function indietro() {
-		document.getElementById("codicePren").value = null;
-		$("#comment").hide();
-		$("#feedback").show();
-	}
-</script>
 </head>
 <body>
-	<%@include file="studNavbar.jsp"%>
+
+	<%@include file="studNavbar.jsp" %>
 	<div id=feedback>
-		<br> <br> <br>
-		<c:if test="${message-error != null }">
-			<c:set var="message" value="message-error" />
-			<span class="error-message"><c:out
-					value="${sessionScope[message]}" /></span>
+		<c:if test="${message-error!=null && message-error!=0 }">
+			<span class="error-message"> ${message-error}</span>
 		</c:if>
-		<table class="table table-bordered">
-			<tr>
+		<table class="table table-bordered table-hover">
+			<tr class="warning">
 				<th>Prenotazione</th>
 				<th>Autista</th>
 				<th>Giro</th>
 				<th>Navetta</th>
 				<th>Partenza</th>
 				<th>Arrivo</th>
-				<th>Data</th>
+				<th></th>
 			</tr>
 			<c:set var="j" value="${0}"/>
 			<c:forEach items="${prenotazione}" var="pren" varStatus="i">
-			<c:set var="j" value="${j+1}"/>
-			<c:set var="classVar" value=" "/>
-			<c:if test="${ (j%2)!=0}">
-			<c:set var="classVar" value="info"/>
-			</c:if>
+				<c:set var="j" value="${j+1}"/>
+				<c:set var="classVar" value=" "/>
+				
+				<c:if test="${ (j%2)!=0}">
+					<c:set var="classVar" value="info"/>
+				</c:if>
 				<tr class="${classVar}">
 					<td>${pren.ID}</td>
 					<td>${pren.autista.ID}</td>
@@ -61,30 +44,31 @@
 					<td>${pren.navetta.ID}</td>
 					<td>${pren.tratto.partenza.nome}</td>
 					<td>${pren.tratto.arrivo.nome}</td>
-					<td>${pren.dateTime.getTime()}</td>
-					<td><input id="bottone" class="btn btn-warning" type="button"
-						value="Lascia Feedback" onclick="updateFeedback( ${pren.ID} )" /></td>
+					<td><input type="button" value="Lascia Feedback"
+						onclick=" updateFeedback( ${pren.ID} )" class="btn btn-warning"/></td>
 
 				</tr>
 
 			</c:forEach>
 		</table>
 	</div>
-	<div class="form-horizontal" id="comment">
+	<div class="form-horizontal" id="comment" style="display: none;">
 		<form action="lasciaFeedback" method="post">
-			<div class="form-group" id=prenotazioneID>
-				<input id="codicePren" name="preno" type="text"
-					style="display: none;" />
+			<div class="form-group" id="prenotazioneID">
+				<input id="codicePren" name="preno" type="text" style="display: none;" />
 			</div>
-			<br> <br> <br>
-			<textarea name="commento" rows="15" cols="50"></textarea>
-
-			<br> <br> <input class="btn btn-success" type="submit"
-				value="Invia Feedback" name="cico">
-
+			
+			<textarea id="comment-area" name="commento" rows="15" cols="50" placeholder="Inserisci un commento..."></textarea>
+			<div class="row">
+				<span class="myCol-1"></span>
+				<input class="myButton btn btn-success myCol-3" type="submit"	value="Invia Feedback" name="cico">
+			</div>
+			
 		</form>
-		<button class="btn btn-danger" id="bottone" type="button"
-			onclick="indietro()">Indietro</button>
+		<div class="row">
+			<span class="myCol-2"></span>
+			<input class="btn btn-info myCol-1" id="bottone" type="button" onclick="indietro()" value="Indietro"/>
+		</div>
 	</div>
 </body>
 </html>
