@@ -20,7 +20,7 @@
 
 </head>
 <body>
-	<%@ include file="driverNavbar.jsp" %> 
+	<%@ include file="navbars/driverNavbar.jsp" %> 
 	<div class="myCol-1"></div>
 	<div class="myCol-10">
 		<div id="next-stop" class="row">

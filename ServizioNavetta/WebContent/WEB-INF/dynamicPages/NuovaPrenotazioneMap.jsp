@@ -21,7 +21,7 @@
 </head>
 <body>
 
-	<%@ include file="studNavbar.jsp"%>
+	<%@ include file="navbars/studNavbar.jsp"%>
 
 	<div class="mycol-1"></div>
 	<div class="col-sx mycol-4">

@@ -1,4 +1,4 @@
-package controller;
+package controller.groupB;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -85,7 +85,7 @@ public class ObliteraManualmente extends HttpServlet {
 				}
 			}
 		}
-		req.getSession().setAttribute("registration-error", "Lo studente non è prenotato");
+		req.getSession().setAttribute("registration-error", "Lo studente non ï¿½ prenotato");
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/obliteraBiglietto.jsp");
 		rd.forward(req, resp);
 	}

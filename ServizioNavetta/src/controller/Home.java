@@ -44,6 +44,11 @@ public class Home extends HttpServlet {
 				rd.forward(request, response);
 				return;
 			}
+			case "admin" : {
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeAdmin.jsp");
+				rd.forward(request, response);
+				return;
+			}
 			default : {
 				
 			}

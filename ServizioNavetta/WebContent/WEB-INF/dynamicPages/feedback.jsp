@@ -14,7 +14,7 @@
 </head>
 <body>
 
-	<%@include file="studNavbar.jsp" %>
+	<%@include file="navbars/studNavbar.jsp" %>
 	<div id=feedback>
 		<c:if test="${message-error!=null && message-error!=0 }">
 			<span class="error-message"> ${message-error}</span>

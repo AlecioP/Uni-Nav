@@ -15,7 +15,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>MakeRegistration</servlet-name>
-    <servlet-class>controller.MakeRegistration</servlet-class>
+    <servlet-class>controller.groupB.MakeRegistration</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MakeRegistration</servlet-name>
@@ -23,7 +23,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>IscriviStudente</servlet-name>
-    <servlet-class>controller.IscriviStudente</servlet-class>
+    <servlet-class>controller.groupB.IscriviStudente</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>IscriviStudente</servlet-name>
@@ -31,7 +31,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>ModuloIscrizione</servlet-name>
-    <servlet-class>controller.ModuloIscrizione</servlet-class>
+    <servlet-class>controller.groupB.ModuloIscrizione</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ModuloIscrizione</servlet-name>
@@ -39,7 +39,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>DammiQR</servlet-name>
-    <servlet-class>controller.DammiQR</servlet-class>
+    <servlet-class>controller.groupB.DammiQR</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DammiQR</servlet-name>
@@ -71,7 +71,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>ObliteraManualmente</servlet-name>
-    <servlet-class>controller.ObliteraManualmente</servlet-class>
+    <servlet-class>controller.groupB.ObliteraManualmente</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ObliteraManualmente</servlet-name>
@@ -79,7 +79,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>MostraPrenotazioni</servlet-name>
-    <servlet-class>controller.MostraPrenotazioni</servlet-class>
+    <servlet-class>controller.groupB.MostraPrenotazioni</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MostraPrenotazioni</servlet-name>
@@ -87,7 +87,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>ObliteraEntrataManualmente</servlet-name>
-    <servlet-class>controller.ObliteraEntrataManualmente</servlet-class>
+    <servlet-class>controller.groupB.ObliteraEntrataManualmente</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ObliteraEntrataManualmente</servlet-name>
@@ -95,7 +95,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>ProvaGeneraBiglietto</servlet-name>
-    <servlet-class>controller.ProvaGeneraBiglietto</servlet-class>
+    <servlet-class>controller.groupB.ProvaGeneraBiglietto</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ProvaGeneraBiglietto</servlet-name>
@@ -103,7 +103,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>ProvaFeedback</servlet-name>
-    <servlet-class>controller.ProvaFeedback</servlet-class>
+    <servlet-class>controller.groupB.ProvaFeedback</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ProvaFeedback</servlet-name>
@@ -111,7 +111,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>LasciaFeedback</servlet-name>
-    <servlet-class>controller.InviaFeedback</servlet-class>
+    <servlet-class>controller.groupB.InviaFeedback</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LasciaFeedback</servlet-name>
@@ -127,7 +127,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>DopoIscrizioneSenzaErrori</servlet-name>
-    <servlet-class>controller.DopoIscrizioneSenzaErrori</servlet-class>
+    <servlet-class>controller.groupB.DopoIscrizioneSenzaErrori</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DopoIscrizioneSenzaErrori</servlet-name>
@@ -135,7 +135,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>HomeSenzaErrori</servlet-name>
-    <servlet-class>controller.HomeSenzaErrori</servlet-class>
+    <servlet-class>controller.groupB.HomeSenzaErrori</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>HomeSenzaErrori</servlet-name>
@@ -143,7 +143,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>InviaDomanda</servlet-name>
-    <servlet-class>controller.InviaDomanda</servlet-class>
+    <servlet-class>controller.groupB.InviaDomanda</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>InviaDomanda</servlet-name>
@@ -151,7 +151,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>ObliteraBigliettoQR</servlet-name>
-    <servlet-class>controller.ObliteraBigliettoQR</servlet-class>
+    <servlet-class>controller.groupB.ObliteraBigliettoQR</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ObliteraBigliettoQR</servlet-name>
@@ -159,7 +159,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>ControlloObliterazione</servlet-name>
-    <servlet-class>controller.ControlloObliterazione</servlet-class>
+    <servlet-class>controller.groupB.ControlloObliterazione</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ControlloObliterazione</servlet-name>
@@ -172,5 +172,13 @@
   <servlet-mapping>
     <servlet-name>Booking</servlet-name>
     <url-pattern>/booking</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AdminStatistics</servlet-name>
+    <servlet-class>controller.AdminStatistics</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminStatistics</servlet-name>
+    <url-pattern>/statistics</url-pattern>
   </servlet-mapping>
 </web-app>

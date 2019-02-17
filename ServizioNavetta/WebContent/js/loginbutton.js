@@ -12,6 +12,9 @@ $(function(){ /* DOM ready */
 			}else if(this.value==="driver"){
 				
 				$("input.register").hide(); 
+			} else if(this.value==="admin"){
+				
+				$("input.register").hide(); 
 			}
 		} 
 	});

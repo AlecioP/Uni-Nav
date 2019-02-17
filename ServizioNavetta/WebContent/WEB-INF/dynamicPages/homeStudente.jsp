@@ -15,7 +15,7 @@
 
 </head>
 <body>
-	<%@ include file="studNavbar.jsp" %>
+	<%@ include file="navbars/studNavbar.jsp" %>
 	
 	<h1>Bentornato ${stud.nome} !</h1>
 	

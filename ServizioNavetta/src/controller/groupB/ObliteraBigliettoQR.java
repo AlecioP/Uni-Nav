@@ -1,4 +1,4 @@
-package controller;
+package controller.groupB;
 
 import java.io.BufferedReader;
 import java.io.IOException;

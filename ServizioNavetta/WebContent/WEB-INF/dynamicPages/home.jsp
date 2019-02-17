@@ -24,11 +24,15 @@
 				<div class="panel panel-primary">
 					<div class="panel-heading">Tipo login :</div>
 					<div class="panel-body">
-						<label class="checkbox-inline"><input class="login-type"
-							type="radio" name="login-type" value="student" checked="checked">
-							Studente</label> <label class="checkbox-inline"><input
-							class="login-type" type="radio" name="login-type" value="driver">
-							Autista</label>
+						<label class="checkbox-inline">
+							<input class="login-type" type="radio" name="login-type" value="student" checked="checked">
+						Studente</label> 
+						<label class="checkbox-inline">
+							<input class="login-type" type="radio" name="login-type" value="driver">
+						Autista</label>
+						<label class="checkbox-inline">
+							<input class="login-type" type="radio" name="login-type" value="admin">
+						Admin</label>
 					</div>
 				</div>
 

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Static chart</title>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script type="text/javascript">
+var bar;
+var pie;
+document.addEventListener('DOMContentLoaded', function () {
+	/*
+    var bar = Highcharts.chart('chart', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: [1, 0, 4]
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }]
+    });
+    */
+    
+    var pie = Highcharts.chart('pie', {
+        chart: {
+            type: 'pie',
+            options3d: {
+                enabled: true,
+                alpha: 45
+            }
+        },
+        title: {
+            text: 'Contents of Highsoft\'s weekly fruit delivery'
+        },
+        /*
+        subtitle: {
+            text: '3D donut in Highcharts'
+        },
+        */
+        plotOptions: {
+            pie: {
+                innerSize: 90,
+                depth: 50
+            }
+        },
+        series: [{
+            name: 'Delivered amount',
+            data: [
+                ['Bananas', 8],
+                ['Kiwi', 3],
+                ['Mixed nuts', 1],
+                ['Oranges', 6],
+                ['Apples', 8],
+                ['Pears', 4],
+                ['Clementines', 4],
+                ['Reddish (bag)', 1],
+                ['Grapes (bunch)', 1]
+            ]
+        }]
+    });
+   
+});
+
+</script>
+<style>
+@font-face {
+		font-family : "Ds";
+		src: url('../../font/dancingScript.ttf') format('truetype');
+}
+#pieUGLY *{
+	font-family: 'Ds', sans-serif;
+	
+	font-variant: normal;
+	unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+
+div#pie {
+	/*
+	position : relative;
+	top : 5em;
+	*/
+	display: inline-block;
+	width: 50%;
+	border: black solid 1px;
+}
+
+div#pie-padder {
+	display: inline-block;
+	width: 25%;
+}
+</style>
+</head>
+<body>
+
+<div id="chart"></div>
+<div id="pie-padder"></div>
+<div id="pie"></div>
+
+
+</body>
+</html>

@@ -13,6 +13,7 @@ import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
 import persistence.daoManage.crud.Crud;
 import persistence.daoManage.crud.SecurityDAO;
+import persistence.persistentModel.Amministratore;
 import persistence.persistentModel.Autista;
 import persistence.persistentModel.Password;
 import persistence.persistentModel.Studente;
@@ -103,6 +104,21 @@ public class DoLogin extends HttpServlet {
 			request.getSession().setAttribute("username", username);
 			request.getSession().setAttribute("tipo-login", type);
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeStudente.jsp");
+			rd.forward(request, response);
+			return;
+		}
+		case "admin":{
+			Crud adminDao = daoFactory.getAmministratoreDAO();
+			Amministratore admin = (Amministratore) adminDao.findByPrimaryKey(username);
+			if(admin==null) {
+				request.getSession().setAttribute("login-error", "Utente o password errati");
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
+				rd.forward(request, response);
+				return;
+			}
+			request.getSession().setAttribute("username", username);
+			request.getSession().setAttribute("tipo-login", type);
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeAdmin.jsp");
 			rd.forward(request, response);
 			return;
 		}

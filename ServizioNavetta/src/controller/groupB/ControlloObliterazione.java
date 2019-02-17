@@ -1,4 +1,4 @@
-package controller;
+package controller.groupB;
 
 import java.awt.Point;
 import java.io.BufferedReader;

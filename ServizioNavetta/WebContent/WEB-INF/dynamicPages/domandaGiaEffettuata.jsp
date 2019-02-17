@@ -9,7 +9,7 @@
 <%@include file="importBootstrap.jsp"%>
 </head>
 <body>
-	<%@include file="studNavbar.jsp"%>
+	<%@include file="navbars/studNavbar.jsp"%>
 	<h1 style="color: red;">Hai già effettuato la Domanda di Riabilitazione</h1>
 </body>
 </html>

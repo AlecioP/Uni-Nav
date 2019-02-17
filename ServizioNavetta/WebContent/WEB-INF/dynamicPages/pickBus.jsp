@@ -14,7 +14,7 @@
 </head>
 <body>
 
-	<%@include file="studNavbar.jsp"%>
+	<%@include file="navbars/studNavbar.jsp"%>
 
 	<h1>Seleziona le navette che vuoi prenotare per raggiungere
 		l&#39;Arrivo</h1>
