@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -18,6 +20,7 @@ import persistence.persistentModel.Navetta;
 import persistence.persistentModel.Prenotazione;
 import persistence.persistentModel.Studente;
 import persistence.persistentModel.TrattoLinea;
+import persistence.utility.Pair;
 import persistence.utility.Utility;
 
 public class PrenotazioneDaoJDBC implements Crud {
@@ -226,6 +229,68 @@ public class PrenotazioneDaoJDBC implements Crud {
 				throw new PersistenceException(e.getMessage());
 			}
 		}
+		
+	}
+	
+	public ArrayList<Pair<String,Integer> > numberOfBookingsPerDayLastMonth(String pkey){
+		int id = 0;
+		
+		try {
+			id  = Integer.parseInt(pkey);
+		}catch(NumberFormatException e) {
+			System.err.println("INVALID PRIMARY KEY IN PRENOTAZIONE DAO");
+			return null;
+		}
+		
+		LocalDateTime aMonthAgo = LocalDateTime.now().minusDays(30);
+		
+		String textDate = aMonthAgo.getMonth().getValue()+"-"+aMonthAgo.getDayOfMonth()+"-"+aMonthAgo.getYear();
+		
+		System.out.println("MORE THEN : "+ textDate);
+		
+		String query = "select * from \"Prenotazione\" where \"Studente_ID\" = ? AND \"Date_time\" > \'"+textDate+"\'::date";
+		Connection con = ds.getConnection();
+		try {
+			
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1, id);
+			ResultSet res = stm.executeQuery();
+			ArrayList<Pair<String,Integer> > ret = new ArrayList<Pair<String,Integer> >();
+			int count = 0;
+			String prev = null;
+			
+			SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+			while(res.next()) {
+				Calendar dateTime = Utility.convertToCalendar((java.sql.Timestamp)res.getObject("Date_time"));
+				//Formatted to solve problems with JS Date
+				String current = formatter.format(dateTime.getTime());
+				if(count==0) {
+					count++;
+					prev = current;
+				}else {
+					if(current.equals(prev)) {
+						count++;
+					} else {
+						ret.add(new Pair<String, Integer>(prev,Integer.valueOf(count)));
+						count=1;
+						prev =current;
+					}
+				}
+			}
+			if(count!=0) {
+				ret.add(new Pair<String, Integer>(prev,Integer.valueOf(count)));
+			}
+			return ret;
+		} catch (SQLException e) {
+			throw new PersistenceException(e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				throw new PersistenceException(e.getMessage());
+			}
+		}
+		
 		
 	}
 

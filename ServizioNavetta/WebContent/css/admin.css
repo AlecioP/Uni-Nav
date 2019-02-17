@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+div.form-container {
+	position: relative; 
+	top: 5em;
+}
+
+body {
+	background-image: url('../img/bg.png');
+	width : 100vw;
+	height: 100vh;
+}
+
+a.navbar-brand img {
+	height:2.5em; position:relative; top:-0.75em;
+}
+
+div.chart-container{
+	position: relative; 
+	top: 5em;
+}
+
+div#mychart {
+	display: inline-block;
+	width: 50%;
+	border: solid grey 5px;
+}
+
+div.generic-container{
+	position: relative; 
+	top: 5em;
+}
