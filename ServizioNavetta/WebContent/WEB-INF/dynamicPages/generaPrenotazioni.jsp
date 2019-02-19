@@ -50,9 +50,9 @@
 					<td>${pren.navetta.ID}</td>
 					<td>${pren.tratto.partenza.nome}</td>
 					<td>${pren.tratto.arrivo.nome}</td>
-					<td><input id="qr" class="biglietti btn btn-warning"
-						type="button" value="Genera Biglietto"
-						onclick=" updateQRCode(${codici[i.index]})" /></td>
+					<td><button id="qr" class="biglietti btn btn-warning"
+						type="button"
+						onclick=" updateQRCode(${codici[i.index]})" ><i class="glyphicon glyphicon-qrcode"></i> Genera Biglietto</button></td>
 				</tr>
 			</c:forEach>
 		</table>

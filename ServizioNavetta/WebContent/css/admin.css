@@ -11,10 +11,6 @@ body {
 	height: 100vh;
 }
 
-a.navbar-brand img {
-	height:2.5em; position:relative; top:-0.75em;
-}
-
 div.chart-container{
 	position: relative; 
 	top: 5em;
@@ -29,4 +25,21 @@ div#mychart {
 div.generic-container{
 	position: relative; 
 	top: 5em;
+}
+
+table{
+	color : grey;
+}
+
+tbody tr.not-hover{
+	color : white;
+}
+
+tbody tr.hover{
+	color : black;
+}
+
+td {
+	align-content: center;
+	text-align: center;
 }

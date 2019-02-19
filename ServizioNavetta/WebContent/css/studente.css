@@ -5,25 +5,18 @@
 		src: url('../font/tnr.ttf') format('truetype');
 }
 
-html{
-	/*background: url("../img/driver-bg.jpg") no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;*/
-  
-}
-
 body{
 	font-family: 'CustomTimes', sans-serif;
 	padding-top: 4em;
 	background-color: black;
 	
 	background-image: url("../img/driver-bg.jpg");
-	background-repeat: no-repeat center center fixed;
-	background-origin: padding-box;
-	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-position : center;
+	background-size: 100% 100%;
 	color : white;
+	height: 100vh;
+	width: 100vw;
 }
 
 div#actual-position span {
@@ -63,8 +56,10 @@ div#map>* {
 	width: 100%;
 }
 
-h1 {
+h1#name {
 	text-align: center;
+	color : black;
+	margin-bottom: 1em;
 }
 
 div#mapid {
@@ -72,18 +67,10 @@ div#mapid {
 	/*width : 100%;*/
 }
 
-div#col-sx {
-	height: 75%;
-	width: 30%;
-	margin-bottom: 1em;
-	display: inline-block;
+span.key {
+	color : blue;
 }
 
-div#col-dx{
-	
-	display: inline-block;
-	padding-left: 50%;
-}
-img {
-	width: 100%;
+span.value {
+	float : right;
 }

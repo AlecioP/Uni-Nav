@@ -181,4 +181,12 @@
     <servlet-name>AdminStatistics</servlet-name>
     <url-pattern>/statistics</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>UserReclaim</servlet-name>
+    <servlet-class>controller.UserReclaim</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserReclaim</servlet-name>
+    <url-pattern>/reclaim</url-pattern>
+  </servlet-mapping>
 </web-app>

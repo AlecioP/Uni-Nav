@@ -8,7 +8,7 @@ $(function() { /* DOM ready */
 						$(this).next(".error-message").remove();
 						if (x === "") {
 							$(
-									"<span class=\"error-message\">Non puo essere vuoto </span>")
+									"<span class=\"error-message\"><i class=\"glyphicon glyphicon-exclamation-sign\"></i>Non puo essere vuoto </span>")
 									.insertAfter(this);
 							$("#submit").remove();
 						} else {

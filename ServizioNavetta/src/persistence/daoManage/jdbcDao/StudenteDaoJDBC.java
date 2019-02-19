@@ -129,22 +129,22 @@ public class StudenteDaoJDBC implements Crud {
 					 + "SET (\"Nome\", "
 					 + "\"Cognome\", "
 					 + "\"Email\", "
-					 + "\"Password\", "
-					 + "\"Flag_attuali\")=(?,?,?,?,?) "
+					 /*+ "\"Password\", "*/
+					 + "\"Flag_attuali\")=(?,?,?,?) "
 					 + "WHERE \"Matricola\" = ?";
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
 			Array nome = Utility.convertStringArray(studente.getNome(), connection)
 			,cognome= Utility.convertStringArray(studente.getCognome(), connection)
 			,email= Utility.convertStringArray(studente.getEmail(), connection)
-			,password= Utility.convertStringArray(studente.getPassword().password, connection);
+			/*,password= Utility.convertStringArray(studente.getPassword().password, connection)*/;
 			
 			statement.setArray(1, nome);
 			statement.setArray(2, cognome);
 			statement.setArray(3, email);
-			statement.setArray(4, password);
-			statement.setInt(5, studente.getFlag());
-			statement.setInt(6, studente.getMatricola());
+			/*statement.setArray(4, password);*/
+			statement.setInt(4, studente.getFlag());
+			statement.setInt(5, studente.getMatricola());
 			int result = statement.executeUpdate();
 			if(result ==0)
 				System.out.println("No match Studente pkey");

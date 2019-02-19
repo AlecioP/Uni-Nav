@@ -193,12 +193,13 @@ public class DomandaRiabilitazioneDaoJDBC implements Crud {
 			ResultSet res = smt.executeQuery();
 
 			while (res.next()) {
+				int id = res.getInt("ID");
 				LocalDateTime dateTime = res.getTimestamp("Data").toLocalDateTime();
 				Studente stud = new StudenteDaoJDBC(ds).findByPrimaryKey(res.getInt("Studente_ID") + "");
 				Amministratore admin = new AmministratoreDaoJDBC(ds)
 						.findByPrimaryKey(res.getInt("Amministratore_ID") + "");
 
-				domande.add(new DomandaRiabilitazione(key, dateTime, stud, admin));
+				domande.add(new DomandaRiabilitazione(id, dateTime, stud, admin));
 			}
 			return domande;
 		} catch (SQLException e) {

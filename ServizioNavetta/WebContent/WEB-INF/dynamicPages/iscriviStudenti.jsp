@@ -5,82 +5,107 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Iscrivi Studente</title>
+<%@include file="importBootstrap.jsp"%>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="js/loadStudent.js"></script>
 <!-- Custom style import -->
- <link rel="stylesheet" type="text/css" href="css/common.css"> 
+<link rel="stylesheet" type="text/css" href="css/common.css">
 <link rel="stylesheet" type="text/css" href="css/iscriviStudente.css">
+
+<script type="text/javascript" src="js/bootstrapConverter.js"></script>
 </head>
 <body>
 	<header>
+		<form action="home" method="get">
+			<div class="row" id="back-button">
+				<div class="myCol-1"></div>
+				<div class="myCol-1">
+					<button type="submit" class="btn btn-info">
+						<i class="glyphicon glyphicon-menu-left"></i> <span>Home</span>
+					</button>
+				</div>
+			</div>
+		</form>
 		<h1>Iscrivi un nuovo studente</h1>
-		<h2>Compila il seguente form</h2>
-		<form id="modulo1" name="myForm" class="form-horizontal" method="post"
-			action=inviaDatiStudente>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="matricola">Matricola</label>
-				<div class="col-sm-5">
-					<input class="form-control" name="matricola" type="text" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="nome">Nome</label>
-				<div class="col-sm-5">
-					<input class="form-control" name="nome" type="text" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="cognome">cognome</label>
-				<div class="col-sm-5">
-					<input class="form-control" name="cognome" type="text" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="email">email</label>
-				<div class="col-sm-5">
-					<input class="form-control" name="email" type="email" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="password">Password</label>
-				<div class="col-sm-5">
-					<input class="form-control" name="password" type="password" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="password2">Conferma
-					Password</label>
-				<div class="col-sm-5">
-					<input class="form-control" name="password2" type="password" />
-				</div>
-			</div>
-
-			<input id="reset" class="btn btn-warning" type="reset" />
-		</form>
-		<form action="DopoIscrizioneSenzaErrori" method="post">
-			<button type="submit" class="btn btn-primary" value="Indietro">Indietro</button>
-		</form>
-		<c:if test="${registration-error != null }">
-			<c:set var="message" value="registration-error" />
-			<span class="error-message"><c:out
-					value="${sessionScope[message]}" /></span>
-		</c:if>
-
-
-
-
-
 	</header>
+	<form id="modulo1" name="myForm" class="form-horizontal" method="post"
+		action=inviaDatiStudente>
+		<div class="row">
+			<div class="myCol-1"></div>
+			<div class="panel-group myCol-4">
+				<div class="panel panel-success">
+					<div class="panel-heading ">Nome :</div>
+					<div class="panel-body">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-list-alt"></i></span> <input
+								class="form-control" name="nome" type="text" />
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading ">Cognome :</div>
+					<div class="panel-body">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-list-alt"></i></span> <input
+								class="form-control" name="cognome" type="text" />
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-success">
+					<div class="panel-heading ">Email :</div>
+					<div class="panel-body">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-envelope"></i></span> <input
+								class="form-control" name="email" type="email" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="myCol-1"></div>
+			<div class="panel-group myCol-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading ">Matricola :</div>
+					<div class="panel-body">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-education"></i></span> <input
+								class="form-control" name="matricola" type="text" />
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-success">
+					<div class="panel-heading ">Password :</div>
+					<div class="panel-body">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-lock"></i></span> <input
+								class="form-control" name="password" type="password" />
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading ">Conferma Password :</div>
+					<div class="panel-body">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-lock"></i></span> <input
+								class="form-control" name="password2" type="password" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="myCol-9"></div>
+			<div class="myCol-3">
+				<input type="submit" value="Iscriviti" class="btn btn-success">
+			</div>
+		</div>
+	</form>
+
 </body>
 </html>
