@@ -10,7 +10,14 @@
 <script src="js/qrcode.js"></script>
 <script src="js/html5-qrcode.js"></script>
 <script type="text/javascript" src="js/generaPrenotazioni.js"></script>
-<link rel="stylesheet" type="text/css" href="css/genera.css">
+
+
+<!-- Custom style import - Desktop -->
+<link rel="stylesheet"  
+media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
+ type="text/css" href="css/genera.css">
+<!-- Custom style import - Desktop -->
+
 
 </head>
 <body>

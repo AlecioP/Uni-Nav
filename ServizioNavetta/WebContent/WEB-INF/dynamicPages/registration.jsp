@@ -6,23 +6,16 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Servio Navetta - Registrazione</title>
-<!-- JQuery import -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<%@include file="importBootstrap.jsp" %>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!-- Custom style import - Desktop -->
+<link rel="stylesheet"  
+media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
+ type="text/css" href="css/common.css">
+<!-- Custom style import - Desktop -->
 
-<!-- Custom javascript import -->
-<script type="text/javascript" src="js/bootstrapConverter.js"></script>
 
-<!-- Custom style import -->
-<link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
 <body>
 <form action="GET">

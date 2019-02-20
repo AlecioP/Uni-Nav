@@ -12,10 +12,15 @@
 <script type="text/javascript" src="js/bootstrapConverter.js"></script>
 <script type="text/javascript" src="js/nuovaPrenotazione.js"></script>
 
-<!-- Custom style import -->
-<link rel="stylesheet" type="text/css" href="css/nuovaPrenotazione.css">
-<link rel="stylesheet" type="text/css" href="css/common.css">
 
+<!-- Custom style import - Desktop -->
+<link rel="stylesheet"  
+media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
+ type="text/css" href="css/nuovaPrenotazione.css">
+<link rel="stylesheet"  
+media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
+ type="text/css" href="css/common.css">
+<!-- Custom style import - Desktop -->
 
 
 </head>

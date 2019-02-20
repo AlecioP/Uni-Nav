@@ -14,37 +14,31 @@
 <script type="text/javascript"
 	src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 
-<!-- JQuery import -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<%@include file="importBootstrap.jsp" %>
 
 <!-- Custom javascript import -->
 <script type="text/javascript" src="js/bootstrapConverter.js"></script>
 
-
 <%@include file="importBootstrap.jsp" %>
 
-<!-- Custom style import -->
-<link rel="stylesheet" type="text/css" href="css/common.css">
+<!-- Custom style import - Desktop -->
+<link rel="stylesheet"  
+media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
+ type="text/css" href="css/common.css">
+<link rel="stylesheet"  
+media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
+ type="text/css" href="css/obliterazione.css">
+<link rel="stylesheet"  
+media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
+ type="text/css" href="css/genera.css">
+<!-- Custom style import - Desktop -->
 
-<link rel="stylesheet" type="text/css" href="css/obliterazione.css">
-<link rel="stylesheet" type="text/css" href="css/genera.css">
+
 </head>
 <body>
 
-
-			<video id="video"></video>
+	<video id="video"></video>
 		
-	
-
 	<script type="text/javascript" src="js/reader.js"></script>
 
 	<form action="obliteraManualmente" method="post">

@@ -4,9 +4,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/common.css">
+<title>Domanda gi&aacute; inviata</title>
 <%@include file="importBootstrap.jsp"%>
+
+
+<!-- Custom style import - Desktop -->
+<link rel="stylesheet"  
+media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
+ type="text/css" href="css/common.css">
+<!-- Custom style import - Desktop -->
+
+
 </head>
 <body>
 	<%@include file="navbars/studNavbar.jsp"%>
