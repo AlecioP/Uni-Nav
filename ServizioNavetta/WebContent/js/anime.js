@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				var image = anime.recommendations[randomIndex].image_url;
 				var title = anime.recommendations[randomIndex].title;
 				el = $("#anime")[0];
-				el.innerHTML = "<span>"+title+"</span><br>";
+				el.innerHTML = "<h3>"+title+"</h3>";
 				el.innerHTML = el.innerHTML+"<img src=\""+image+"\" />";
 			}	
 		});

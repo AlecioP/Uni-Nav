@@ -9,6 +9,8 @@
 <%@include file="importBootstrap.jsp"%>
 
 <script type="text/javascript" src="js/bootstrapConverter.js"></script>
+
+<script type="text/javascript" src="js/labelChangerStatistics.js"></script>
 <!-- Custom style import -->
 <link rel="stylesheet" type="text/css" href="css/admin.css">
 </head>
@@ -21,18 +23,27 @@
 			<div class="panel-group">
 
 				<div class="panel panel-primary">
-					<div class="panel-heading">Id Studente :</div>
+					<div id="stat-label" class="panel-heading">Id Studente :</div>
 					<div class="panel-body">
-						<input type="text" name="id" placeholder="Matricola...">
+						<input type="text" name="id" placeholder="ID...">
 					</div>
 				</div>
 
 				<div class="panel panel-success">
 					<div class="panel-heading">Statistics type :</div>
 					<div class="panel-body">
-						<select name="stat-type">
-							<option value="last-month-books">Prenotazioni
-								nell'ultimo mese</option>
+						
+						<select id="select-stat" name="stat-type">
+							<optgroup label="Studente">
+								<option class="stud" value="last-month-books">
+									Prenotazioni nell'ultimo mese
+								</option>
+							</optgroup>
+							<optgroup label="Navetta">
+								<option class="bus" value="bus-good-drivers">
+									Prenotazioni per Autista
+								</option>
+							</optgroup>
 						</select>
 					</div>
 				</div>

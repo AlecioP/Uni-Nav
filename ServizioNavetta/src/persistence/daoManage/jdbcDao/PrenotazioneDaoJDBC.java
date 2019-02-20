@@ -294,4 +294,45 @@ public class PrenotazioneDaoJDBC implements Crud {
 		
 	}
 
+	
+	public ArrayList<Pair<Integer,Integer> > numberOfBookingsPerDriver(String navettaID){
+		ArrayList<Pair<Integer,Integer> > ret = new ArrayList<Pair<Integer,Integer> >();
+		int navetta = 0;
+		try {
+			navetta = Integer.parseInt(navettaID);
+		}catch(NumberFormatException e) {return ret;}
+		
+		String query = 
+				"select distinct P.\"Autista_ID\" as autista , (select count(*)" + 
+				"		  										from \"Prenotazione\" as P1" + 
+				"		  										where P1.\"Autista_ID\" = P.\"Autista_ID\") " + 
+				"												as prenotazioni " + 
+				"from \"Prenotazione\" as P " + 
+				"where \"Navetta_ID\" = ?;";
+		Connection con = ds.getConnection();
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1, navetta);
+			
+			ResultSet res = stm.executeQuery();
+			
+			while(res.next()) {
+				int autista = res.getInt("autista");
+				int prenotazioni = res.getInt("prenotazioni");
+				Pair<Integer, Integer> dataI = new Pair<Integer, Integer>(autista, prenotazioni);
+				ret.add(dataI);
+			}
+			
+		} catch (SQLException e) {
+				throw new PersistenceException(e.getMessage());
+			} finally {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					throw new PersistenceException(e.getMessage());
+				}
+			}
+		return ret;
+	}
+	
 }
