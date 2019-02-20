@@ -14,44 +14,74 @@
 <script type="text/javascript"
 	src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 
-<%@include file="importBootstrap.jsp" %>
+
+<%@include file="importBootstrap.jsp"%>
 
 <!-- Custom javascript import -->
 <script type="text/javascript" src="js/bootstrapConverter.js"></script>
 
-<%@include file="importBootstrap.jsp" %>
-
 <!-- Custom style import - Desktop -->
-<link rel="stylesheet"  
-media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
- type="text/css" href="css/common.css">
-<link rel="stylesheet"  
-media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
- type="text/css" href="css/obliterazione.css">
-<link rel="stylesheet"  
-media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
- type="text/css" href="css/genera.css">
+<script type="text/javascript" src="js/styleInsert.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var orientation = window.screen.orientation.type;
+		var wd = window.screen.availWidth;
+		var h = window.screen.availHeight;
+		if (orientation === "landscape-primary") {
+			if (wd < 500)
+				injectStyle("mobile/css/mobile.css");
+			else {
+				/*injectStyle("css/common.css");*/
+				injectStyle("css/genera.css");
+			}
+		} else {
+			if (h < 500)
+				injectStyle("mobile/css/mobile.css");
+			else {
+				/*injectStyle("css/common.css");*/
+				injectStyle("css/genera.css");
+			}
+		}
+	});
+</script>
 <!-- Custom style import - Desktop -->
 
 
 </head>
 <body>
+	<%@include file="navbars/driverNavbar.jsp"%>
+	<div class="row">
+		<div class="myCol-1"></div>
+		<div class="myCol-3">
 
-	<video id="video"></video>
-		
-	<script type="text/javascript" src="js/reader.js"></script>
+			<form action="obliteraManualmente" method="post">
+				<div id="manuale" class="panel panel-primary">
+					<div class="panel-heading">Matricola :</div>
+					<div class="panel-body">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<i class="glyphicon glyphicon-user"></i>
+							</span>
+							<input class="form-control" type="text" id="matricola" name="current-matricola" />
+						</div>
+						
+					</div>
+					<button id="bottone" class="btn btn-warning" type="submit"
+						value="Submit">Obliterazione manuale</button>
+				</div>
+			</form>
+			<c:if test="${registration-error != null }">
+				<c:set var="message" value="registration-error" />
+				<span class="error-message"><c:out
+						value="${sessionScope[message]}" /></span>
+			</c:if>
+		</div>
+		<div class="myCol-1"></div>
 
-	<form action="obliteraManualmente" method="post">
-		<input type="text" id="matricola" name="current-matricola" />
-		<button id="bottone" class="btn btn-warning" type="submit" value="Submit">Obliterazione manuale</button>
-	</form>
-	<c:if test="${registration-error != null }">
-		<c:set var="message" value="registration-error" />
-		<span class="error-message"><c:out
-				value="${sessionScope[message]}" /></span>
-	</c:if>
-	<form action="HomeSenzaErrori" method="post">
-		<button id="bottone" class="btn btn-danger" type="submit" value="Indietro">Indietro</button>
-	</form>
+		<div id="scanner" class="myCol-6">
+			<video id="video"></video>
+		</div>
+		<script type="text/javascript" src="js/reader.js"></script>
+	</div>
 </body>
 </html>

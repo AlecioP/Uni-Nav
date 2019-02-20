@@ -22,19 +22,38 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 
-<!-- Custom style import - Desktop -->
-<link rel="stylesheet"  
-media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
- type="text/css" href="css/admin.css">
-<!-- Custom style import - Desktop -->
+<!-- Custom style import -->
+<script type="text/javascript" src="js/styleInsert.js"></script>
+<script type="text/javascript">
+$(function(){
+	var orientation = window.screen.orientation.type;
+	var wd  = window.screen.availWidth;
+	var h = window.screen.availHeight;
+	if(orientation==="landscape-primary"){
+		if(wd<500)
+			injectStyle("mobile/css/mobile.css");
+		else
+			injectStyle("css/admin.css");
+	}else{
+		if(h<500)
+			injectStyle("mobile/css/mobile.css");
+		else
+			injectStyle("css/admin.css");
+	}
+});
+</script>
+<!-- Custom style import -->
 
 
 </head>
 <body>
 	<%@ include file="navbars/adminNavbar.jsp"%>
-	<div class="chart-container">
+	<div class="chart-container row">
 		<div class="myCol-3"></div>
-		<div id="mychart"></div>
+		
+		<div id="mychart" style="display: inline-block; width: 50%;"></div>
+		
+		
 	</div>
 </body>
 </html>

@@ -14,9 +14,11 @@ import model.LineaRegistroNavette;
 import model.RegistroAttivitaNavette;
 import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
+import persistence.daoManage.PostgresDAOFactory;
 import persistence.persistentModel.Autista;
 import persistence.persistentModel.Fermata;
 import persistence.persistentModel.Linea;
+import persistence.persistentModel.LineaProxy;
 import persistence.persistentModel.Navetta;
 import persistence.persistentModel.TrattoLinea;
 
@@ -80,7 +82,7 @@ public class DriverRegisterMediator extends HttpServlet {
 			/**/
 			Navetta navetta = (Navetta) daoFactory.getNavettaDAO().findByPrimaryKey(navettaId);
 			lineaRegistro.setNavetta(navetta);
-			Linea linea = new Linea(nomeLinea);
+			Linea linea = new LineaProxy(nomeLinea,PostgresDAOFactory.getDS());
 			ArrayList<TrattoLinea> tratti = linea.getTratti();
 			if (tratti.isEmpty() == false) {
 				TrattoLinea posizione = tratti.get(capolinea);

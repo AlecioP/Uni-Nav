@@ -13,9 +13,25 @@
 
 
 <!-- Custom style import - Desktop -->
-<link rel="stylesheet"  
-media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
- type="text/css" href="css/studente.css">
+<script type="text/javascript" src="js/styleInsert.js"></script>
+<script type="text/javascript">
+$(function(){
+	var orientation = window.screen.orientation.type;
+	var wd  = window.screen.availWidth;
+	var h = window.screen.availHeight;
+	if(orientation==="landscape-primary"){
+		if(wd<500)
+			injectStyle("mobile/css/mobile.css");
+		else
+			injectStyle("css/studente.css");
+	}else{
+		if(h<500)
+			injectStyle("mobile/css/mobile.css");
+		else
+			injectStyle("css/studente.css");
+	}
+});
+</script>
 <!-- Custom style import - Desktop -->
 
 

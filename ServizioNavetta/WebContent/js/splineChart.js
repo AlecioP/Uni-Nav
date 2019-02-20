@@ -5,6 +5,8 @@ var dates = [];
 var values = [];
 var test = [];
 var datesB = [];
+var chart;
+var w,h;
 function setChart(){
 	var workNow = new Date(Date.now());
 	var now = new Date(Date.now());
@@ -59,7 +61,7 @@ function setChart(){
 		datesB.push(new Date(dates[j]).getDate()+"-"+(new Date(dates[j]).getMonth()+1)+"-"+(new Date(dates[j]).getFullYear()));
 	}
 	
-	Highcharts.chart('mychart', {
+	chart = Highcharts.chart('mychart', {
 
 	    title: {
 	        text: 'Booking'
@@ -104,7 +106,7 @@ function setChart(){
 	    responsive: {
 	        rules: [{
 	            condition: {
-	                maxWidth: 500
+	                maxWidth: 100
 	            },
 	            chartOptions: {
 	                legend: {
@@ -121,12 +123,24 @@ function setChart(){
 	    		return "<span>Date "+(new Date(this.x).getDate())+"-"+(new Date(this.x).getMonth()+1)+
 	    		" <br>"+this.y+" bookings</span>";
 	    	}
+	    },
+	    /*
+	    chart : {
+	    	events : {
+	    		click : function(){
+	    			resizeChart(this);
+	    		}
+	    	}
 	    }
-	     
+	     */
 	});
-	
-	
-	
+	resizeChart(chart);
+}
+
+function resizeChart(chart1){
+	w = $("#mychart").width();
+	h = $("#mychart").height();
+	chart1.setSize(w,h);
 }
 
 class ChartData{

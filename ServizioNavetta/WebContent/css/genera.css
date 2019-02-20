@@ -1,6 +1,6 @@
 #bottone {
 	margin : 1em;
-	font-size: 2em;
+	
 }
 
 #qrcode {
@@ -19,12 +19,26 @@ body {
 	
 	background-image: url("../img/driver-bg.jpg");
 	background-repeat: no-repeat;
-	background-position : center;
-	background-size: 100% 100%;
-	height: 100vh;
-	width: 100vw;
+	background-size :cover;
+	background-origin : content-box;
+	background-position: 0em 4.5em;
+	background-color: black;
 }
 
 .table td, .table th {
 	text-align: center;
+	background-color: transparent;
+}
+
+#scanner {
+	position: relative;
+	top : 3em;
+	border : grey solid 4px;
+	padding : 0em;
+	background-color: grey;
+}
+
+#manuale {
+	position: relative;
+	top : 3em;
 }

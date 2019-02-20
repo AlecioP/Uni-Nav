@@ -9,7 +9,7 @@
     		</div>
 			<ul class="nav navbar-nav">
 				<li><a href="ObliteraBigliettoQR">Oblitera Biglietto</a></li>
-				<li><a href="#">Prenotazione Manuale</a></li>
+				<li><a href="bigliettonavetta">Prenotazione Manuale</a></li>
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">

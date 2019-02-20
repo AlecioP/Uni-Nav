@@ -66,3 +66,8 @@ div#mapid {
 	height : 45em;
 	/*width : 100%;*/
 }
+
+form#biglietto {
+	position: relative;
+	top : 3em;
+}

@@ -25,7 +25,7 @@ public class LineaProxy extends Linea{
 	public ArrayList<TrattoLinea> getTratti() {
 		ArrayList<TrattoLinea> tratti = new ArrayList<TrattoLinea>();
 		Connection con = ds.getConnection();
-		String query = "select * from Linea_X_Tratto where linea_id = ?";
+		String query = "select * from \"Linea_X_Tratto\" where linea_id = ?";
 		try {
 			PreparedStatement smt = con.prepareStatement(query);
 			Array linea = Utility.convertStringArray(this.getNome(), con);

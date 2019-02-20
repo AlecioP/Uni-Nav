@@ -189,4 +189,12 @@
     <servlet-name>UserReclaim</servlet-name>
     <url-pattern>/reclaim</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>BigliettoNavetta</servlet-name>
+    <servlet-class>controller.groupB.draft.BigliettoNavetta</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BigliettoNavetta</servlet-name>
+    <url-pattern>/bigliettonavetta</url-pattern>
+  </servlet-mapping>
 </web-app>

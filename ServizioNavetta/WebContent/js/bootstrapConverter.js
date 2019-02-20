@@ -3,9 +3,11 @@
  */
 window.onload = function() {
 
-	var minSize = Math.min(window.screen.availWidth,window.screen.availHeigth);
+	var minSize = Math.min(window.screen.availHeight,window.screen.availWidth);
+	
 	
 	if(minSize>500){
+		
 		var bodyChilds = (document.getElementsByTagName("body"))[0].children;
 		for(var i=0;i<bodyChilds.length;i++)
 			recurisiveClassChanger(bodyChilds[i]);

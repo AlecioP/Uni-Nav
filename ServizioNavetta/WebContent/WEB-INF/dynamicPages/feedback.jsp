@@ -12,9 +12,25 @@
 
 
 <!-- Custom style import - Desktop -->
-<link rel="stylesheet"  
-media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-device-heigth: 500px)and (width > heigth)))" 
- type="text/css" href="css/feedback.css">
+<script type="text/javascript" src="js/styleInsert.js"></script>
+<script type="text/javascript">
+$(function(){
+	var orientation = window.screen.orientation.type;
+	var wd  = window.screen.availWidth;
+	var h = window.screen.availHeight;
+	if(orientation==="landscape-primary"){
+		if(wd<500)
+			injectStyle("mobile/css/mobile.css");
+		else
+			injectStyle("css/feedback.css");
+	}else{
+		if(h<500)
+			injectStyle("mobile/css/mobile.css");
+		else
+			injectStyle("css/feedback.css");
+	}
+});
+</script>
 <!-- Custom style import - Desktop -->
 
 
@@ -39,7 +55,7 @@ media="screen and (((min-device-width: 500px)and (width < heigth)) or ((min-devi
 			<c:set var="j" value="${0}"/>
 			<c:forEach items="${prenotazione}" var="pren" varStatus="i">
 				<c:set var="j" value="${j+1}"/>
-				<c:set var="classVar" value=" "/>
+				<c:set var="classVar" value="success"/>
 				
 				<c:if test="${ (j%2)!=0}">
 					<c:set var="classVar" value="info"/>

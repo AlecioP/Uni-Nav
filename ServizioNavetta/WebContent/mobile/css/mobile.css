@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+body {
+	padding: 10%;
+	/*font-size: 4em;*/
+	background-image: url("../../img/mobile.png");
+	background-repeat: no-repeat;
+	background-origin: content-box;
+}
+
+.button-padder {
+	width: 0.25em;
+	display: inline-block;
+	
+}
+
+.button-medium {
+	/*height: 5em;
+	width: 7.5em;*/
+	font-size: inherit;
+	margin-bottom: 0.5em;
+}
+
+h1 {
+	color : white;
+	height: 1em;
+	overflow: hidden;
+	font-size: 1.5em;
+}
+
+@media screen and (orientation:portrait){
+	body{
+		background-size: 100% auto;
+	}
+}
+
+@media screen and (orientation:landscape){
+	body{
+		background-size: 100% 100%;
+	}
+}

@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+
+
 h1 {
 	text-align: center;
 	padding: 1em;
@@ -27,3 +29,4 @@ body {
 .register-div {
 	margin-top : 1.5em;
 }
+
