@@ -13,6 +13,7 @@
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
+				<li><a href="Chat"><span class="glyphicon glyphicon-envelope"></span> Chat</a></li>
 				<li><a href="DoLogout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 			</ul>
 		</div>
