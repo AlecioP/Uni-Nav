@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Prenotazioni ${username} </title>
+<title>Prenotazioni ${username}</title>
 <%@include file="importBootstrap.jsp"%>
 <script src="js/qrcode.js"></script>
 <script src="js/html5-qrcode.js"></script>
@@ -15,18 +15,18 @@
 <!-- Custom style import - Desktop -->
 <script type="text/javascript" src="js/styleInsert.js"></script>
 <script type="text/javascript">
-$(function(){
-	var orientation = window.screen.orientation.type;
-	var wd  = window.screen.availWidth;
-	var h = window.screen.availHeight;
-	var minDim = Math.min(wd,h);
-	
-	if(minDim<500)
-		injectStyle("mobile/css/mobile.css");
-	else
-		injectStyle("css/genera.css");
-	
-});
+	$(function() {
+		var orientation = window.screen.orientation.type;
+		var wd = window.screen.availWidth;
+		var h = window.screen.availHeight;
+		var minDim = Math.min(wd, h);
+
+		if (minDim < 500)
+			injectStyle("mobile/css/mobile.css");
+		else
+			injectStyle("css/genera.css");
+
+	});
 </script>
 <!-- Custom style import - Desktop -->
 
@@ -70,17 +70,19 @@ $(function(){
 					<td>${pren.tratto.partenza.nome}</td>
 					<td>${pren.tratto.arrivo.nome}</td>
 					<td><button id="qr" class="biglietti btn btn-warning"
-						type="button"
-						onclick=" updateQRCode(${codici[i.index]})" ><i class="glyphicon glyphicon-qrcode"></i> Genera Biglietto</button></td>
+							type="button" onclick=" updateQRCode('${pren.ID}')">
+							<i class="glyphicon glyphicon-qrcode"></i> Genera Biglietto
+						</button></td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
 
 
-	<div class="cointaner" align="center" id="pallino" >
+	<div class="cointaner" align="center" id="pallino">
 		<div id="qrcode"></div>
-		<input class="btn btn-primary" id="bottone" type="button" onclick="indietro()" value="Indietro"/>
+		<input class="btn btn-primary" id="bottone" type="button"
+			onclick="indietro()" value="Indietro" />
 	</div>
 
 </body>

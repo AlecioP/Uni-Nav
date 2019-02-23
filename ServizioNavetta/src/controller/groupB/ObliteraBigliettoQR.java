@@ -15,6 +15,9 @@ import org.json.JSONObject;
 
 import controller.conversionUtil.Converter;
 import controller.conversionUtil.Validator;
+import persistence.daoManage.DAOFactory;
+import persistence.daoManage.DatabaseManager;
+import persistence.daoManage.crud.Crud;
 import persistence.persistentModel.Prenotazione;
 
 /**
@@ -45,34 +48,38 @@ public class ObliteraBigliettoQR extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String jsonReceived = "";
-		String nameAutista;
-		Converter convertitor = new Converter();
-		Validator validator = new Validator();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
-		String line = reader.readLine();
-		while (line != null) {
-			jsonReceived = jsonReceived + line + "\n";
-			line = reader.readLine();
-		}
-		JSONObject jsonResult;
-		nameAutista= (String) request.getSession().getAttribute("username");
-		Prenotazione prenotation = convertitor.getPrenotazione(jsonReceived);
+		String lettoQR = request.getParameter("codice");
 		try {
-			jsonResult = new JSONObject();
-			if(validator.validate(prenotation,nameAutista)) {
-				jsonResult.put("verified",true);}	
-			else {
-				jsonResult.put("verified", false);
+			JSONObject lettoQRJason = new JSONObject(lettoQR);
+			String id = lettoQRJason.getString("code"); 
+			DAOFactory df = DatabaseManager.getInstance().getDaoFactory();
+			Crud prenotazioneDAO = df.getPrenotazioneDAO();
+			
+			Prenotazione attuale = (Prenotazione) prenotazioneDAO.findByPrimaryKey(id);
+			
+			JSONObject risposta = new JSONObject();
+			
+			if(attuale==null) {
+				risposta.append("risposta", "no");
+				response.getOutputStream().println(risposta.toString());
+				return;
 			}
-			response.getWriter().println(jsonResult);
+			
+			if(!attuale.isObliteratoEntrata())
+				attuale.setObliteratoEntrata(true);
+			else
+				if(!attuale.isObliteratoUscita())
+					attuale.setObliteratoUscita(true);
+			
+			prenotazioneDAO.update(attuale);
+			
+			risposta.append("risposta", "si");
+			response.getOutputStream().println(risposta.toString());
+			return;
+			
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-			
 	}
 
 }
