@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </head>
 <body>
-
+<span id="myid" style="display: none;"><c:out value="${username}"/></span>
+<c:set var="myid" value="${username }"/>
 <c:set var="tipo" value="${tipo_login}"/>
 <c:if test = "${tipo == 'admin'}">
             <%@include file="navbars/adminNavbar.jsp" %>
@@ -63,11 +64,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <div id="feed">
 	<c:forEach items="${ messages}" var="message">
-		<div class="row message-box">
+		<c:set var="myclass" value=" "/>
+		<c:if test="${message.ID == myid }">
+			<c:set var="myclass" value="mine"/>
+		</c:if>
+		
+		<div class="row message-box ${myclass}">
 			<span class="user-img"> </span>
 			<span class="user-type">${message.type }</span>
 			<span class="user-id"> ${message.ID }</span>:
 			<span class="message-content row "> ${message.message }</span>
+			<span style="display: none;" class="time">${message.time}</span>
 		</div>
 	</c:forEach>
 </div>

@@ -70,3 +70,13 @@ body{
 	text-overflow: clip;
 	word-wrap:break-word;
 }
+
+.message-box.mine {
+	background-color: #2e2eb8;
+	color : white;
+	
+}
+
+.message-box.mine .user-type{
+	color: #ac7339;
+}

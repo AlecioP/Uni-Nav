@@ -36,7 +36,7 @@ public class Updater extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String parameter = request.getParameter("last-message");
+		String parameter = java.net.URLDecoder.decode(request.getParameterMap().get("last-message")[0],"UTF-8");
 		boolean no_messages = Boolean.parseBoolean(request.getParameter("no-messages"));
 		JSONObject message = null;
 		Message m = null;
@@ -67,8 +67,9 @@ public class Updater extends HttpServlet {
 		}
 		
 		JSONArray jsonarray = new JSONArray(jsonlist);
-		
-		response.getOutputStream().println(jsonarray.toString());
+		response.setCharacterEncoding("UTF-16");
+		System.out.println(jsonarray.toString());
+		response.getWriter().println(jsonarray.toString());
 	}
 
 	/**
