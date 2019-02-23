@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import persistence.persistentModel.Navetta;
+
 /**
  * Servlet implementation class Home
  */
@@ -35,6 +37,14 @@ public class Home extends HttpServlet {
 			String tipo_login = (String) request.getSession().getAttribute("tipo-login");
 			switch(tipo_login) {
 			case "driver":{
+				Navetta disp =(Navetta) request.getSession().getAttribute("driven");
+				
+				if(disp==null) {
+					RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeDriver.jsp");
+					rd.forward(request, response);
+					return;
+				}
+				
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/driver.jsp");
 				rd.forward(request, response);
 				return;

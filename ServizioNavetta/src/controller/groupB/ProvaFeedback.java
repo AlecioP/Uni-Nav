@@ -43,7 +43,7 @@ public class ProvaFeedback extends HttpServlet {
 		}
 		
 		
-		System.out.println("CAZZO");
+		
 		
 		req.getSession().setAttribute("prenotazione", p);
 		req.getSession().setAttribute("feeds", feeds);

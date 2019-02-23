@@ -4,10 +4,11 @@ body{
 	position: relative;
 	top : 4em;
 	
-	background-image: url("../img/driver-bg.jpg");
+	background-image: url("../img/driver-bg.jpg") ;
 	background-repeat: repeat-y;
-	background-position : center;
-	background-size: 100% 100%;
+	
+	background-size: 100vw 100vh;
+	background-attachment: fixed;
 	
 }
 .table td, .table th {
@@ -26,4 +27,8 @@ div#comment {
 	background-color : #99e6ff;
 	border : 5px solid orange;
 	
+}
+
+#feedback-send {
+	margin-left : 1em;
 }

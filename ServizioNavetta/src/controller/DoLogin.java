@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,12 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.RegistroAttivitaNavette;
 import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
 import persistence.daoManage.crud.Crud;
 import persistence.daoManage.crud.SecurityDAO;
+import persistence.daoManage.jdbcDao.NavettaDaoJDBC;
 import persistence.persistentModel.Amministratore;
 import persistence.persistentModel.Autista;
+import persistence.persistentModel.Navetta;
 import persistence.persistentModel.Password;
 import persistence.persistentModel.Studente;
 
@@ -86,8 +91,17 @@ public class DoLogin extends HttpServlet {
 			}
 			request.getSession().setAttribute("username", username);
 			request.getSession().setAttribute("tipo-login", type);
+			
+			NavettaDaoJDBC navettaDAO = (NavettaDaoJDBC) daoFactory.getNavettaDAO();
+			
+			ArrayList<Navetta> tutteNavette = (ArrayList<Navetta>) navettaDAO.findAll();
+			
+			HashSet<Navetta> attive = RegistroAttivitaNavette.getInstance().getNavetteAttive();
+			tutteNavette.removeAll(attive);
+			
+			request.getSession().setAttribute("navette", tutteNavette);
 
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/driver.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/homeDriver.jsp");
 			rd.forward(request, response);
 			return;
 		}

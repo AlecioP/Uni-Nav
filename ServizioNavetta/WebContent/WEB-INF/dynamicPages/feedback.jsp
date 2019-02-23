@@ -81,18 +81,20 @@ $(function(){
 				<input id="codicePren" name="preno" type="text"
 					style="display: none;" />
 			</div>
-
-			<textarea id="comment-area" name="commento" rows="15" cols="50"
-				placeholder="Inserisci un commento..."></textarea>
 			<div class="row">
-				<span class="myCol-1"></span> <input
-					class="myButton btn btn-success myCol-3" type="submit"
-					value="Invia Feedback" name="cico">
+				<div class="row">
+					<textarea id="comment-area" name="commento" rows="15" cols="50"
+						placeholder="Inserisci un commento..."></textarea>
+				</div>
+				<div class="row">
+					<input id="feedback-send"
+						class="myButton btn btn-success myCol-3" type="submit"
+						value="Invia Feedback" name="cico">
+				</div>
 			</div>
-
 		</form>
 		<div class="row">
-			<span class="myCol-2"></span> <input class="btn btn-info myCol-1"
+			<input class="btn btn-info"
 				id="bottone" type="button" onclick="indietro()" value="Indietro" />
 		</div>
 	</div>

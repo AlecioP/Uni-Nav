@@ -18,11 +18,10 @@ body {
 	top: 2.5em;
 	
 	background-image: url("../img/driver-bg.jpg");
-	background-repeat: no-repeat;
-	background-size :cover;
-	background-origin : content-box;
-	background-position: 0em 4.5em;
-	background-color: black;
+	background-repeat: repeat-y;
+	
+	background-size: 100vw 100vh;
+	background-attachment: fixed;
 }
 
 .table td, .table th {

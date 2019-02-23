@@ -77,7 +77,7 @@ public class NavettaDaoJDBC implements Crud {
 	}
 
 	@Override
-	public List<? extends CrudTag> findAll() {
+	public List<Navetta> findAll() {
 		ArrayList<Navetta> res = new ArrayList<Navetta>();
 		Connection con = ds.getConnection();
 		String query = "select * from \"Navetta\"";

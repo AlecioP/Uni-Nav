@@ -75,12 +75,11 @@ public class DriverRegisterMediator extends HttpServlet {
 			lineaRegistro.setAutista(autista);
 			lineaRegistro.setGiriCompletati(0);
 			/* Missing data */
-			String navettaId = "1";
 			String nomeLinea = "lineaF";// Present in DB
 			// insert into "Linea" values (ARRAY[['l'],['i'],['n'],['e'],['a']]);
 			int capolinea = 0;
 			/**/
-			Navetta navetta = (Navetta) daoFactory.getNavettaDAO().findByPrimaryKey(navettaId);
+			Navetta navetta = (Navetta) request.getSession().getAttribute("driven");
 			lineaRegistro.setNavetta(navetta);
 			Linea linea = new LineaProxy(nomeLinea,PostgresDAOFactory.getDS());
 			ArrayList<TrattoLinea> tratti = linea.getTratti();
