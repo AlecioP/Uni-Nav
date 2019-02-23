@@ -16,21 +16,17 @@
 <!-- Custom style import-->
 <script type="text/javascript" src="js/styleInsert.js"></script>
 <script type="text/javascript">
-$(function(){
-	var orientation = window.screen.orientation.type;
-	var wd  = window.screen.availWidth;
-	var h = window.screen.availHeight;
-	if(orientation==="landscape-primary"){
-		if(wd<500)
-			injectStyle("mobile/css/mobile.css");
-		else
-			injectStyle("css/common.css");
-	}else{
-		if(h<500)
-			injectStyle("mobile/css/mobile.css");
-		else
-			injectStyle("css/common.css");
-	}
+var wd,h,orientation;
+document.addEventListener('DOMContentLoaded', function () {
+	orientation = window.screen.orientation.type;
+	wd  = window.screen.availWidth;
+	h = window.screen.availHeight;	
+	var minDim = Math.min(wd,h);
+	if(minDim<500)
+		injectStyle("mobile/css/mobile.css");
+	else
+		injectStyle("css/common.css");
+	
 });
 </script>
 <!-- Custom style import-->

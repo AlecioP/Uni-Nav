@@ -20,21 +20,15 @@ $(function(){
 	var orientation = window.screen.orientation.type;
 	var wd  = window.screen.availWidth;
 	var h = window.screen.availHeight;
-	if(orientation==="landscape-primary"){
-		if(wd<500)
-			injectStyle("mobile/css/mobile.css");
-		else{
-			injectStyle("css/common.css");
-			injectStyle("css/iscriviStudente.css");
-		}
-	}else{
-		if(h<500)
-			injectStyle("mobile/css/mobile.css");
-		else{
-			injectStyle("css/common.css");
-			injectStyle("css/iscriviStudente.css");
-		}
+	var minDim = Math.min(wd,h);
+	
+	if(minDim<500)
+		injectStyle("mobile/css/mobile.css");
+	else{
+		injectStyle("css/common.css");
+		injectStyle("css/iscriviStudente.css");
 	}
+	
 });
 </script>
 <!-- Custom style import - Desktop -->

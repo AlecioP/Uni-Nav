@@ -18,17 +18,13 @@ $(function(){
 	var orientation = window.screen.orientation.type;
 	var wd  = window.screen.availWidth;
 	var h = window.screen.availHeight;
-	if(orientation==="landscape-primary"){
-		if(wd<500)
-			injectStyle("mobile/css/mobile.css");
-		else
-			injectStyle("css/admin.css");
-	}else{
-		if(h<500)
-			injectStyle("mobile/css/mobile.css");
-		else
-			injectStyle("css/admin.css");
-	}
+	var minDim = Math.min(wd,h);
+	
+	if(minDim<500)
+		injectStyle("mobile/css/mobile.css");
+	else
+		injectStyle("css/admin.css");
+	
 });
 </script>
 <!-- Custom style import-->
