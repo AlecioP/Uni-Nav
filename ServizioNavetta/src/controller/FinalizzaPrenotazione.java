@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.LineaRegistroNavette;
 import model.RegistroAttivitaNavette;
 import persistence.daoManage.DAOFactory;
 import persistence.daoManage.DatabaseManager;
@@ -72,13 +73,28 @@ public class FinalizzaPrenotazione extends HttpServlet {
 		int iterator = 0;
 		for(Integer ing : navs) {
 			int ID = IdProvider.getInstance().getNextId("prenotazione");
-			/*TODO determinare giro*/
-			int giro = 0;
-			/**/
 			String strPartenza = request.getParameter("start-"+iterator);
 			String strArrivo = request.getParameter("stop-"+iterator);
 			TrattoLinea tratto = tDao.findByPrimaryKeyComposed(strPartenza, strArrivo);
 			Navetta navetta = (Navetta) nDao.findByPrimaryKey(ing.intValue()+"");
+			int autistaID = RegistroAttivitaNavette.getInstance().getIdAutista(navetta.getID());
+			LineaRegistroNavette lineaRegistro = RegistroAttivitaNavette.getInstance().getLineaRegistro(autistaID);
+			ArrayList<TrattoLinea> tuttiITratti = lineaRegistro.getLinea().getTratti();
+			boolean arrivoTrovato=false, posizioneTrovata=false; 
+			int n=0;
+			for(TrattoLinea t : tuttiITratti) {
+				if(t.getPartenza().getNome().equals(lineaRegistro.getPosizione().getPartenza().getNome()) && t.getArrivo().getNome().equals(lineaRegistro.getPosizione().getArrivo().getNome()))
+					posizioneTrovata=true;
+				if(t.getPartenza().getNome().equals(tratto.getPartenza().getNome()) && t.getArrivo().getNome().equals(tratto.getArrivo().getNome()))
+					arrivoTrovato=true;
+				if(arrivoTrovato || posizioneTrovata)
+					break;
+			}
+			if(posizioneTrovata && !arrivoTrovato)
+				n=1;
+			if(!posizioneTrovata && arrivoTrovato)
+				n=2;
+			int giro = lineaRegistro.getGiriCompletati()+n;
 			Calendar dateTime = new Calendar.Builder().setInstant(new Date()).build();
 			Autista autista = (Autista) aDao.findByPrimaryKey(registro.getIdAutista(navetta.getID())+"");
 			Studente studente = sDao.findByPrimaryKey(username);

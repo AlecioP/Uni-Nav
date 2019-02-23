@@ -71,3 +71,12 @@ form#biglietto {
 	position: relative;
 	top : 3em;
 }
+
+table.table {
+	margin:0em;
+}
+
+.obliterazione.alert-success.alert {
+	margin:0em;
+	border:blue solid 2px;
+}

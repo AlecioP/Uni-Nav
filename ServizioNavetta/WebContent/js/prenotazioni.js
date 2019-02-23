@@ -13,7 +13,12 @@ function obliteraEntrataUscita(ID) {
 				document.getElementById("entrata").disabled = true;
 			else
 				document.getElementById("uscita").disabled = true;
-			alert("Oblitarazione effettuata con successo");
+			successoObliterazione();
 		}
 	});
+}
+
+function successoObliterazione() {
+	var element = $("table")[0];
+	$(element).after("<div class='alert-success alert row obliterazione'>Obliterazione completata</div>");
 }

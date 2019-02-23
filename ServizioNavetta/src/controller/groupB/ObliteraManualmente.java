@@ -73,10 +73,11 @@ public class ObliteraManualmente extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				if (pren.getGiro() == linea.getGiriCompletati() && pren.getAutista().getID() == autistaID
+				if (pren.getGiro() == linea.getGiriCompletati()+1 && pren.getAutista().getID() == autistaID
 						&& pren.getNavetta().getID() == linea.getNavetta().getID()
-						&& pren.getTratto().getPartenza().getNome().equals(linea.getPosizione().getPartenza().getNome())
+//						&& pren.getTratto().getPartenza().getNome().equals(linea.getPosizione().getPartenza().getNome())
 						&& d3.equals(d4)) {
+					System.out.println("SIAMO DENTRO!");
 					req.setAttribute("prenotazione", pren);
 					req.setAttribute("prenotazioneID", Integer.valueOf(pren.getID()));
 					RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/mostraPrenotazioni.jsp");
@@ -85,7 +86,7 @@ public class ObliteraManualmente extends HttpServlet {
 				}
 			}
 		}
-		req.getSession().setAttribute("registration-error", "Lo studente non ï¿½ prenotato");
+		req.getSession().setAttribute("registration-error", "Lo studente non è prenotato");
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/dynamicPages/obliteraBiglietto.jsp");
 		rd.forward(req, resp);
 	}
