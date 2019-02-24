@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+div.form-container {
+	position: relative; 
+	top: 5em;
+}
+
+body {
+	background-image: url('../img/bg.png');
+	width : 100vw;
+	height: 100vh;
+}
+
+div.chart-container{
+	position: relative; 
+	top: 5em;
+}
+
+div#mychart {
+	display: inline-block;
+	width : 100%;
+	border: solid grey 5px;
+}
+
+div.generic-container{
+	position: relative; 
+	top: 5em;
+}
+
+table{
+	color : grey;
+}
+
+tbody tr.not-hover{
+	color : white;
+}
+
+tbody tr.hover{
+	color : black;
+}
+
+td {
+	align-content: center;
+	text-align: center;
+}

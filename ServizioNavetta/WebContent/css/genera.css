@@ -1,0 +1,43 @@
+#bottone {
+	margin : 1em;
+	
+}
+
+#qrcode {
+	
+	border : 5px solid limegreen;
+	padding : 5px;
+	margin-right: 25%;
+	margin-left: 25%;
+	background-color: gray;
+}
+
+body {
+	text-align: center;
+	position: relative;
+	top: 2.5em;
+	
+	background-image: url("../img/driver-bg.jpg");
+	background-repeat: repeat-y;
+	
+	background-size: 100vw 100vh;
+	background-attachment: fixed;
+}
+
+.table td, .table th {
+	text-align: center;
+	background-color: transparent;
+}
+
+#scanner {
+	position: relative;
+	top : 3em;
+	border : grey solid 4px;
+	padding : 0em;
+	background-color: grey;
+}
+
+#manuale {
+	position: relative;
+	top : 3em;
+}
