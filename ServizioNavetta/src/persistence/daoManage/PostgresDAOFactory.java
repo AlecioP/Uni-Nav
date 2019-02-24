@@ -84,4 +84,8 @@ public class PostgresDAOFactory extends DAOFactory {
 		return dataSource;
 	}
 	
+	public static void setDs(DataSource ds) {
+		dataSource = ds;
+	}
+	
 }
