@@ -101,6 +101,10 @@ public class FinalizzaPrenotazione extends HttpServlet {
 			Prenotazione p = new Prenotazione(ID, giro, navetta, tratto, dateTime, autista, studente);
 			pDao.save(p);
 			iterator++;
+			
+			/*simplification*/
+			break;
+			/*simplification*/
 		}
 		
 		/*CLEAN SESSION*/

@@ -80,7 +80,7 @@ public class GeoUtil {
 
 			shortestPath = DijkstraShortestPath.findPathBetween(grafo, partenza.getNome(), arrivo.getNome());
 			/**/
-			int maxHops = 5;
+			int maxHops = 50;
 			int kNumPaths = 5;
 			paths = new KShortestSimplePaths<>(grafo,maxHops);
 			alternatives = paths.getPaths(partenza.getNome(), arrivo.getNome(), kNumPaths);
@@ -90,8 +90,8 @@ public class GeoUtil {
 		/**/
 
 
-		if(shortestPath!=null)
-			alternatives.add(shortestPath);
+//		if(shortestPath!=null)
+//			alternatives.add(shortestPath);
 		ArrayList<ArrayList<TrattoLinea> > ret = new ArrayList<ArrayList<TrattoLinea>>(alternatives.size());
 		int indexPath = 0;
 		FermataDaoJDBC fdao = (FermataDaoJDBC) df.getFermataDAO();

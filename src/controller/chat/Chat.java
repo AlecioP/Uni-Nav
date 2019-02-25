@@ -75,7 +75,9 @@ public class Chat extends HttpServlet {
 		Message m = new Message(u, Integer.parseInt(username), message);
 		ChatRoom.getInstance().push(m);
 		
-		response.getOutputStream().print(new JSONObject(m).toString());
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().print(new JSONObject(m).toString());
 		return;
 	}
 

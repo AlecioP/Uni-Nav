@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style type="text/css">
+.emoji-container {
+	/*height: 20px;*/
+	/*width: 20px;*/
+	display: inline-block;
+	margin: 0px;
+	padding: 0px;
+	border: 1px solid black;
+	border-radius: 2px;
+}
+
+.emoji-picker {
+	
+}
+
+</style>
+<script type="text/javascript">
+	var lastEmoji;
+	var emojis;
+
+	document.addEventListener('DOMContentLoaded', function() {
+		emojis = document.getElementsByClassName('emoji-container');
+		for (var i = 0; i < emojis.length; i++) {
+			emojis[i].addEventListener('click', function() {
+				parent.lastEmoji = this.innerText;
+			});
+			emojis[i].addEventListener('mouseover', function() {
+				this.style.background = "grey";
+			});
+			emojis[i].addEventListener('mouseout', function() {
+				this.style.background = "inherit";
+			});
+		}
+
+	});
+</script>
+</head>
+<body bgcolor="white">
+
+
+	<div class="emoji-picker">
+		<b class='emoji-container'>&#x1F600;</b><b class='emoji-container'>&#x1F601;</b><b
+			class='emoji-container'>&#x1F602;</b><b class='emoji-container'>&#x1F923;</b><b
+			class='emoji-container'>&#x1F603;</b><b class='emoji-container'>&#x1F604;</b><b
+			class='emoji-container'>&#x1F605;</b><b class='emoji-container'>&#x1F606;</b><b
+			class='emoji-container'>&#x1F609;</b><b class='emoji-container'>&#x1F60A;</b><b
+			class='emoji-container'>&#x1F60B;</b><b class='emoji-container'>&#x1F60E;</b><b
+			class='emoji-container'>&#x1F60D;</b><b class='emoji-container'>&#x1F618;</b><b
+			class='emoji-container'>&#x1F617;</b><b class='emoji-container'>&#x1F619;</b><b
+			class='emoji-container'>&#x1F61A;</b><b class='emoji-container'>&#x1F642;</b><b
+			class='emoji-container'>&#x1F917;</b><b class='emoji-container'>&#x1F914;</b><b
+			class='emoji-container'>&#x1F610;</b><b class='emoji-container'>&#x1F611;</b><b
+			class='emoji-container'>&#x1F636;</b><b class='emoji-container'>&#x1F644;</b><b
+			class='emoji-container'>&#x1F60F;</b><b class='emoji-container'>&#x1F623;</b><b
+			class='emoji-container'>&#x1F625;</b><b class='emoji-container'>&#x1F62E;</b><b
+			class='emoji-container'>&#x1F910;</b><b class='emoji-container'>&#x1F62F;</b><b
+			class='emoji-container'>&#x1F62A;</b><b class='emoji-container'>&#x1F62B;</b><b
+			class='emoji-container'>&#x1F634;</b><b class='emoji-container'>&#x1F60C;</b><b
+			class='emoji-container'>&#x1F913;</b><b class='emoji-container'>&#x1F61B;</b><b
+			class='emoji-container'>&#x1F61C;</b><b class='emoji-container'>&#x1F61D;</b><b
+			class='emoji-container'>&#x1F924;</b><b class='emoji-container'>&#x1F612;</b><b
+			class='emoji-container'>&#x1F613;</b><b class='emoji-container'>&#x1F614;</b><b
+			class='emoji-container'>&#x1F615;</b><b class='emoji-container'>&#x1F643;</b><b
+			class='emoji-container'>&#x1F911;</b><b class='emoji-container'>&#x1F632;</b><b
+			class='emoji-container'>&#x2639;</b><b class='emoji-container'>&#x1F641;</b><b
+			class='emoji-container'>&#x1F616;</b><b class='emoji-container'>&#x1F61E;</b><b
+			class='emoji-container'>&#x1F61F;</b><b class='emoji-container'>&#x1F624;</b><b
+			class='emoji-container'>&#x1F622;</b><b class='emoji-container'>&#x1F62D;</b><b
+			class='emoji-container'>&#x1F626;</b><b class='emoji-container'>&#x1F627;</b><b
+			class='emoji-container'>&#x1F628;</b><b class='emoji-container'>&#x1F629;</b><b
+			class='emoji-container'>&#x1F62C;</b><b class='emoji-container'>&#x1F630;</b><b
+			class='emoji-container'>&#x1F631;</b><b class='emoji-container'>&#x1F633;</b><b
+			class='emoji-container'>&#x1F635;</b><b class='emoji-container'>&#x1F621;</b><b
+			class='emoji-container'>&#x1F620;</b>
+	</div>
+<!-- Trigger on load -->
+<script type="text/javascript"> 
+	/*parent.test();*/ 
+	parent.iframebodyload();
+	document.body.addEventListener('click',function(){
+		var frameCont = parent.document.getElementsByTagName("iframe")[0];
+		console.log(frameCont);
+		frameCont.click();
+	});
+</script>
+</body>
+</html>

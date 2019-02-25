@@ -19,6 +19,7 @@ var fermataPartenza = undefined;/* new Fermata();*/
 var fermataArrivo = undefined;/* new Fermata();*/
 var lastElClicked = "start";
 var selectedLine;
+var mycontrol;
 
 /*TEST*/
 var viewLAT;
@@ -130,11 +131,13 @@ $(function(){ /* DOM ready */
 								wp.push(new L.latLng(jsonRoute[j].arrivo.latitudine, jsonRoute[j].arrivo.longitudine));
 							}
 						}
-
-						var leafRoute = new customControl(i,wp,myToken);
+						var routerOpt = { profile: 'mapbox/walking' };
+						var leafRoute = new customControl(i,wp,myToken,routerOpt);
 						leafRouteDeb = leafRoute;
 						leafRoute.options.routeLine.goBackIndex = i;
 						leafRoute.addTo(mymap);
+						
+						mycontrol = leafRoute;
 
 					}
 					/*VERY DANGEROUS (In every moment it could create
@@ -373,14 +376,14 @@ function graphicClick(where){
 }
 
 class customControl extends L.Routing.Control{
-	constructor(goBackIndex,wp,token){
+	constructor(goBackIndex,wp,token,profileOptions){
 		//this.goBackIndex = goBackIndex;
 		//this.wp = wp;
 		//this.token = token;
 		super({
 			waypoints : wp,
 			routeWhileDragging : true,
-			router : L.Routing.mapbox(token),
+			router : L.Routing.mapbox(token,profileOptions),
 			/*createMarker : function() {return null;},We don't want any marker to be drawn*/
 			routeLine: function(route) {
 				var line = L.Routing.line(route, {
@@ -424,6 +427,8 @@ class customControl extends L.Routing.Control{
 				return line;
 			}
 		});
+		
+		
 	}
 }
 

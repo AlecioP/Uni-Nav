@@ -28,7 +28,7 @@ body{
 	background-color: green;
 }
 
-#post-message>button {
+#post-message>button#new-message {
 	margin-left : 1.5em;
 	padding : 0em;
 	background-color: red;
@@ -39,8 +39,18 @@ body{
 	height: 50%;
 }
 
+#post-message>button#pick-your-emoji {
+	background-color: #ac7339;
+	border-radius: 50%;
+	color : white;
+	width: 12%;
+	height: 80%;
+	padding: 0em;
+	display: none;
+}
+
 #post-message>input#new-message-content {
-	width: 75%;
+	width: 60%;
 	border-radius: 0.5em;
 	background-color: #00cc99;
 	padding: 0em;
@@ -81,4 +91,13 @@ body{
 
 .message-box.mine .user-type{
 	color: #ac7339;
+}
+
+iframe#emoji { 
+	position: absolute; 
+	height: 150%; 
+	width: 80%; 
+	border:0px;
+	margin-left : 1.25em;
+	
 }

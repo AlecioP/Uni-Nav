@@ -9,9 +9,11 @@
 <%@include file="importBootstrap.jsp" %>
 <script type="text/javascript" src="js/chat.js"></script>
 <script type="text/javascript" src="js/chatUpdate.js"></script>
+<script type="text/javascript" src="js/emoji.js"></script>
+<script type="text/javascript" src="js/emojiButton.js"></script>
 
 <script type="text/javascript" src="js/bootstrapConverter.js"></script>
-
+<script type="text/javascript">var lastEmoji;</script>
 
 <!-- Custom style import-->
 <script type="text/javascript" src="js/styleInsert.js"></script>
@@ -79,8 +81,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	</c:forEach>
 </div>
 <div id="post-message">
-
+<iframe id="emoji" src="emoji/emojiPicker.html" ></iframe>
+<button id="pick-your-emoji"><i class="glyphicon glyphicon-apple"></i></button>
 <input id="new-message-content"type="text" placeholder="Scrivi qualcosa...">
+
 <button id="new-message" >Invia</button>
 
 </div>

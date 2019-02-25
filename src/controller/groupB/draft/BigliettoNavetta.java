@@ -128,6 +128,9 @@ public class BigliettoNavetta extends HttpServlet {
 					prenotazione.setID(ID);
 					prenotazione.setTratto(t);
 					prenotazioneDao.save(prenotazione);
+					/*simplification*/
+					break;
+					/*simplification*/
 				}
 			}
 			
@@ -139,6 +142,9 @@ public class BigliettoNavetta extends HttpServlet {
 				prenotazione.setTratto(t);
 				prenotazione.setID(ID);
 				prenotazioneDao.save(prenotazione);
+				/*simplification*/
+				break;
+				/*simplification*/
 			}
 		}
 		

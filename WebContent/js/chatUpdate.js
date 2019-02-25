@@ -21,7 +21,7 @@ var time;
 var time_box;
 
 function updateChat(){
-	console.log("Updated chat");
+//	console.log("Updated chat");
 	actualUpdate();
 	if(!stopUpdate)
 		setTimeout(updateChat,5000);

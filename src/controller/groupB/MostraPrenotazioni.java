@@ -40,15 +40,15 @@ public class MostraPrenotazioni extends HttpServlet {
 		ArrayList<String> c = new ArrayList<String>();
 		Converter co = new Converter();
 		for (Prenotazione pren : pr) {
-			System.out.println(pren.getID());
+//			System.out.println(pren.getID());
 			c.add(co.getCode(pren));
 		}
-		for (String string : c) {
-			System.out.println(string + " ee");
-		}
-		for (Prenotazione pe : pr) {
-			System.out.println(pe.getID() + "idd");
-		}
+//		for (String string : c) {
+//			System.out.println(string + " ee");
+//		}
+//		for (Prenotazione pe : pr) {
+//			System.out.println(pe.getID() + "idd");
+//		}
 		// ArrayList<Prenotazione> prFinal = new ArrayList<Prenotazione>();
 		// System.out.println(prFinal.size() + " ssss");
 		req.setAttribute("prenotazione", pr);

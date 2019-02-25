@@ -75,7 +75,7 @@ public class DriverRegisterMediator extends HttpServlet {
 			lineaRegistro.setAutista(autista);
 			lineaRegistro.setGiriCompletati(0);
 			/* Missing data */
-			String nomeLinea = "lineaF";// Present in DB
+			String nomeLinea = "linea1";// Present in DB
 			// insert into "Linea" values (ARRAY[['l'],['i'],['n'],['e'],['a']]);
 			int capolinea = 0;
 			/**/
