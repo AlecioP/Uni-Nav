@@ -96,6 +96,16 @@ public class RegistroAttivitaNavette {
 		return -1;
 	}
 	
+	public boolean removeAutista(int autista) {
+		LineaRegistroNavette l = linee.get(Integer.valueOf(autista));
+		if(l==null)
+			return false;
+		else {
+			linee.remove(Integer.valueOf(autista));
+			return true;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		String ret = "";

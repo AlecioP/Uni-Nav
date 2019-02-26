@@ -64,7 +64,8 @@ public class DoLogin extends HttpServlet {
 		}
 		DAOFactory daoFactory = DatabaseManager.getInstance().getDaoFactory();
 		SecurityDAO credenziali = daoFactory.getPersonaSecureDAO();
-		credenziali.authorizeDao("1", "p");
+		credenziali.authorizeDao("0", "admin");
+		
 		Password checkPass = (Password) credenziali.retriveSensitiveData(username);
 		if(checkPass==null) {
 			request.getSession().setAttribute("login-error", "L'utente non esiste.");

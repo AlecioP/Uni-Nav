@@ -61,15 +61,21 @@ public class ObliteraBigliettoQR extends HttpServlet {
 				return;
 			}
 			
-			if(!attuale.isObliteratoEntrata())
+			if(!attuale.isObliteratoEntrata()) {
 				attuale.setObliteratoEntrata(true);
+				risposta.append("risposta", "si");
+			}
 			else
-				if(!attuale.isObliteratoUscita())
+				if(!attuale.isObliteratoUscita()) {
 					attuale.setObliteratoUscita(true);
+					risposta.append("risposta", "si");
+				}else {
+					risposta.append("risposta", "no");
+				}
 			
 			prenotazioneDAO.update(attuale);
 			
-			risposta.append("risposta", "si");
+			
 			response.getOutputStream().println(risposta.toString());
 			return;
 			

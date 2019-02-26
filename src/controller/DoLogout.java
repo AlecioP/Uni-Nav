@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.RegistroAttivitaNavette;
+
 /**
  * Servlet implementation class Logout
  */
@@ -27,6 +29,16 @@ public class DoLogout extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String type = (String) request.getSession().getAttribute("tipo-login");
+		switch(type) {
+		case "driver":{
+			int autista = Integer.parseInt((String)request.getSession().getAttribute("username"));
+			if(!RegistroAttivitaNavette.getInstance().removeAutista(autista))
+				System.out.println("WRONG LOGOUT");
+			break;
+		}
+		}
+		
 		HttpSession session = request.getSession();
 		session.invalidate();
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dynamicPages/home.jsp");
