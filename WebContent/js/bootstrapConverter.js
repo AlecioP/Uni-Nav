@@ -2,16 +2,7 @@
  * 
  */
 window.onload = function() {
-
-	var minSize = Math.min(window.screen.availHeight,window.screen.availWidth);
-	
-	
-	if(minSize>500){
-		
-		var bodyChilds = (document.getElementsByTagName("body"))[0].children;
-		for(var i=0;i<bodyChilds.length;i++)
-			recurisiveClassChanger(bodyChilds[i]);
-	}
+	goChange();
 }
 
 function recurisiveClassChanger(node){
@@ -32,4 +23,16 @@ function recurisiveClassChanger(node){
 	var childs = node.children;
 	for(var j=0;j<childs.length;j++)
 		recurisiveClassChanger(childs[j]);
+}
+
+function goChange(){
+	var minSize = Math.min(window.screen.availHeight,window.screen.availWidth);
+	
+	
+	if(minSize>500){
+		
+		var bodyChilds = (document.getElementsByTagName("body"))[0].children;
+		for(var i=0;i<bodyChilds.length;i++)
+			recurisiveClassChanger(bodyChilds[i]);
+	}
 }

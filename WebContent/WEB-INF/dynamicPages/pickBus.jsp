@@ -36,6 +36,8 @@ $(function(){
 </head>
 <body>
 
+	<c:set var="manca_nav" value="false"/>
+
 	<%@include file="navbars/studNavbar.jsp"%>
 
 	<h1>Seleziona le navette che vuoi prenotare per raggiungere
@@ -75,6 +77,7 @@ $(function(){
 								</c:if>
 								<c:if test="${navNum==0 }">
 									<label class="in-body">Nessuna navetta attiva</label>
+									<c:set var="manca_nav" value="true"/>
 								</c:if>
 							</div>
 						</div>
@@ -82,13 +85,30 @@ $(function(){
 				</c:forEach>
 			</div>
 			<div class="row">
-				<div class="mycol-1">
+				<div id="button-container" class="mycol-1">
 					<input id="prenota" class="btn btn-info" type="submit"
 						value="Prenota">
 				</div>
 			</div>
 			<input type="text" name="dimension" value="${dim}" hidden="hidden" />
 		</form>
+		<c:if test="${manca_nav == true }">
+			<script>
+				$("#prenota").hide();
+				var element = "<span>"
+									+"Non è possibile effettuare la prenotazione, "
+									+"poichè mancano delle navette per portarti a fine percorso."
+								+"</span>";
+				$("#prenota").after(element);
+				
+				var contenitore = $("#button-container")[0];
+				contenitore.className= "alert alert-danger myCol-11";
+				$(contenitore).css("margin", "1em");
+				//From bootstrapConverter.js
+				goChange();
+				
+			</script>
+		</c:if>
 	</div>
 </body>
 </html>
