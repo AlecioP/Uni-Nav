@@ -75,9 +75,26 @@ function actualUpdate(){
 					additionClass = "mine";
 				else
 					additionClass = " ";
+				
+				var icon = " ";
+				switch (newMessages[i].type.value) {
+				case 'DRIVER':{
+					icon = "<span class=\"user-img\"><img class=\"img-fluid img-thumbnail img-circle\" src=\"https://image.flaticon.com/icons/svg/206/206883.svg\"></span>";
+					break;
+				}
+				case 'ADMIN':{
+					icon = "<span class=\"user-img\"><img class=\"img-fluid img-thumbnail img-circle\" src=\"https://upload.wikimedia.org/wikipedia/commons/a/a6/User-admin.svg\"></span>";
+					break;
+				}
+				case 'STUDENT':{
+					icon = "<span class=\"user-img\"><img class=\"img-fluid img-thumbnail img-circle\" src=\"https://image.flaticon.com/icons/svg/194/194931.svg\"></span>";
+					break;
+				}
+				}
 				$("#feed").append(
+						
 						"<div class=\"row message-box "+additionClass+"\">"+
-						"<span class=\"user-img\"> </span>"+
+						icon+
 						"<span class=\"user-type\">"+newMessages[i].type.value+"</span>"+
 						"<span class=\"user-id\"> "+newMessages[i].ID+"</span>:<br>"+
 						"<span class=\"message-content\">"+newMessages[i].message+"</span>"+

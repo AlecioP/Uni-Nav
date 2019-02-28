@@ -99,3 +99,13 @@ iframe#emoji {
 	border-bottom: grey 5px solid;
 	border-right: grey 5px solid;
 }
+
+.user-img{
+	height: calc(2.5em + 0px);
+	width: 2.5em;
+}
+
+.user-img img{
+	height: inherit;
+	width: inherit;
+}

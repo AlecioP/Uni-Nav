@@ -101,3 +101,13 @@ iframe#emoji {
 	margin-left : 1.25em;
 	
 }
+
+.user-img{
+	height: calc(2.5em + 0px);
+	width: 2.5em;
+}
+
+.user-img img{
+	height: inherit;
+	width: inherit;
+}

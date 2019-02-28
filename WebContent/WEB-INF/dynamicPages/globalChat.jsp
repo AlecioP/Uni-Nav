@@ -39,9 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
 <span id="myid" style="display: none;"><c:out value="${username}"/></span>
 <c:set var="myid" value="${username }"/>
 <c:set var="tipo" value="${tipo_login}"/>
-<c:if test = "${tipo == 'admin'}">
-            <%@include file="navbars/adminNavbar.jsp" %>
-</c:if>
 <c:choose>
          
          <c:when test = "${tipo == 'admin'}">
@@ -72,7 +69,17 @@ document.addEventListener('DOMContentLoaded', function () {
 		</c:if>
 		
 		<div class="row message-box ${myclass}">
-			<span class="user-img"> </span>
+			<c:choose>
+				<c:when test="${message.type.value == 'ADMIN' }">
+					<span class="user-img"><img class="img-fluid img-thumbnail img-circle" src="https://upload.wikimedia.org/wikipedia/commons/a/a6/User-admin.svg"></span>
+				</c:when>
+				<c:when test = "${message.type.value == 'DRIVER'}">
+					<span class="user-img"><img class="img-fluid img-thumbnail img-circle" src="https://image.flaticon.com/icons/svg/206/206883.svg"></span>
+				</c:when>
+				<c:when test = "${message.type.value == 'STUDENT'}">
+					<span class="user-img"><img class="img-fluid img-thumbnail img-circle" src="https://image.flaticon.com/icons/svg/194/194931.svg"></span>
+				</c:when>
+			</c:choose>
 			<span class="user-type">${message.type }</span>
 			<span class="user-id"> ${message.ID }</span>:
 			<span class="message-content row "> ${message.message }</span>
